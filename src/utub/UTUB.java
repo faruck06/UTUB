@@ -5,9 +5,11 @@
  */
 package utub;
 
+import com.alee.laf.WebLookAndFeel;
+
 /**
  *
- * @author Developer
+ * @author Faruck
  */
 public class UTUB {
 
@@ -15,7 +17,11 @@ public class UTUB {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        WebLookAndFeel.install();
+        MainWindow principal = new MainWindow();
+        principal.setVisible(true);
+        principal.setTitle("Sistema de Información Transporte Rio Grande S.A.S.");
+        principal.setIconImage(null);
     }
     
 }
