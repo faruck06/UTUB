@@ -24,7 +24,7 @@ import view.Facturacion.frm_Ingreso_Reporte_C;
 
 /**
  *
- * @author Developer
+ * @author Jhorman
  */
 public class MainWindow extends javax.swing.JFrame {
 
@@ -71,7 +71,7 @@ public class MainWindow extends javax.swing.JFrame {
 //        });
 //    }
     public void abrir_ventana(JPanel panel) {
-        FondoIndex.removeAll();
+        FondoIndex.removeAll(); 
         panel.setBounds(0, 0, V_WIDTH, V_HEIGHT);
         FondoIndex.add(panel, javax.swing.JLayeredPane.DEFAULT_LAYER);
     }
