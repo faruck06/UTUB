@@ -10,6 +10,16 @@ package utub;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import utub.view.Administracion.frm_Actividad_Novedad;
+import utub.view.Administracion.frm_Actividad_Principal;
+import utub.view.Administracion.frm_Empleado;
+import utub.view.Administracion.frm_Horario;
+import utub.view.Administracion.frm_Proyecto;
+import utub.view.Administracion.frm_Ruta;
+import utub.view.Administracion.frm_Tipo_Empleado;
+import utub.view.Administracion.frm_Tipo_Vehiculo;
+import utub.view.Administracion.frm_Usuario_Proyecto;
+import utub.view.Administracion.frm_Vehiculo;
 import view.Facturacion.frm_Ingreso_Reporte_C;
 
 /**
