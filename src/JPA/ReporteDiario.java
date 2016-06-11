@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "reporte_diario")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "ReporteDiario.getConsultaReporte1", query = "SELECT r.placa, r.placa.idTipoVehiculo.nombre , r.duracion FROM ReporteDiario r WHERE r.fecha = :fecha"),
     @NamedQuery(name = "ReporteDiario.findAll", query = "SELECT r FROM ReporteDiario r"),
     @NamedQuery(name = "ReporteDiario.findByIdReporteDiario", query = "SELECT r FROM ReporteDiario r WHERE r.idReporteDiario = :idReporteDiario"),
     @NamedQuery(name = "ReporteDiario.findByFecha", query = "SELECT r FROM ReporteDiario r WHERE r.fecha = :fecha"),
@@ -60,6 +61,9 @@ public class ReporteDiario implements Serializable {
     @Column(name = "hora_fin")
     @Temporal(TemporalType.TIME)
     private Date horaFin;
+    @Column(name = "duracion")
+    @Temporal(TemporalType.TIME)
+    private Date duracion;
     @Column(name = "km_inicial")
     private Integer kmInicial;
     @Column(name = "km_final")
@@ -131,6 +135,14 @@ public class ReporteDiario implements Serializable {
 
     public void setHoraFin(Date horaFin) {
         this.horaFin = horaFin;
+    }
+
+    public Date getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(Date duracion) {
+        this.duracion = duracion;
     }
 
     public Integer getKmInicial() {
@@ -274,5 +286,5 @@ public class ReporteDiario implements Serializable {
     public String toString() {
         return "utub.JPA.ReporteDiario[ idReporteDiario=" + idReporteDiario + " ]";
     }
-    
+
 }

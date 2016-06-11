@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
+<!-- 2016-06-11T15:04:39 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Facturacion_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e2e1e84f-3c2d-47ff-90f7-636360be30bf">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (4)"/>
+	<queryString>
+		<![CDATA[select  sql5122970.reporte_diario.placa ,  sql5122970.tipo_vehiculo.nombre   
+, sql5122970.reporte_diario.duracion 
+from reporte_diario r, vehiculo v, tipo_vehiculo t
+where sql5122970.reporte_diario.placa =  sql5122970.vehiculo.placa 
+and  sql5122970.vehiculo.id_tipo_vehiculo =  sql5122970.tipo_vehiculo]]>
+	</queryString>
+	<field name="Placa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Tipo_vehiculo" class="java.lang.String"/>
+	<field name="Duracion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="227" y="10" width="152" height="30" uuid="6228a9a0-d0d7-42e7-80b0-2af9126e7439"/>
+				<text><![CDATA[Reporte Duración vehiculo]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="c108c787-9ba0-4c63-9166-f4f29f89ede8"/>
+				<text><![CDATA[Placa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="30" uuid="2864579b-9487-49f7-bbcd-711d69ea67a2"/>
+				<text><![CDATA[Tipo_vehiculo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="30" uuid="c380dc5a-46c0-48ef-a74e-c9c52c1a00e4"/>
+				<text><![CDATA[Duracion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="66099346-f13b-4c03-a784-d051b300cade"/>
+				<textFieldExpression><![CDATA[$F{Placa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="30" uuid="fbf60782-9633-4fde-b6e0-6bd3e1411f1a"/>
+				<textFieldExpression><![CDATA[$F{Tipo_vehiculo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="30" uuid="0e0d7a5b-e5ea-433a-9f7d-155b4eb65126"/>
+				<textFieldExpression><![CDATA[$F{Duracion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
