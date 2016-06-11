@@ -1,29 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.Facturacion;
 
 import JPA.ActividadPrincipal;
 import JPA.Empleado;
 import JPA.Proyecto;
 import JPA.ReporteDiario;
-import JPA.Ruta;
-import JPA.RutaExterna;
 import JPA.UsuarioProyecto;
 import JPA.Vehiculo;
 import data.Cls_Datos;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.EnumSet;
+import java.util.LinkedHashMap;
 import java.util.List;
-import static javax.persistence.Persistence.createEntityManagerFactory;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SwingUtilities;
+import src.Genericas;
 
 /**
  *
@@ -32,43 +35,43 @@ import javax.swing.SwingUtilities;
 public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
 
     Cls_Datos cls;
+    Genericas genericas;
     ReporteDiario reporteDiario;
+    Empleado empleado;
+    Vehiculo vehiculo;
+    ActividadPrincipal actividadPrincipal;
+    UsuarioProyecto usuarioProyecto;
+    Proyecto proyecto;
+    Date date = new Date();
 
     /**
      * Metodo que captura las cajas de texto seleccionadas.
      */
     public void guardar() {
 
-        javax.persistence.EntityManager entityManager = createEntityManagerFactory(cadena_conexion).createEntityManager();
+        this.empleado.setCedula(genericas.getIdCombo(comboEmpleado));
+        reporteDiario.setIdEmpleado(this.empleado);
 
-        Empleado e = new Empleado();
-        e.setCedula("12345");
-        reporteDiario.setIdEmpleado(e);
+        this.vehiculo.setPlaca(genericas.getTextoCombo(comboPlaca));
+        reporteDiario.setPlaca(this.vehiculo);
 
-        Vehiculo v = new Vehiculo();
-        v.setPlaca("ZCR");
-        reporteDiario.setPlaca(v);
+        this.actividadPrincipal.setIdActividadPrincipal(genericas.getIdComboLong(comboActividad));
+        reporteDiario.setIdActividadPrincipal(this.actividadPrincipal);
 
-        ActividadPrincipal ac = new ActividadPrincipal();
-        ac.setIdActividadPrincipal(Long.parseLong("1"));
-        reporteDiario.setIdActividadPrincipal(ac);
+        this.usuarioProyecto.setIdUsuarioProyecto(genericas.getIdComboLong(comboUsuario));
+        reporteDiario.setIdUsuarioProyecto(this.usuarioProyecto);
 
-        UsuarioProyecto up = new UsuarioProyecto();
-        up.setIdUsuarioProyecto(Long.parseLong("1"));
-        reporteDiario.setIdUsuarioProyecto(up);
+        this.proyecto.setIdProyecto(genericas.getIdComboLong(comboProyecto));
+        reporteDiario.setIdProyecto(this.proyecto);
 
-        Proyecto pro = new Proyecto();
-        pro.setIdProyecto(Long.parseLong("1"));
-        reporteDiario.setIdProyecto(pro);
-
-        List<RutaExterna> lista = new ArrayList<RutaExterna>();
-        RutaExterna ru = new RutaExterna();
-        ru.setIngreso("00");
-        ru.setHoraLlegada(null);
-        ru.setIdRuta(new Ruta(Long.parseLong("1")));
-        ru.setIdReporteDiario(reporteDiario);
-        lista.add(ru);
-        reporteDiario.setRutaExternaCollection(lista);
+//        List<RutaExterna> lista = new ArrayList<RutaExterna>();
+//        RutaExterna ru = new RutaExterna();
+//        ru.setIngreso("00");
+//        ru.setHoraLlegada(null);
+//        ru.setIdRuta(new Ruta(Long.parseLong("1")));
+//        ru.setIdReporteDiario(reporteDiario);
+//        lista.add(ru);
+//        reporteDiario.setRutaExternaCollection(lista);
 //        Ruta aaa = new Ruta();
 //        aaa.setNombre("Faruck");
 //        aaa.setTipo("circular");
@@ -79,14 +82,18 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         reporteDiario.setKmInicial(Integer.parseInt("1280"));
         reporteDiario.setObservaciones("Faruck obs");
 
-        entityManager.getTransaction().begin();
-        entityManager.persist(reporteDiario);
-        entityManager.getTransaction().commit();
+        genericas.guardarBD(reporteDiario);
+
     }
 
     public frm_Ingreso_Reporte_C() {
         initComponents();
         this.reporteDiario = new ReporteDiario();
+        this.empleado = new Empleado();
+        this.vehiculo = new Vehiculo();
+        this.actividadPrincipal = new ActividadPrincipal();
+        this.usuarioProyecto = new UsuarioProyecto();
+        this.proyecto = new Proyecto();
         inicializar_combos();
     }
 
@@ -317,10 +324,8 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         jTextField3 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        diferencia = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -346,6 +351,10 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        SpinnerDateModel sm = new SpinnerDateModel(date, null, null, Calendar.MINUTE);
+        spinner = new javax.swing.JSpinner(sm);
+        SpinnerDateModel sms = new SpinnerDateModel(date, null, null, Calendar.MINUTE);
+        HInicio = new javax.swing.JSpinner(sms);
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -399,14 +408,10 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Hora Final");
 
-        jTextField4.setToolTipText("Hora ( HH:24)");
-
-        jTextField5.setToolTipText("Hora ( HH:24)");
-
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Duración");
 
-        jTextField6.setToolTipText("Hora ( HH:24)");
+        diferencia.setToolTipText("Hora ( HH:24)");
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -952,6 +957,20 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
 
         jButton2.setText("Limpiar");
 
+        JSpinner.DateEditor de = new JSpinner.DateEditor(spinner, "hh:mm a");
+        de.addFocusListener(new MyFocusListener());
+        de.getTextField().setEditable( true );
+        spinner.setEditor(de);
+        ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField()
+        .addFocusListener(new MyFocusListener());
+
+        JSpinner.DateEditor des = new JSpinner.DateEditor(HInicio, "hh:mm a");
+        des.addFocusListener(new MyFocusListener());
+        des.getTextField().setEditable( true );
+        HInicio.setEditor(des);
+        ((JSpinner.DefaultEditor) HInicio.getEditor()).getTextField()
+        .addFocusListener(new MyFocusListener());
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -1028,25 +1047,25 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
-                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
+                                .addGap(54, 54, 54)
                                 .addComponent(jLabel11)
                                 .addGap(62, 62, 62)
-                                .addComponent(jLabel12)))
-                        .addGap(28, 28, 28)
+                                .addComponent(jLabel12))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(HInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(spinner, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
                                 .addComponent(jLabel13)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(diferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(94, 94, 94)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1096,7 +1115,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(diferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1)
                             .addComponent(jButton2)))
                     .addGroup(layout.createSequentialGroup()
@@ -1105,8 +1124,8 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                             .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(spinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(HInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1117,15 +1136,55 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         guardar();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private class MyFocusListener implements FocusListener {
+
+        public MyFocusListener() {
+        }
+
+        public void focusLost(FocusEvent e) {
+            String texto = calcularDiferenciaHoras((Date) HInicio.getModel().getValue(), (Date) spinner.getModel().getValue());
+            diferencia.setText(texto);
+        }
+
+        @Override
+        public void focusGained(FocusEvent e) {
+        }
+
+    }
+
+    public String calcularDiferenciaHoras(Date date1, Date date2) {
+        Map<TimeUnit, Long> mapa = computeDiff(date1, date2);
+        Long horas = mapa.get("HOURS");
+        Long minutos = mapa.get("MINUTES");
+        return horas + ":" + minutos;
+    }
+
+    public static Map<TimeUnit, Long> computeDiff(Date date1, Date date2) {
+        long diffInMillies = date2.getTime() - date1.getTime();
+        List<TimeUnit> units = new ArrayList<TimeUnit>(EnumSet.allOf(TimeUnit.class));
+        Collections.reverse(units);
+        Map<TimeUnit, Long> result = new LinkedHashMap<TimeUnit, Long>();
+        long milliesRest = diffInMillies;
+        for (TimeUnit unit : units) {
+            long diff = unit.convert(milliesRest, TimeUnit.MILLISECONDS);
+            long diffInMilliesForUnit = unit.toMillis(diff);
+            milliesRest = milliesRest - diffInMilliesForUnit;
+            result.put(unit, diff);
+        }
+        return result;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner HInicio;
     private javax.swing.JComboBox comboActividad;
     private javax.swing.JComboBox comboCircular;
     private javax.swing.JComboBox comboEmpleado;
     private javax.swing.JComboBox comboPlaca;
     private javax.swing.JComboBox comboProyecto;
     private javax.swing.JComboBox comboUsuario;
+    private javax.swing.JTextField diferencia;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -1167,11 +1226,8 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JSpinner spinner;
     private com.alee.extended.date.WebDateField webDateField1;
     // End of variables declaration//GEN-END:variables
 
-    public static final String cadena_conexion = "UTUBPU";
 }

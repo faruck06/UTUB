@@ -116,21 +116,21 @@
                           <Component id="jTextField3" min="-2" pref="107" max="-2" attributes="0"/>
                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jTextField4" min="-2" pref="107" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextField5" min="-2" pref="107" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="HInicio" min="-2" pref="116" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="spinner" min="-2" pref="116" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
@@ -138,7 +138,7 @@
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jTextField6" min="-2" pref="107" max="-2" attributes="0"/>
+                              <Component id="diferencia" min="-2" pref="107" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                               <Component id="jButton1" min="-2" pref="85" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -201,7 +201,7 @@
                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="diferencia" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -213,8 +213,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="spinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="HInicio" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -380,16 +380,6 @@
         <Property name="text" type="java.lang.String" value="Hora Final"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField4">
-      <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Hora ( HH:24)"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField5">
-      <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Hora ( HH:24)"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel13">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -398,7 +388,7 @@
         <Property name="text" type="java.lang.String" value="Duraci&#xf3;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField6">
+    <Component class="javax.swing.JTextField" name="diferencia">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Hora ( HH:24)"/>
       </Properties>
@@ -948,6 +938,20 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Limpiar"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="spinner">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(sm)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="SpinnerDateModel sm = new SpinnerDateModel(date, null, null, Calendar.MINUTE);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor de = new JSpinner.DateEditor(spinner, &quot;hh:mm a&quot;);&#xa;de.addFocusListener(new MyFocusListener());&#xa;de.getTextField().setEditable( true );&#xa;spinner.setEditor(de);&#xa;((JSpinner.DefaultEditor) spinner.getEditor()).getTextField()&#xa;        .addFocusListener(new MyFocusListener());"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="HInicio">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(sms)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="SpinnerDateModel sms = new SpinnerDateModel(date, null, null, Calendar.MINUTE);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor des = new JSpinner.DateEditor(HInicio, &quot;hh:mm a&quot;);&#xa;des.addFocusListener(new MyFocusListener());&#xa;des.getTextField().setEditable( true );&#xa;HInicio.setEditor(des);&#xa;((JSpinner.DefaultEditor) HInicio.getEditor()).getTextField()&#xa;        .addFocusListener(new MyFocusListener());"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
