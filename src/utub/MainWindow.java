@@ -10,21 +10,21 @@ package utub;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-import utub.view.Administracion.frm_Actividad_Novedad;
-import utub.view.Administracion.frm_Actividad_Principal;
-import utub.view.Administracion.frm_Empleado;
-import utub.view.Administracion.frm_Horario;
-import utub.view.Administracion.frm_Proyecto;
-import utub.view.Administracion.frm_Ruta;
-import utub.view.Administracion.frm_Tipo_Empleado;
-import utub.view.Administracion.frm_Tipo_Vehiculo;
-import utub.view.Administracion.frm_Usuario_Proyecto;
-import utub.view.Administracion.frm_Vehiculo;
+import view.administracion.frm_Actividad_Novedad;
+import view.administracion.frm_Actividad_Principal;
+import view.administracion.frm_Empleado;
+import view.administracion.frm_Horario;
+import view.administracion.frm_Proyecto;
+import view.administracion.frm_Ruta;
+import view.administracion.frm_Tipo_Empleado;
+import view.administracion.frm_Tipo_Vehiculo;
+import view.administracion.frm_Usuario_Proyecto;
+import view.administracion.frm_Vehiculo;
 import view.Facturacion.frm_Ingreso_Reporte_C;
 
 /**
  *
- * @author Developer
+ * @author Jhorman
  */
 public class MainWindow extends javax.swing.JFrame {
 
@@ -71,7 +71,7 @@ public class MainWindow extends javax.swing.JFrame {
 //        });
 //    }
     public void abrir_ventana(JPanel panel) {
-        FondoIndex.removeAll();
+        FondoIndex.removeAll(); 
         panel.setBounds(0, 0, V_WIDTH, V_HEIGHT);
         FondoIndex.add(panel, javax.swing.JLayeredPane.DEFAULT_LAYER);
     }
