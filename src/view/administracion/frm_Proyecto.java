@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utub.view.Administracion;
+package view.administracion;
 
 import java.awt.EventQueue;
 import java.beans.Beans;
@@ -17,9 +17,9 @@ import javax.swing.JPanel;
  *
  * @author FaruckJ
  */
-public class frm_Usuario_Proyecto extends JPanel {
+public class frm_Proyecto extends JPanel {
     
-    public frm_Usuario_Proyecto() {
+    public frm_Proyecto() {
         initComponents();
         if (!Beans.isDesignTime()) {
             entityManager.getTransaction().begin();
@@ -37,14 +37,14 @@ public class frm_Usuario_Proyecto extends JPanel {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("UTUBPU").createEntityManager();
-        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT u FROM UsuarioProyecto u");
+        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Proyecto p");
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
-        idUsuarioProyectoLabel = new javax.swing.JLabel();
+        idProyectoLabel = new javax.swing.JLabel();
         nombreLabel = new javax.swing.JLabel();
         tipoLabel = new javax.swing.JLabel();
-        idUsuarioProyectoField = new javax.swing.JTextField();
+        idProyectoField = new javax.swing.JTextField();
         nombreField = new javax.swing.JTextField();
         tipoField = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
@@ -55,8 +55,8 @@ public class frm_Usuario_Proyecto extends JPanel {
         FormListener formListener = new FormListener();
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idUsuarioProyecto}"));
-        columnBinding.setColumnName("Id Usuario Proyecto");
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idProyecto}"));
+        columnBinding.setColumnName("Id Proyecto");
         columnBinding.setColumnClass(Long.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
         columnBinding.setColumnName("Nombre");
@@ -68,16 +68,16 @@ public class frm_Usuario_Proyecto extends JPanel {
 
         masterScrollPane.setViewportView(masterTable);
 
-        idUsuarioProyectoLabel.setText("Id Usuario Proyecto:");
+        idProyectoLabel.setText("Id Proyecto:");
 
         nombreLabel.setText("Nombre:");
 
         tipoLabel.setText("Tipo:");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idUsuarioProyecto}"), idUsuarioProyectoField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idProyecto}"), idProyectoField, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setSourceUnreadableValue("null");
         bindingGroup.addBinding(binding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), idUsuarioProyectoField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), idProyectoField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.nombre}"), nombreField, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -112,30 +112,30 @@ public class frm_Usuario_Proyecto extends JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(newButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deleteButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(refreshButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(saveButton)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idUsuarioProyectoLabel)
-                    .addComponent(nombreLabel)
-                    .addComponent(tipoLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idUsuarioProyectoField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                    .addComponent(nombreField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                    .addComponent(tipoField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(newButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(refreshButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idProyectoLabel)
+                                    .addComponent(nombreLabel)
+                                    .addComponent(tipoLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idProyectoField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                                    .addComponent(nombreField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                                    .addComponent(tipoField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)))
+                            .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -148,8 +148,8 @@ public class frm_Usuario_Proyecto extends JPanel {
                 .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idUsuarioProyectoLabel)
-                    .addComponent(idUsuarioProyectoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idProyectoLabel)
+                    .addComponent(idProyectoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel)
@@ -176,16 +176,16 @@ public class frm_Usuario_Proyecto extends JPanel {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             if (evt.getSource() == saveButton) {
-                frm_Usuario_Proyecto.this.saveButtonActionPerformed(evt);
+                frm_Proyecto.this.saveButtonActionPerformed(evt);
             }
             else if (evt.getSource() == refreshButton) {
-                frm_Usuario_Proyecto.this.refreshButtonActionPerformed(evt);
+                frm_Proyecto.this.refreshButtonActionPerformed(evt);
             }
             else if (evt.getSource() == newButton) {
-                frm_Usuario_Proyecto.this.newButtonActionPerformed(evt);
+                frm_Proyecto.this.newButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteButton) {
-                frm_Usuario_Proyecto.this.deleteButtonActionPerformed(evt);
+                frm_Proyecto.this.deleteButtonActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -205,19 +205,19 @@ public class frm_Usuario_Proyecto extends JPanel {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         int[] selected = masterTable.getSelectedRows();
-        List<JPA.UsuarioProyecto> toRemove = new ArrayList<JPA.UsuarioProyecto>(selected.length);
+        List<JPA.Proyecto> toRemove = new ArrayList<JPA.Proyecto>(selected.length);
         for (int idx = 0; idx < selected.length; idx++) {
-            JPA.UsuarioProyecto u = list.get(masterTable.convertRowIndexToModel(selected[idx]));
-            toRemove.add(u);
-            entityManager.remove(u);
+            JPA.Proyecto p = list.get(masterTable.convertRowIndexToModel(selected[idx]));
+            toRemove.add(p);
+            entityManager.remove(p);
         }
         list.removeAll(toRemove);
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
-        JPA.UsuarioProyecto u = new JPA.UsuarioProyecto();
-        entityManager.persist(u);
-        list.add(u);
+        JPA.Proyecto p = new JPA.Proyecto();
+        entityManager.persist(p);
+        list.add(p);
         int row = list.size() - 1;
         masterTable.setRowSelectionInterval(row, row);
         masterTable.scrollRectToVisible(masterTable.getCellRect(row, 0, true));
@@ -230,9 +230,9 @@ public class frm_Usuario_Proyecto extends JPanel {
         } catch (RollbackException rex) {
             rex.printStackTrace();
             entityManager.getTransaction().begin();
-            List<JPA.UsuarioProyecto> merged = new ArrayList<JPA.UsuarioProyecto>(list.size());
-            for (JPA.UsuarioProyecto u : list) {
-                merged.add(entityManager.merge(u));
+            List<JPA.Proyecto> merged = new ArrayList<JPA.Proyecto>(list.size());
+            for (JPA.Proyecto p : list) {
+                merged.add(entityManager.merge(p));
             }
             list.clear();
             list.addAll(merged);
@@ -243,9 +243,9 @@ public class frm_Usuario_Proyecto extends JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
     private javax.persistence.EntityManager entityManager;
-    private javax.swing.JTextField idUsuarioProyectoField;
-    private javax.swing.JLabel idUsuarioProyectoLabel;
-    private java.util.List<JPA.UsuarioProyecto> list;
+    private javax.swing.JTextField idProyectoField;
+    private javax.swing.JLabel idProyectoLabel;
+    private java.util.List<JPA.Proyecto> list;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JTable masterTable;
     private javax.swing.JButton newButton;
@@ -272,13 +272,13 @@ public class frm_Usuario_Proyecto extends JPanel {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frm_Usuario_Proyecto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_Proyecto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frm_Usuario_Proyecto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_Proyecto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frm_Usuario_Proyecto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_Proyecto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frm_Usuario_Proyecto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_Proyecto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -286,7 +286,7 @@ public class frm_Usuario_Proyecto extends JPanel {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 JFrame frame = new JFrame();
-                frame.setContentPane(new frm_Usuario_Proyecto());
+                frame.setContentPane(new frm_Proyecto());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.pack();
                 frame.setVisible(true);

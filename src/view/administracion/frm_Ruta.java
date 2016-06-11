@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utub.view.Administracion;
+package view.administracion;
 
 import java.awt.EventQueue;
 import java.beans.Beans;
@@ -17,9 +17,9 @@ import javax.swing.JPanel;
  *
  * @author FaruckJ
  */
-public class frm_Actividad_Principal extends JPanel {
+public class frm_Ruta extends JPanel {
     
-    public frm_Actividad_Principal() {
+    public frm_Ruta() {
         initComponents();
         if (!Beans.isDesignTime()) {
             entityManager.getTransaction().begin();
@@ -37,14 +37,14 @@ public class frm_Actividad_Principal extends JPanel {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("UTUBPU").createEntityManager();
-        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT a FROM ActividadPrincipal a");
+        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT a FROM ActividadNovedad a");
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
-        idActividadPrincipalLabel = new javax.swing.JLabel();
+        idActividadNovedadLabel = new javax.swing.JLabel();
         nombreLabel = new javax.swing.JLabel();
         tipoLabel = new javax.swing.JLabel();
-        idActividadPrincipalField = new javax.swing.JTextField();
+        idActividadNovedadField = new javax.swing.JTextField();
         nombreField = new javax.swing.JTextField();
         tipoField = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
@@ -55,8 +55,8 @@ public class frm_Actividad_Principal extends JPanel {
         FormListener formListener = new FormListener();
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idActividadPrincipal}"));
-        columnBinding.setColumnName("Id Actividad Principal");
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idActividadNovedad}"));
+        columnBinding.setColumnName("Id Actividad Novedad");
         columnBinding.setColumnClass(Long.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
         columnBinding.setColumnName("Nombre");
@@ -68,16 +68,16 @@ public class frm_Actividad_Principal extends JPanel {
 
         masterScrollPane.setViewportView(masterTable);
 
-        idActividadPrincipalLabel.setText("Id Actividad Principal:");
+        idActividadNovedadLabel.setText("Id Actividad Novedad:");
 
         nombreLabel.setText("Nombre:");
 
         tipoLabel.setText("Tipo:");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idActividadPrincipal}"), idActividadPrincipalField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idActividadNovedad}"), idActividadNovedadField, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setSourceUnreadableValue("null");
         bindingGroup.addBinding(binding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), idActividadPrincipalField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), idActividadNovedadField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.nombre}"), nombreField, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -112,30 +112,30 @@ public class frm_Actividad_Principal extends JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(newButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deleteButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(refreshButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(saveButton)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idActividadPrincipalLabel)
-                    .addComponent(nombreLabel)
-                    .addComponent(tipoLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idActividadPrincipalField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                    .addComponent(nombreField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                    .addComponent(tipoField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(newButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(refreshButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idActividadNovedadLabel)
+                                    .addComponent(nombreLabel)
+                                    .addComponent(tipoLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idActividadNovedadField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                                    .addComponent(nombreField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                                    .addComponent(tipoField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)))
+                            .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -148,8 +148,8 @@ public class frm_Actividad_Principal extends JPanel {
                 .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idActividadPrincipalLabel)
-                    .addComponent(idActividadPrincipalField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idActividadNovedadLabel)
+                    .addComponent(idActividadNovedadField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel)
@@ -176,16 +176,16 @@ public class frm_Actividad_Principal extends JPanel {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             if (evt.getSource() == saveButton) {
-                frm_Actividad_Principal.this.saveButtonActionPerformed(evt);
+                frm_Ruta.this.saveButtonActionPerformed(evt);
             }
             else if (evt.getSource() == refreshButton) {
-                frm_Actividad_Principal.this.refreshButtonActionPerformed(evt);
+                frm_Ruta.this.refreshButtonActionPerformed(evt);
             }
             else if (evt.getSource() == newButton) {
-                frm_Actividad_Principal.this.newButtonActionPerformed(evt);
+                frm_Ruta.this.newButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteButton) {
-                frm_Actividad_Principal.this.deleteButtonActionPerformed(evt);
+                frm_Ruta.this.deleteButtonActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -205,9 +205,9 @@ public class frm_Actividad_Principal extends JPanel {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         int[] selected = masterTable.getSelectedRows();
-        List<JPA.ActividadPrincipal> toRemove = new ArrayList<JPA.ActividadPrincipal>(selected.length);
+        List<JPA.ActividadNovedad> toRemove = new ArrayList<JPA.ActividadNovedad>(selected.length);
         for (int idx = 0; idx < selected.length; idx++) {
-            JPA.ActividadPrincipal a = list.get(masterTable.convertRowIndexToModel(selected[idx]));
+            JPA.ActividadNovedad a = list.get(masterTable.convertRowIndexToModel(selected[idx]));
             toRemove.add(a);
             entityManager.remove(a);
         }
@@ -215,7 +215,7 @@ public class frm_Actividad_Principal extends JPanel {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
-        JPA.ActividadPrincipal a = new JPA.ActividadPrincipal();
+        JPA.ActividadNovedad a = new JPA.ActividadNovedad();
         entityManager.persist(a);
         list.add(a);
         int row = list.size() - 1;
@@ -230,8 +230,8 @@ public class frm_Actividad_Principal extends JPanel {
         } catch (RollbackException rex) {
             rex.printStackTrace();
             entityManager.getTransaction().begin();
-            List<JPA.ActividadPrincipal> merged = new ArrayList<JPA.ActividadPrincipal>(list.size());
-            for (JPA.ActividadPrincipal a : list) {
+            List<JPA.ActividadNovedad> merged = new ArrayList<JPA.ActividadNovedad>(list.size());
+            for (JPA.ActividadNovedad a : list) {
                 merged.add(entityManager.merge(a));
             }
             list.clear();
@@ -243,9 +243,9 @@ public class frm_Actividad_Principal extends JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
     private javax.persistence.EntityManager entityManager;
-    private javax.swing.JTextField idActividadPrincipalField;
-    private javax.swing.JLabel idActividadPrincipalLabel;
-    private java.util.List<JPA.ActividadPrincipal> list;
+    private javax.swing.JTextField idActividadNovedadField;
+    private javax.swing.JLabel idActividadNovedadLabel;
+    private java.util.List<JPA.ActividadNovedad> list;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JTable masterTable;
     private javax.swing.JButton newButton;
@@ -272,13 +272,13 @@ public class frm_Actividad_Principal extends JPanel {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frm_Actividad_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_Ruta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frm_Actividad_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_Ruta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frm_Actividad_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_Ruta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frm_Actividad_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_Ruta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -286,7 +286,7 @@ public class frm_Actividad_Principal extends JPanel {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 JFrame frame = new JFrame();
-                frame.setContentPane(new frm_Actividad_Principal());
+                frame.setContentPane(new frm_Ruta());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.pack();
                 frame.setVisible(true);
