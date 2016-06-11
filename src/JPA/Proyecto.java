@@ -5,6 +5,8 @@
  */
 package JPA;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -18,6 +20,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -35,6 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Proyecto.findByNombre", query = "SELECT p FROM Proyecto p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Proyecto.findByTipo", query = "SELECT p FROM Proyecto p WHERE p.tipo = :tipo")})
 public class Proyecto implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -61,7 +67,9 @@ public class Proyecto implements Serializable {
     }
 
     public void setIdProyecto(Long idProyecto) {
+        Long oldIdProyecto = this.idProyecto;
         this.idProyecto = idProyecto;
+        changeSupport.firePropertyChange("idProyecto", oldIdProyecto, idProyecto);
     }
 
     public String getNombre() {
@@ -69,7 +77,9 @@ public class Proyecto implements Serializable {
     }
 
     public void setNombre(String nombre) {
+        String oldNombre = this.nombre;
         this.nombre = nombre;
+        changeSupport.firePropertyChange("nombre", oldNombre, nombre);
     }
 
     public String getTipo() {
@@ -77,7 +87,9 @@ public class Proyecto implements Serializable {
     }
 
     public void setTipo(String tipo) {
+        String oldTipo = this.tipo;
         this.tipo = tipo;
+        changeSupport.firePropertyChange("tipo", oldTipo, tipo);
     }
 
     @XmlTransient
@@ -112,6 +124,14 @@ public class Proyecto implements Serializable {
     @Override
     public String toString() {
         return "utub.JPA.Proyecto[ idProyecto=" + idProyecto + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
 
 }

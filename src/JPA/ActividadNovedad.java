@@ -5,6 +5,8 @@
  */
 package JPA;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -18,6 +20,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -34,6 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ActividadNovedad.findByNombre", query = "SELECT a FROM ActividadNovedad a WHERE a.nombre = :nombre"),
     @NamedQuery(name = "ActividadNovedad.findByTipo", query = "SELECT a FROM ActividadNovedad a WHERE a.tipo = :tipo")})
 public class ActividadNovedad implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -66,7 +72,9 @@ public class ActividadNovedad implements Serializable {
     }
 
     public void setIdActividadNovedad(Long idActividadNovedad) {
+        Long oldIdActividadNovedad = this.idActividadNovedad;
         this.idActividadNovedad = idActividadNovedad;
+        changeSupport.firePropertyChange("idActividadNovedad", oldIdActividadNovedad, idActividadNovedad);
     }
 
     public String getNombre() {
@@ -74,7 +82,9 @@ public class ActividadNovedad implements Serializable {
     }
 
     public void setNombre(String nombre) {
+        String oldNombre = this.nombre;
         this.nombre = nombre;
+        changeSupport.firePropertyChange("nombre", oldNombre, nombre);
     }
 
     public String getTipo() {
@@ -82,7 +92,9 @@ public class ActividadNovedad implements Serializable {
     }
 
     public void setTipo(String tipo) {
+        String oldTipo = this.tipo;
         this.tipo = tipo;
+        changeSupport.firePropertyChange("tipo", oldTipo, tipo);
     }
 
     @XmlTransient
@@ -117,6 +129,14 @@ public class ActividadNovedad implements Serializable {
     @Override
     public String toString() {
         return "utub.JPA.ActividadNovedad[ idActividadNovedad=" + idActividadNovedad + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

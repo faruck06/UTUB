@@ -5,6 +5,8 @@
  */
 package JPA;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -19,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -38,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empleado.findByFechaNacimiento", query = "SELECT e FROM Empleado e WHERE e.fechaNacimiento = :fechaNacimiento"),
     @NamedQuery(name = "Empleado.findByFechaIngreso", query = "SELECT e FROM Empleado e WHERE e.fechaIngreso = :fechaIngreso")})
 public class Empleado implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -81,7 +87,9 @@ public class Empleado implements Serializable {
     }
 
     public void setCedula(String cedula) {
+        String oldCedula = this.cedula;
         this.cedula = cedula;
+        changeSupport.firePropertyChange("cedula", oldCedula, cedula);
     }
 
     public String getNombres() {
@@ -89,7 +97,9 @@ public class Empleado implements Serializable {
     }
 
     public void setNombres(String nombres) {
+        String oldNombres = this.nombres;
         this.nombres = nombres;
+        changeSupport.firePropertyChange("nombres", oldNombres, nombres);
     }
 
     public String getApellidos() {
@@ -97,7 +107,9 @@ public class Empleado implements Serializable {
     }
 
     public void setApellidos(String apellidos) {
+        String oldApellidos = this.apellidos;
         this.apellidos = apellidos;
+        changeSupport.firePropertyChange("apellidos", oldApellidos, apellidos);
     }
 
     public Date getFechaNacimiento() {
@@ -105,7 +117,9 @@ public class Empleado implements Serializable {
     }
 
     public void setFechaNacimiento(Date fechaNacimiento) {
+        Date oldFechaNacimiento = this.fechaNacimiento;
         this.fechaNacimiento = fechaNacimiento;
+        changeSupport.firePropertyChange("fechaNacimiento", oldFechaNacimiento, fechaNacimiento);
     }
 
     public Date getFechaIngreso() {
@@ -113,7 +127,9 @@ public class Empleado implements Serializable {
     }
 
     public void setFechaIngreso(Date fechaIngreso) {
+        Date oldFechaIngreso = this.fechaIngreso;
         this.fechaIngreso = fechaIngreso;
+        changeSupport.firePropertyChange("fechaIngreso", oldFechaIngreso, fechaIngreso);
     }
 
     @XmlTransient
@@ -148,6 +164,14 @@ public class Empleado implements Serializable {
     @Override
     public String toString() {
         return "utub.JPA.Empleado[ cedula=" + cedula + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
 
 }

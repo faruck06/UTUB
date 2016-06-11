@@ -5,6 +5,8 @@
  */
 package JPA;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -21,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -37,6 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Horario.findByHoraInicio", query = "SELECT h FROM Horario h WHERE h.horaInicio = :horaInicio"),
     @NamedQuery(name = "Horario.findByHoraFin", query = "SELECT h FROM Horario h WHERE h.horaFin = :horaFin")})
 public class Horario implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -73,7 +79,9 @@ public class Horario implements Serializable {
     }
 
     public void setIdHorario(Long idHorario) {
+        Long oldIdHorario = this.idHorario;
         this.idHorario = idHorario;
+        changeSupport.firePropertyChange("idHorario", oldIdHorario, idHorario);
     }
 
     public Date getHoraInicio() {
@@ -81,7 +89,9 @@ public class Horario implements Serializable {
     }
 
     public void setHoraInicio(Date horaInicio) {
+        Date oldHoraInicio = this.horaInicio;
         this.horaInicio = horaInicio;
+        changeSupport.firePropertyChange("horaInicio", oldHoraInicio, horaInicio);
     }
 
     public Date getHoraFin() {
@@ -89,7 +99,9 @@ public class Horario implements Serializable {
     }
 
     public void setHoraFin(Date horaFin) {
+        Date oldHoraFin = this.horaFin;
         this.horaFin = horaFin;
+        changeSupport.firePropertyChange("horaFin", oldHoraFin, horaFin);
     }
 
     @XmlTransient
@@ -124,6 +136,14 @@ public class Horario implements Serializable {
     @Override
     public String toString() {
         return "utub.JPA.Horario[ idHorario=" + idHorario + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

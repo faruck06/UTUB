@@ -5,6 +5,8 @@
  */
 package JPA;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -18,6 +20,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -35,6 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "UsuarioProyecto.findByNombre", query = "SELECT u FROM UsuarioProyecto u WHERE u.nombre = :nombre"),
     @NamedQuery(name = "UsuarioProyecto.findByTipo", query = "SELECT u FROM UsuarioProyecto u WHERE u.tipo = :tipo")})
 public class UsuarioProyecto implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -69,7 +75,9 @@ public class UsuarioProyecto implements Serializable {
     }
 
     public void setIdUsuarioProyecto(Long idUsuarioProyecto) {
+        Long oldIdUsuarioProyecto = this.idUsuarioProyecto;
         this.idUsuarioProyecto = idUsuarioProyecto;
+        changeSupport.firePropertyChange("idUsuarioProyecto", oldIdUsuarioProyecto, idUsuarioProyecto);
     }
 
     public String getNombre() {
@@ -77,7 +85,9 @@ public class UsuarioProyecto implements Serializable {
     }
 
     public void setNombre(String nombre) {
+        String oldNombre = this.nombre;
         this.nombre = nombre;
+        changeSupport.firePropertyChange("nombre", oldNombre, nombre);
     }
 
     public String getTipo() {
@@ -85,7 +95,9 @@ public class UsuarioProyecto implements Serializable {
     }
 
     public void setTipo(String tipo) {
+        String oldTipo = this.tipo;
         this.tipo = tipo;
+        changeSupport.firePropertyChange("tipo", oldTipo, tipo);
     }
 
     @XmlTransient
@@ -120,6 +132,14 @@ public class UsuarioProyecto implements Serializable {
     @Override
     public String toString() {
         return "utub.JPA.UsuarioProyecto[ idUsuarioProyecto=" + idUsuarioProyecto + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
 
 }

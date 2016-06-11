@@ -5,6 +5,8 @@
  */
 package JPA;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -30,6 +33,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TipoEmpleado.findByNombre", query = "SELECT t FROM TipoEmpleado t WHERE t.nombre = :nombre"),
     @NamedQuery(name = "TipoEmpleado.findByTipo", query = "SELECT t FROM TipoEmpleado t WHERE t.tipo = :tipo")})
 public class TipoEmpleado implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -62,7 +68,9 @@ public class TipoEmpleado implements Serializable {
     }
 
     public void setIdTipoEmpleado(Long idTipoEmpleado) {
+        Long oldIdTipoEmpleado = this.idTipoEmpleado;
         this.idTipoEmpleado = idTipoEmpleado;
+        changeSupport.firePropertyChange("idTipoEmpleado", oldIdTipoEmpleado, idTipoEmpleado);
     }
 
     public String getNombre() {
@@ -70,7 +78,9 @@ public class TipoEmpleado implements Serializable {
     }
 
     public void setNombre(String nombre) {
+        String oldNombre = this.nombre;
         this.nombre = nombre;
+        changeSupport.firePropertyChange("nombre", oldNombre, nombre);
     }
 
     public String getTipo() {
@@ -78,7 +88,9 @@ public class TipoEmpleado implements Serializable {
     }
 
     public void setTipo(String tipo) {
+        String oldTipo = this.tipo;
         this.tipo = tipo;
+        changeSupport.firePropertyChange("tipo", oldTipo, tipo);
     }
 
     @Override
@@ -104,6 +116,14 @@ public class TipoEmpleado implements Serializable {
     @Override
     public String toString() {
         return "utub.JPA.TipoEmpleado[ idTipoEmpleado=" + idTipoEmpleado + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

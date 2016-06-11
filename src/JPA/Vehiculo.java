@@ -5,6 +5,8 @@
  */
 package JPA;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -18,6 +20,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -36,6 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Vehiculo.findByLinea", query = "SELECT v FROM Vehiculo v WHERE v.linea = :linea"),
     @NamedQuery(name = "Vehiculo.findByModelo", query = "SELECT v FROM Vehiculo v WHERE v.modelo = :modelo")})
 public class Vehiculo implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -76,7 +82,9 @@ public class Vehiculo implements Serializable {
     }
 
     public void setPlaca(String placa) {
+        String oldPlaca = this.placa;
         this.placa = placa;
+        changeSupport.firePropertyChange("placa", oldPlaca, placa);
     }
 
     public String getMarca() {
@@ -84,7 +92,9 @@ public class Vehiculo implements Serializable {
     }
 
     public void setMarca(String marca) {
+        String oldMarca = this.marca;
         this.marca = marca;
+        changeSupport.firePropertyChange("marca", oldMarca, marca);
     }
 
     public String getLinea() {
@@ -92,7 +102,9 @@ public class Vehiculo implements Serializable {
     }
 
     public void setLinea(String linea) {
+        String oldLinea = this.linea;
         this.linea = linea;
+        changeSupport.firePropertyChange("linea", oldLinea, linea);
     }
 
     public String getModelo() {
@@ -100,7 +112,9 @@ public class Vehiculo implements Serializable {
     }
 
     public void setModelo(String modelo) {
+        String oldModelo = this.modelo;
         this.modelo = modelo;
+        changeSupport.firePropertyChange("modelo", oldModelo, modelo);
     }
 
     @XmlTransient
@@ -117,7 +131,9 @@ public class Vehiculo implements Serializable {
     }
 
     public void setIdTipoVehiculo(TipoVehiculo idTipoVehiculo) {
+        TipoVehiculo oldIdTipoVehiculo = this.idTipoVehiculo;
         this.idTipoVehiculo = idTipoVehiculo;
+        changeSupport.firePropertyChange("idTipoVehiculo", oldIdTipoVehiculo, idTipoVehiculo);
     }
 
     @Override
@@ -143,6 +159,14 @@ public class Vehiculo implements Serializable {
     @Override
     public String toString() {
         return "utub.JPA.Vehiculo[ placa=" + placa + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
 
 }

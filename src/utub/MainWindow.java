@@ -10,6 +10,16 @@ package utub;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import utub.view.Administracion.frm_Actividad_Novedad;
+import utub.view.Administracion.frm_Actividad_Principal;
+import utub.view.Administracion.frm_Empleado;
+import utub.view.Administracion.frm_Horario;
+import utub.view.Administracion.frm_Proyecto;
+import utub.view.Administracion.frm_Ruta;
+import utub.view.Administracion.frm_Tipo_Empleado;
+import utub.view.Administracion.frm_Tipo_Vehiculo;
+import utub.view.Administracion.frm_Usuario_Proyecto;
+import utub.view.Administracion.frm_Vehiculo;
 import view.Facturacion.frm_Ingreso_Reporte_C;
 
 /**
@@ -83,6 +93,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -166,7 +177,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem9);
 
-        jMenuItem10.setText("Actividad Proyecto");
+        jMenuItem10.setText("Actividad Principal");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem10ActionPerformed(evt);
@@ -181,6 +192,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem11);
+
+        jMenuItem12.setText("Tipo Usuario");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem12);
 
         jMenuBar2.add(jMenu2);
 
@@ -218,49 +237,54 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-//       frm_Personal frm = new frm_Personal();
-//       abrir_ventana(frm);
+       frm_Empleado frm = new frm_Empleado();
+       abrir_ventana(frm);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-//        frm_Vehiculo frm = new frm_Vehiculo();
-//        abrir_ventana(frm);
+        frm_Vehiculo frm = new frm_Vehiculo();
+        abrir_ventana(frm);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-//        frm_Ruta frm = new frm_Ruta();
-//        abrir_ventana(frm);
+        frm_Ruta frm = new frm_Ruta();
+        abrir_ventana(frm);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-//        frm_Proyecto frm = new frm_Proyecto();
-//        abrir_ventana(frm);
+        frm_Proyecto frm = new frm_Proyecto();
+        abrir_ventana(frm);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-//        frm_Horario frm = new frm_Horario();
-//        abrir_ventana(frm);
+        frm_Horario frm = new frm_Horario();
+        abrir_ventana(frm);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-//        frm_Tipo_Vehiculo frm = new frm_Tipo_Vehiculo();
-//        abrir_ventana(frm);
+        frm_Tipo_Vehiculo frm = new frm_Tipo_Vehiculo();
+        abrir_ventana(frm);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-//        frm_Actividad_Novedad frm = new frm_Actividad_Novedad();
-//        abrir_ventana(frm);
+        frm_Actividad_Novedad frm = new frm_Actividad_Novedad();
+        abrir_ventana(frm);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-//        frm_Actividad_Proyecto frm = new frm_Actividad_Proyecto();
-//        abrir_ventana(frm);
+        frm_Actividad_Principal frm = new frm_Actividad_Principal();
+        abrir_ventana(frm);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-//        Frm_Usuario_Proyecto frm = new Frm_Usuario_Proyecto();
-//        abrir_ventana(frm);
+        frm_Usuario_Proyecto frm = new frm_Usuario_Proyecto();
+        abrir_ventana(frm);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        frm_Tipo_Empleado frm = new frm_Tipo_Empleado();
+        abrir_ventana(frm);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -327,6 +351,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
