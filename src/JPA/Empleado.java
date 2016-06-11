@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "empleado")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Empleado.findByAllNombres", query = "SELECT CONCAT(e.nombres,' , ',e.apellidos , ' (',e.cedula,')') FROM Empleado e WHERE e.apellidos LIKE :nombre OR e.nombres LIKE :nombre"),
+    @NamedQuery(name = "Empleado.findByAllNombres", query = "SELECT CONCAT(e.nombres,' , ',e.apellidos , ' (',e.cedula,')') FROM Empleado e WHERE upper(e.apellidos) LIKE upper(:nombre) OR upper(e.nombres) LIKE upper(:nombre)"),
     @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e"),
     @NamedQuery(name = "Empleado.findByCedula", query = "SELECT e FROM Empleado e WHERE e.cedula = :cedula"),
     @NamedQuery(name = "Empleado.findByNombres", query = "SELECT e FROM Empleado e WHERE e.nombres = :nombres"),

@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "proyecto")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Proyecto.findByNombres", query = "SELECT CONCAT(p.nombre,' (',p.idProyecto,')') FROM Proyecto p WHERE upper(p.nombre) LIKE (:nombre)"),
     @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p"),
     @NamedQuery(name = "Proyecto.findByIdProyecto", query = "SELECT p FROM Proyecto p WHERE p.idProyecto = :idProyecto"),
     @NamedQuery(name = "Proyecto.findByNombre", query = "SELECT p FROM Proyecto p WHERE p.nombre = :nombre"),
@@ -112,5 +113,5 @@ public class Proyecto implements Serializable {
     public String toString() {
         return "utub.JPA.Proyecto[ idProyecto=" + idProyecto + " ]";
     }
-    
+
 }

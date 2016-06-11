@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Ruta.findAll", query = "SELECT r FROM Ruta r"),
     @NamedQuery(name = "Ruta.findByIdRuta", query = "SELECT r FROM Ruta r WHERE r.idRuta = :idRuta"),
     @NamedQuery(name = "Ruta.findByNombre", query = "SELECT r FROM Ruta r WHERE r.nombre = :nombre"),
-    @NamedQuery(name = "Ruta.findByNombres", query = "SELECT r.nombre FROM Ruta r WHERE r.nombre LIKE :nombre"),
+    @NamedQuery(name = "Ruta.findByNombres", query = "SELECT r.nombre FROM Ruta r WHERE upper(r.nombre) LIKE upper(:nombre)"),
     @NamedQuery(name = "Ruta.findByTipo", query = "SELECT r FROM Ruta r WHERE r.tipo = :tipo")})
 public class Ruta implements Serializable {
 
