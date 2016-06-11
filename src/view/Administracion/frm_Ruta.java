@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utub.view.Administracion;
+package view.Administracion;
 
 import java.awt.EventQueue;
 import java.beans.Beans;
