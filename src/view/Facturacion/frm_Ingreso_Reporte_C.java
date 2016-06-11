@@ -7,10 +7,10 @@ import JPA.ReporteDiario;
 import JPA.UsuarioProyecto;
 import JPA.Vehiculo;
 import data.Cls_Datos;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -26,6 +26,8 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import src.Genericas;
 
 /**
@@ -35,7 +37,7 @@ import src.Genericas;
 public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
 
     Cls_Datos cls;
-    Genericas genericas;
+    Genericas genericas = new Genericas();
     ReporteDiario reporteDiario;
     Empleado empleado;
     Vehiculo vehiculo;
@@ -412,6 +414,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         jLabel13.setText("Duración");
 
         diferencia.setToolTipText("Hora ( HH:24)");
+        diferencia.setEnabled(false);
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -958,18 +961,14 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         jButton2.setText("Limpiar");
 
         JSpinner.DateEditor de = new JSpinner.DateEditor(spinner, "hh:mm a");
-        de.addFocusListener(new MyFocusListener());
         de.getTextField().setEditable( true );
         spinner.setEditor(de);
-        ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField()
-        .addFocusListener(new MyFocusListener());
+        spinner.addChangeListener(new MyFocusListener());
 
         JSpinner.DateEditor des = new JSpinner.DateEditor(HInicio, "hh:mm a");
-        des.addFocusListener(new MyFocusListener());
         des.getTextField().setEditable( true );
         HInicio.setEditor(des);
-        ((JSpinner.DefaultEditor) HInicio.getEditor()).getTextField()
-        .addFocusListener(new MyFocusListener());
+        HInicio.addChangeListener(new MyFocusListener());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1139,27 +1138,28 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private class MyFocusListener implements FocusListener {
+    private class MyFocusListener implements ChangeListener {
 
         public MyFocusListener() {
         }
 
-        public void focusLost(FocusEvent e) {
+        @Override
+        public void stateChanged(ChangeEvent e) {
             String texto = calcularDiferenciaHoras((Date) HInicio.getModel().getValue(), (Date) spinner.getModel().getValue());
             diferencia.setText(texto);
-        }
-
-        @Override
-        public void focusGained(FocusEvent e) {
         }
 
     }
 
     public String calcularDiferenciaHoras(Date date1, Date date2) {
         Map<TimeUnit, Long> mapa = computeDiff(date1, date2);
-        Long horas = mapa.get("HOURS");
-        Long minutos = mapa.get("MINUTES");
-        return horas + ":" + minutos;
+        Long horas = mapa.get(TimeUnit.HOURS);
+        Long minutos = mapa.get(TimeUnit.MINUTES);
+        Date fecha = new Date();
+        fecha.setHours(horas.intValue());
+        fecha.setMinutes(minutos.intValue());
+        DateFormat df = new SimpleDateFormat("HH:mm");
+        return df.format(fecha);
     }
 
     public static Map<TimeUnit, Long> computeDiff(Date date1, Date date2) {

@@ -391,6 +391,7 @@
     <Component class="javax.swing.JTextField" name="diferencia">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Hora ( HH:24)"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator2">
@@ -943,14 +944,14 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(sm)"/>
         <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="SpinnerDateModel sm = new SpinnerDateModel(date, null, null, Calendar.MINUTE);"/>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor de = new JSpinner.DateEditor(spinner, &quot;hh:mm a&quot;);&#xa;de.addFocusListener(new MyFocusListener());&#xa;de.getTextField().setEditable( true );&#xa;spinner.setEditor(de);&#xa;((JSpinner.DefaultEditor) spinner.getEditor()).getTextField()&#xa;        .addFocusListener(new MyFocusListener());"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor de = new JSpinner.DateEditor(spinner, &quot;hh:mm a&quot;);&#xa;de.getTextField().setEditable( true );&#xa;spinner.setEditor(de);&#xa;spinner.addChangeListener(new MyFocusListener());"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JSpinner" name="HInicio">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(sms)"/>
         <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="SpinnerDateModel sms = new SpinnerDateModel(date, null, null, Calendar.MINUTE);"/>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor des = new JSpinner.DateEditor(HInicio, &quot;hh:mm a&quot;);&#xa;des.addFocusListener(new MyFocusListener());&#xa;des.getTextField().setEditable( true );&#xa;HInicio.setEditor(des);&#xa;((JSpinner.DefaultEditor) HInicio.getEditor()).getTextField()&#xa;        .addFocusListener(new MyFocusListener());"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor des = new JSpinner.DateEditor(HInicio, &quot;hh:mm a&quot;);&#xa;des.getTextField().setEditable( true );&#xa;HInicio.setEditor(des);&#xa;HInicio.addChangeListener(new MyFocusListener());"/>
       </AuxValues>
     </Component>
   </SubComponents>
