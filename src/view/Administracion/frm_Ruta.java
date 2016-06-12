@@ -15,10 +15,10 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author FaruckJ
+ * @author Faruck
  */
 public class frm_Ruta extends JPanel {
-    
+
     public frm_Ruta() {
         initComponents();
         if (!Beans.isDesignTime()) {
@@ -37,14 +37,12 @@ public class frm_Ruta extends JPanel {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("UTUBPU").createEntityManager();
-        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT a FROM ActividadNovedad a");
+        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT r FROM Ruta r");
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
-        idActividadNovedadLabel = new javax.swing.JLabel();
         nombreLabel = new javax.swing.JLabel();
         tipoLabel = new javax.swing.JLabel();
-        idActividadNovedadField = new javax.swing.JTextField();
         nombreField = new javax.swing.JTextField();
         tipoField = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
@@ -55,10 +53,7 @@ public class frm_Ruta extends JPanel {
         FormListener formListener = new FormListener();
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idActividadNovedad}"));
-        columnBinding.setColumnName("Id Actividad Novedad");
-        columnBinding.setColumnClass(Long.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
         columnBinding.setColumnName("Nombre");
         columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tipo}"));
@@ -68,19 +63,11 @@ public class frm_Ruta extends JPanel {
 
         masterScrollPane.setViewportView(masterTable);
 
-        idActividadNovedadLabel.setText("Id Actividad Novedad:");
-
         nombreLabel.setText("Nombre:");
 
         tipoLabel.setText("Tipo:");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idActividadNovedad}"), idActividadNovedadField, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        binding.setSourceUnreadableValue("null");
-        bindingGroup.addBinding(binding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), idActividadNovedadField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.nombre}"), nombreField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.nombre}"), nombreField, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setSourceUnreadableValue("null");
         bindingGroup.addBinding(binding);
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), nombreField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
@@ -124,12 +111,10 @@ public class frm_Ruta extends JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idActividadNovedadLabel)
                     .addComponent(nombreLabel)
                     .addComponent(tipoLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idActividadNovedadField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                     .addComponent(nombreField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                     .addComponent(tipoField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
                 .addContainerGap())
@@ -146,10 +131,6 @@ public class frm_Ruta extends JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idActividadNovedadLabel)
-                    .addComponent(idActividadNovedadField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel)
@@ -190,7 +171,6 @@ public class frm_Ruta extends JPanel {
         }
     }// </editor-fold>//GEN-END:initComponents
 
-    
     @SuppressWarnings("unchecked")
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         entityManager.getTransaction().rollback();
@@ -205,47 +185,45 @@ public class frm_Ruta extends JPanel {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         int[] selected = masterTable.getSelectedRows();
-        List<JPA.ActividadNovedad> toRemove = new ArrayList<JPA.ActividadNovedad>(selected.length);
+        List<JPA.Ruta> toRemove = new ArrayList<JPA.Ruta>(selected.length);
         for (int idx = 0; idx < selected.length; idx++) {
-            JPA.ActividadNovedad a = list.get(masterTable.convertRowIndexToModel(selected[idx]));
-            toRemove.add(a);
-            entityManager.remove(a);
+            JPA.Ruta r = list.get(masterTable.convertRowIndexToModel(selected[idx]));
+            toRemove.add(r);
+            entityManager.remove(r);
         }
         list.removeAll(toRemove);
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
-        JPA.ActividadNovedad a = new JPA.ActividadNovedad();
-        entityManager.persist(a);
-        list.add(a);
+        JPA.Ruta r = new JPA.Ruta();
+        entityManager.persist(r);
+        list.add(r);
         int row = list.size() - 1;
         masterTable.setRowSelectionInterval(row, row);
         masterTable.scrollRectToVisible(masterTable.getCellRect(row, 0, true));
     }//GEN-LAST:event_newButtonActionPerformed
-    
+
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         try {
             entityManager.getTransaction().commit();
             entityManager.getTransaction().begin();
-        } catch (RollbackException rex) {
+        }
+        catch (RollbackException rex) {
             rex.printStackTrace();
             entityManager.getTransaction().begin();
-            List<JPA.ActividadNovedad> merged = new ArrayList<JPA.ActividadNovedad>(list.size());
-            for (JPA.ActividadNovedad a : list) {
-                merged.add(entityManager.merge(a));
+            List<JPA.Ruta> merged = new ArrayList<JPA.Ruta>(list.size());
+            for (JPA.Ruta r : list) {
+                merged.add(entityManager.merge(r));
             }
             list.clear();
             list.addAll(merged);
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
     private javax.persistence.EntityManager entityManager;
-    private javax.swing.JTextField idActividadNovedadField;
-    private javax.swing.JLabel idActividadNovedadLabel;
-    private java.util.List<JPA.ActividadNovedad> list;
+    private java.util.List<JPA.Ruta> list;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JTable masterTable;
     private javax.swing.JButton newButton;
@@ -262,7 +240,7 @@ public class frm_Ruta extends JPanel {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -271,13 +249,17 @@ public class frm_Ruta extends JPanel {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(frm_Ruta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(frm_Ruta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(frm_Ruta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(frm_Ruta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -293,5 +275,5 @@ public class frm_Ruta extends JPanel {
             }
         });
     }
-    
+
 }

@@ -13,7 +13,7 @@
     </Component>
     <Component class="javax.persistence.Query" name="query">
       <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT a FROM ActividadNovedad a"/>
+        <Property name="query" type="java.lang.String" value="SELECT r FROM Ruta r"/>
         <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
           <ComponentRef name="entityManager"/>
         </Property>
@@ -31,7 +31,7 @@
         <Property name="observable" type="boolean" value="true"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;JPA.ActividadNovedad&gt;"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;JPA.Ruta&gt;"/>
         <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
       </AuxValues>
@@ -65,13 +65,11 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="idActividadNovedadLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="nombreLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="tipoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="idActividadNovedadField" alignment="0" pref="315" max="32767" attributes="0"/>
                   <Component id="nombreField" alignment="0" pref="315" max="32767" attributes="0"/>
                   <Component id="tipoField" alignment="0" pref="315" max="32767" attributes="0"/>
               </Group>
@@ -89,11 +87,6 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="masterScrollPane" pref="130" max="32767" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="idActividadNovedadLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="idActividadNovedadField" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="nombreLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -127,16 +120,12 @@
         <Component class="javax.swing.JTable" name="masterTable">
           <BindingProperties>
             <BindingProperty name="elements" source="list" target="masterTable" targetPath="elements" updateStrategy="0" immediately="false">
-              <Subbinding sourcePath="${idActividadNovedad}">
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN" value="0"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
-              </Subbinding>
               <Subbinding sourcePath="${nombre}">
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN" value="1"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN" value="0"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
               <Subbinding sourcePath="${tipo}">
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN" value="2"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN" value="1"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
             </BindingProperty>
@@ -148,11 +137,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="idActividadNovedadLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Id Actividad Novedad:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="nombreLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nombre:"/>
@@ -162,14 +146,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Tipo:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="idActividadNovedadField">
-      <BindingProperties>
-        <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.idActividadNovedad}" target="idActividadNovedadField" targetPath="text" updateStrategy="0" immediately="false">
-          <Property name="incompletePathValue" type="java.lang.String" value="null"/>
-        </BindingProperty>
-        <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="idActividadNovedadField" targetPath="enabled" updateStrategy="1" immediately="false"/>
-      </BindingProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="nombreField">
       <BindingProperties>

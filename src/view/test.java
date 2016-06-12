@@ -29,7 +29,7 @@ public class test {
 
     public static void main(String[] args) {
         try {
-            ficha_tecnica("zx");
+            ficha_tecnica("01/11/2016");
         }
         catch (IOException ex) {
             Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,7 +54,7 @@ public class test {
 
     public static void ficha_tecnica(String placa) throws IOException {
         try {
-            String sql = " SELECT placa, 1 tipo_vehiculo, duracion from `reporte_diario` ";
+            String sql = " SELECT placa, 1 tipo_vehiculo, duracion from `reporte_diario` where placa =  ";
 //            sql += "'" + placa + "'";
             ResultSet rs = getData(sql);
             final String ruta = "/src/view/Reportes/Facturacion_1.jrxml";

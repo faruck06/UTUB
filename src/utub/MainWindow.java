@@ -10,6 +10,7 @@ package utub;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import view.Administracion.frm_Ruta;
 import view.Facturacion.frm_Ingreso_Reporte_C;
 
 /**
@@ -235,7 +236,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-
+        frm_Ruta fRuta = new frm_Ruta();
+        abrir_ventana(fRuta);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
