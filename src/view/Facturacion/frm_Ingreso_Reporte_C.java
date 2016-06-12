@@ -20,6 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
@@ -28,6 +29,7 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.TableCellEditor;
 import src.Genericas;
 
 /**
@@ -44,6 +46,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     ActividadPrincipal actividadPrincipal;
     UsuarioProyecto usuarioProyecto;
     Proyecto proyecto;
+
     Date date = new Date();
 
     /**
@@ -96,6 +99,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         this.actividadPrincipal = new ActividadPrincipal();
         this.usuarioProyecto = new UsuarioProyecto();
         this.proyecto = new Proyecto();
+
         inicializar_combos();
     }
 
@@ -112,6 +116,63 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         generar_Listener_Combo_Actividad((JTextField) comboActividad.getEditor().getEditorComponent(), comboActividad);
         generar_Listener_Combo_Usuarios((JTextField) comboUsuario.getEditor().getEditorComponent(), comboUsuario);
         generar_Listener_Combo_Rutas((JTextField) comboCircular.getEditor().getEditorComponent(), comboCircular);
+        generar_Listener_Combo_RutasE((JTextField) comboRutaExterna.getEditor().getEditorComponent(), comboRutaExterna);
+        generar_Listener_Combo_RutasOcupacion((JTextField) comboRutaOcupacion.getEditor().getEditorComponent(), comboRutaOcupacion);
+        generar_Listener_Combo_ActividadNovedad((JTextField) comboActividadNovedad.getEditor().getEditorComponent(), comboActividadNovedad);
+        generar_Listener_Combo_RutaServicioIndvidual((JTextField) comboRutaIndividual.getEditor().getEditorComponent(), comboRutaIndividual);
+        generar_Listener_Horario_Inicial();
+
+    }
+
+    public void generar_Listener_Combo_RutasE(final JTextField textfield, final JComboBox combo) {
+        List<String> filterArray = new ArrayList<>();
+        filterArray = cls.getListadoRutasTipos("Externa");
+        combo.setModel(new DefaultComboBoxModel(filterArray.toArray()));
+        javax.swing.table.TableColumn tc = this.jTable2.getColumnModel().getColumn(0);
+        TableCellEditor tce = new DefaultCellEditor(combo);
+        tc.setCellEditor(tce);
+
+    }
+
+    public void generar_Listener_Combo_RutasOcupacion(final JTextField textfield, final JComboBox combo) {
+        List<String> filterArray = new ArrayList<>();
+        filterArray = cls.getListadoRutasTipos("Ocupacion");
+        combo.setModel(new DefaultComboBoxModel(filterArray.toArray()));
+        javax.swing.table.TableColumn tc = this.jTable3.getColumnModel().getColumn(0);
+        TableCellEditor tce = new DefaultCellEditor(combo);
+        tc.setCellEditor(tce);
+
+    }
+
+    public void generar_Listener_Combo_RutaServicioIndvidual(final JTextField textfield, final JComboBox combo) {
+        List<String> filterArray = new ArrayList<>();
+        filterArray = cls.getListadoRutasTipos("Servicio Individual");
+        combo.setModel(new DefaultComboBoxModel(filterArray.toArray()));
+        javax.swing.table.TableColumn tc = this.jTable5.getColumnModel().getColumn(2);
+        TableCellEditor tce = new DefaultCellEditor(combo);
+        tc.setCellEditor(tce);
+
+    }
+
+    public void generar_Listener_Combo_ActividadNovedad(final JTextField textfield, final JComboBox combo) {
+        List<String> filterArray = new ArrayList<>();
+        filterArray = cls.getListadoActividadNovedad();
+        combo.setModel(new DefaultComboBoxModel(filterArray.toArray()));
+        javax.swing.table.TableColumn tc = this.jTable4.getColumnModel().getColumn(6);
+        TableCellEditor tce = new DefaultCellEditor(combo);
+        tc.setCellEditor(tce);
+
+    }
+
+    public void generar_Listener_Horario_Inicial() {
+        List<String> filterArray = new ArrayList<>();
+        filterArray = cls.getListadoHorarios();
+        
+        for (int x = 0; x < filterArray.size(); x++) {
+            SimpleDateFormat formato = new SimpleDateFormat("HH:mm a");
+            this.jTable1.setValueAt(formato.format(filterArray.get(x)), x, 0);
+
+        }
 
     }
 
@@ -132,8 +193,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<String>();
         try {
             filterArray = cls.getListadoEmpleados(enteredText);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -163,8 +223,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoVehiculos(enteredText);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -194,8 +253,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoProyectos(enteredText);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -225,8 +283,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoActividades(enteredText);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -256,8 +313,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoUsuariosProyecto(enteredText);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -286,9 +342,8 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
 
         List<String> filterArray = new ArrayList<>();
         try {
-            filterArray = cls.getListadoRutas(enteredText);
-        }
-        catch (Exception ex) {
+            filterArray = cls.getListadoRutas(enteredText, "Circular");
+        } catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -1176,6 +1231,10 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         }
         return result;
     }
+    private JComboBox comboRutaExterna = new JComboBox();
+    private JComboBox comboRutaOcupacion = new JComboBox();
+    private JComboBox comboActividadNovedad = new JComboBox();
+    private JComboBox comboRutaIndividual = new JComboBox();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner HInicio;
     private javax.swing.JComboBox comboActividad;

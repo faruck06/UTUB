@@ -17,9 +17,9 @@ import javax.swing.JPanel;
  *
  * @author FaruckJ
  */
-public class frm_Horario extends JPanel {
+public class frm_Rutas extends JPanel {
     
-    public frm_Horario() {
+    public frm_Rutas() {
         initComponents();
         if (!Beans.isDesignTime()) {
             entityManager.getTransaction().begin();
@@ -37,53 +37,45 @@ public class frm_Horario extends JPanel {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("UTUBPU").createEntityManager();
-        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT h FROM Horario h");
+        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT r FROM Ruta r");
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
-        horaInicioLabel = new javax.swing.JLabel();
-        horaFinLabel = new javax.swing.JLabel();
-        horaInicioField = new javax.swing.JTextField();
-        horaFinField = new javax.swing.JTextField();
+        nombreLabel = new javax.swing.JLabel();
+        tipoLabel = new javax.swing.JLabel();
+        nombreField = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
         refreshButton = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
+        tipoField = new javax.swing.JComboBox<>();
 
         FormListener formListener = new FormListener();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idHorario}"));
-        columnBinding.setColumnName("Id Horario");
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idRuta}"));
+        columnBinding.setColumnName("Id Ruta");
         columnBinding.setColumnClass(Long.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${horaInicio}"));
-        columnBinding.setColumnName("Hora Inicio");
-        columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${horaFin}"));
-        columnBinding.setColumnName("Hora Fin");
-        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
+        columnBinding.setColumnName("Nombre");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tipo}"));
+        columnBinding.setColumnName("Tipo");
+        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
 
         masterScrollPane.setViewportView(masterTable);
 
-        horaInicioLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        horaInicioLabel.setText("Hora Inicio:");
+        nombreLabel.setText("Nombre:");
 
-        horaFinLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        horaFinLabel.setText("Hora Fin:");
+        tipoLabel.setText("Tipo:");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.horaInicio}"), horaInicioField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.nombre}"), nombreField, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setSourceUnreadableValue("null");
         bindingGroup.addBinding(binding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), horaInicioField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.horaFin}"), horaFinField, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        binding.setSourceUnreadableValue("null");
-        bindingGroup.addBinding(binding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), horaFinField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), nombreField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
         saveButton.setText("Save");
@@ -101,6 +93,11 @@ public class frm_Horario extends JPanel {
         bindingGroup.addBinding(binding);
 
         deleteButton.addActionListener(formListener);
+
+        tipoField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Circular", "Externa", "Servicio Individual", "Ocupacion" }));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.tipo}"), tipoField, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -121,12 +118,12 @@ public class frm_Horario extends JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(horaInicioLabel)
-                                    .addComponent(horaFinLabel))
+                                    .addComponent(nombreLabel)
+                                    .addComponent(tipoLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(horaInicioField, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-                                    .addComponent(horaFinField, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)))
+                                    .addComponent(nombreField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                                    .addComponent(tipoField, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -140,12 +137,12 @@ public class frm_Horario extends JPanel {
                 .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(horaInicioLabel)
-                    .addComponent(horaInicioField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nombreLabel)
+                    .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(horaFinLabel)
-                    .addComponent(horaFinField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tipoLabel)
+                    .addComponent(tipoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
@@ -164,16 +161,16 @@ public class frm_Horario extends JPanel {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             if (evt.getSource() == saveButton) {
-                frm_Horario.this.saveButtonActionPerformed(evt);
+                frm_Rutas.this.saveButtonActionPerformed(evt);
             }
             else if (evt.getSource() == refreshButton) {
-                frm_Horario.this.refreshButtonActionPerformed(evt);
+                frm_Rutas.this.refreshButtonActionPerformed(evt);
             }
             else if (evt.getSource() == newButton) {
-                frm_Horario.this.newButtonActionPerformed(evt);
+                frm_Rutas.this.newButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteButton) {
-                frm_Horario.this.deleteButtonActionPerformed(evt);
+                frm_Rutas.this.deleteButtonActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -193,19 +190,19 @@ public class frm_Horario extends JPanel {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         int[] selected = masterTable.getSelectedRows();
-        List<JPA.Horario> toRemove = new ArrayList<JPA.Horario>(selected.length);
+        List<JPA.Ruta> toRemove = new ArrayList<JPA.Ruta>(selected.length);
         for (int idx = 0; idx < selected.length; idx++) {
-            JPA.Horario h = list.get(masterTable.convertRowIndexToModel(selected[idx]));
-            toRemove.add(h);
-            entityManager.remove(h);
+            JPA.Ruta r = list.get(masterTable.convertRowIndexToModel(selected[idx]));
+            toRemove.add(r);
+            entityManager.remove(r);
         }
         list.removeAll(toRemove);
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
-        JPA.Horario h = new JPA.Horario();
-        entityManager.persist(h);
-        list.add(h);
+        JPA.Ruta r = new JPA.Ruta();
+        entityManager.persist(r);
+        list.add(r);
         int row = list.size() - 1;
         masterTable.setRowSelectionInterval(row, row);
         masterTable.scrollRectToVisible(masterTable.getCellRect(row, 0, true));
@@ -218,9 +215,9 @@ public class frm_Horario extends JPanel {
         } catch (RollbackException rex) {
             rex.printStackTrace();
             entityManager.getTransaction().begin();
-            List<JPA.Horario> merged = new ArrayList<JPA.Horario>(list.size());
-            for (JPA.Horario h : list) {
-                merged.add(entityManager.merge(h));
+            List<JPA.Ruta> merged = new ArrayList<JPA.Ruta>(list.size());
+            for (JPA.Ruta r : list) {
+                merged.add(entityManager.merge(r));
             }
             list.clear();
             list.addAll(merged);
@@ -231,17 +228,17 @@ public class frm_Horario extends JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
     private javax.persistence.EntityManager entityManager;
-    private javax.swing.JTextField horaFinField;
-    private javax.swing.JLabel horaFinLabel;
-    private javax.swing.JTextField horaInicioField;
-    private javax.swing.JLabel horaInicioLabel;
-    private java.util.List<JPA.Horario> list;
+    private java.util.List<JPA.Ruta> list;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JTable masterTable;
     private javax.swing.JButton newButton;
+    private javax.swing.JTextField nombreField;
+    private javax.swing.JLabel nombreLabel;
     private javax.persistence.Query query;
     private javax.swing.JButton refreshButton;
     private javax.swing.JButton saveButton;
+    private javax.swing.JComboBox<String> tipoField;
+    private javax.swing.JLabel tipoLabel;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
     public static void main(String[] args) {
@@ -258,13 +255,13 @@ public class frm_Horario extends JPanel {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frm_Horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_Rutas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frm_Horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_Rutas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frm_Horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_Rutas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frm_Horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_Rutas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -272,7 +269,7 @@ public class frm_Horario extends JPanel {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 JFrame frame = new JFrame();
-                frame.setContentPane(new frm_Horario());
+                frame.setContentPane(new frm_Rutas());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.pack();
                 frame.setVisible(true);

@@ -32,11 +32,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "ruta")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Ruta.findByTipos", query = "SELECT CONCAT(r.nombre, ' (' ,  r.tipo , ')') FROM Ruta r WHERE r.tipo = :tipo"),
     @NamedQuery(name = "Ruta.findAll", query = "SELECT r FROM Ruta r"),
     @NamedQuery(name = "Ruta.findByIdRuta", query = "SELECT r FROM Ruta r WHERE r.idRuta = :idRuta"),
     @NamedQuery(name = "Ruta.findByNombre", query = "SELECT r FROM Ruta r WHERE r.nombre = :nombre"),
-    @NamedQuery(name = "Ruta.findByNombres", query = "SELECT r.nombre FROM Ruta r WHERE upper(r.nombre) LIKE upper(:nombre)"),
-    @NamedQuery(name = "Ruta.findByTipo", query = "SELECT r FROM Ruta r WHERE r.tipo = :tipo")})
+    @NamedQuery(name = "Ruta.findByNombres", query = "SELECT r.nombre FROM Ruta r WHERE upper(r.nombre) LIKE upper(:nombre) AND r.tipo = :tipo"),
+    @NamedQuery(name = "Ruta.findByTipo", query = "SELECT r.nombre FROM Ruta r WHERE r.tipo = :tipo")})
 public class Ruta implements Serializable {
 
     @Transient
