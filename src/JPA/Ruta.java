@@ -5,6 +5,8 @@
  */
 package JPA;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -18,6 +20,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -29,12 +32,16 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "ruta")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Ruta.findByTipos", query = "SELECT CONCAT(r.nombre, ' (' ,  r.tipo , ')') FROM Ruta r WHERE r.tipo = :tipo"),
     @NamedQuery(name = "Ruta.findAll", query = "SELECT r FROM Ruta r"),
     @NamedQuery(name = "Ruta.findByIdRuta", query = "SELECT r FROM Ruta r WHERE r.idRuta = :idRuta"),
     @NamedQuery(name = "Ruta.findByNombre", query = "SELECT r FROM Ruta r WHERE r.nombre = :nombre"),
-    @NamedQuery(name = "Ruta.findByNombres", query = "SELECT r.nombre FROM Ruta r WHERE upper(r.nombre) LIKE upper(:nombre)"),
-    @NamedQuery(name = "Ruta.findByTipo", query = "SELECT r FROM Ruta r WHERE r.tipo = :tipo")})
+    @NamedQuery(name = "Ruta.findByNombres", query = "SELECT r.nombre FROM Ruta r WHERE upper(r.nombre) LIKE upper(:nombre) AND r.tipo = :tipo"),
+    @NamedQuery(name = "Ruta.findByTipo", query = "SELECT r.nombre FROM Ruta r WHERE r.tipo = :tipo")})
 public class Ruta implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -75,7 +82,9 @@ public class Ruta implements Serializable {
     }
 
     public void setIdRuta(Long idRuta) {
+        Long oldIdRuta = this.idRuta;
         this.idRuta = idRuta;
+        changeSupport.firePropertyChange("idRuta", oldIdRuta, idRuta);
     }
 
     public String getNombre() {
@@ -83,7 +92,9 @@ public class Ruta implements Serializable {
     }
 
     public void setNombre(String nombre) {
+        String oldNombre = this.nombre;
         this.nombre = nombre;
+        changeSupport.firePropertyChange("nombre", oldNombre, nombre);
     }
 
     public String getTipo() {
@@ -91,7 +102,9 @@ public class Ruta implements Serializable {
     }
 
     public void setTipo(String tipo) {
+        String oldTipo = this.tipo;
         this.tipo = tipo;
+        changeSupport.firePropertyChange("tipo", oldTipo, tipo);
     }
 
     @XmlTransient
@@ -153,6 +166,14 @@ public class Ruta implements Serializable {
     @Override
     public String toString() {
         return "utub.JPA.Ruta[ idRuta=" + idRuta + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
 
 }

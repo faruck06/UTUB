@@ -41,10 +41,8 @@ public class frm_Horario extends JPanel {
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
-        idHorarioLabel = new javax.swing.JLabel();
         horaInicioLabel = new javax.swing.JLabel();
         horaFinLabel = new javax.swing.JLabel();
-        idHorarioField = new javax.swing.JTextField();
         horaInicioField = new javax.swing.JTextField();
         horaFinField = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
@@ -70,22 +68,13 @@ public class frm_Horario extends JPanel {
 
         masterScrollPane.setViewportView(masterTable);
 
-        idHorarioLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        idHorarioLabel.setText("Id Horario:");
-
         horaInicioLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         horaInicioLabel.setText("Hora Inicio:");
 
         horaFinLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         horaFinLabel.setText("Hora Fin:");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idHorario}"), idHorarioField, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        binding.setSourceUnreadableValue("null");
-        bindingGroup.addBinding(binding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), idHorarioField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.horaInicio}"), horaInicioField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.horaInicio}"), horaInicioField, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setSourceUnreadableValue("null");
         bindingGroup.addBinding(binding);
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), horaInicioField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
@@ -132,12 +121,10 @@ public class frm_Horario extends JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(idHorarioLabel)
                                     .addComponent(horaInicioLabel)
                                     .addComponent(horaFinLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(idHorarioField, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                                     .addComponent(horaInicioField, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                                     .addComponent(horaFinField, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)))
                             .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))))
@@ -151,11 +138,7 @@ public class frm_Horario extends JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idHorarioLabel)
-                    .addComponent(idHorarioField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(horaInicioLabel)
                     .addComponent(horaInicioField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -252,8 +235,6 @@ public class frm_Horario extends JPanel {
     private javax.swing.JLabel horaFinLabel;
     private javax.swing.JTextField horaInicioField;
     private javax.swing.JLabel horaInicioLabel;
-    private javax.swing.JTextField idHorarioField;
-    private javax.swing.JLabel idHorarioLabel;
     private java.util.List<JPA.Horario> list;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JTable masterTable;

@@ -72,6 +72,13 @@ public class Cls_Datos {
         query.setParameter("nombre", nombre + "%");
         return query.getResultList();
     }
+    
+     public List<String> getListadoActividadNovedad() {
+        Genericas gen = new Genericas();
+        EntityManager em = gen.getEntity();
+        Query query = em.createNamedQuery("ActividadNovedad.findAll");
+        return query.getResultList();
+    }
 
     public List<String> getListadoUsuariosProyecto(String nombre) {
         Genericas gen = new Genericas();
@@ -85,11 +92,27 @@ public class Cls_Datos {
      * @param nombreRuta
      * @return 
      */
-    public List<String> getListadoRutas(String nombreRuta) {
+    public List<String> getListadoRutas(String nombreRuta, String tipo) {
         Genericas gen = new Genericas();
         EntityManager em = gen.getEntity();
         Query query = em.createNamedQuery("Ruta.findByNombres");
         query.setParameter("nombre", nombreRuta + "%");
+        query.setParameter("tipo", tipo);
+        return query.getResultList();
+    }
+    
+    public List<String> getListadoRutasTipos(String tipoRuta) {
+        Genericas gen = new Genericas();
+        EntityManager em = gen.getEntity();
+        Query query = em.createNamedQuery("Ruta.findByTipos");
+        query.setParameter("tipo", tipoRuta );
+        return query.getResultList();
+    }
+    
+      public List<String> getListadoHorarios() {
+        Genericas gen = new Genericas();
+        EntityManager em = gen.getEntity();
+        Query query = em.createNamedQuery("Horario.findAll");
         return query.getResultList();
     }
 }
