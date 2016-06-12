@@ -167,10 +167,9 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     public void generar_Listener_Horario_Inicial() {
         List<String> filterArray = new ArrayList<>();
         filterArray = cls.getListadoHorarios();
-        javax.swing.table.TableColumn tc = this.jTable1.getColumnModel().getColumn(0);
-
+        
         for (int x = 0; x < filterArray.size(); x++) {
-            SimpleDateFormat formato = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat formato = new SimpleDateFormat("HH:mm a");
             this.jTable1.setValueAt(formato.format(filterArray.get(x)), x, 0);
 
         }
