@@ -62,7 +62,6 @@ public class ReporteDiario implements Serializable {
     @Temporal(TemporalType.TIME)
     private Date horaFin;
     @Column(name = "duracion")
-    @Temporal(TemporalType.TIME)
     private Double duracion;
     @Column(name = "km_inicial")
     private Integer kmInicial;
