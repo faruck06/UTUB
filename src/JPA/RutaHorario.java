@@ -54,6 +54,13 @@ public class RutaHorario implements Serializable {
     public RutaHorario() {
     }
 
+    public RutaHorario(short ocupacion, ReporteDiario idReporteDiario, Ruta idRuta, Horario idHorario) {
+        this.ocupacion = ocupacion;
+        this.idReporteDiario = idReporteDiario;
+        this.idRuta = idRuta;
+        this.idHorario = idHorario;
+    }
+
     public RutaHorario(Long idRutaHorario) {
         this.idRutaHorario = idRutaHorario;
     }
@@ -127,5 +134,5 @@ public class RutaHorario implements Serializable {
     public String toString() {
         return "utub.JPA.RutaHorario[ idRutaHorario=" + idRutaHorario + " ]";
     }
-    
+
 }

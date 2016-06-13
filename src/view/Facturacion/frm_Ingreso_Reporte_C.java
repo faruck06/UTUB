@@ -2,14 +2,17 @@ package view.Facturacion;
 
 import JPA.ActividadPrincipal;
 import JPA.Empleado;
+import JPA.Horario;
 import JPA.Proyecto;
 import JPA.ReporteDiario;
+import JPA.Ruta;
+import JPA.RutaHorario;
 import JPA.UsuarioProyecto;
 import JPA.Vehiculo;
 import data.Cls_Datos;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,11 +27,13 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import src.Genericas;
 
@@ -46,7 +51,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     ActividadPrincipal actividadPrincipal;
     UsuarioProyecto usuarioProyecto;
     Proyecto proyecto;
-
+    List<RutaHorario> listaRutaHorarios;
     Date date = new Date();
 
     /**
@@ -86,9 +91,56 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         reporteDiario.setKmFinal(Integer.parseInt("122"));
         reporteDiario.setKmInicial(Integer.parseInt("1280"));
         reporteDiario.setObservaciones("Faruck obs");
+        this.reporteDiario.setRutaHorarioCollection(this.listaRutaHorarios);
 
         genericas.guardarBD(reporteDiario);
 
+    }
+
+//    public void getListadoRutasExternas() {
+//        Object[][] objeto = getTableData(jTable2);
+//        for (Object[] itera : objeto) {
+//            if (itera[1] != null) {
+//                RutaExterna rutaExterna = new RutaExterna();
+//                rutaExterna.set
+//                RutaHorario rutaHorario = new RutaHorario();
+//                rutaHorario.setIdHorario(new Horario(getIDRutaHorario((String) itera[0])));
+//                rutaHorario.setIdReporteDiario(this.reporteDiario);
+//                rutaHorario.setIdRuta(new Ruta(genericas.getIdComboLong(comboCircular)));
+//                rutaHorario.setOcupacion(Short.parseShort(itera[1].toString()));
+//                this.listaRutaHorarios.add(rutaHorario);
+//            }
+//        }
+//    }
+    public void getListadoRutasCirculares() {
+
+        Object[][] objeto = getTableData(jTable1);
+        for (Object[] itera : objeto) {
+            if (itera[1] != null) {
+                RutaHorario rutaHorario = new RutaHorario();
+                rutaHorario.setIdHorario(new Horario(getIDRutaHorario((String) itera[0])));
+                rutaHorario.setIdReporteDiario(this.reporteDiario);
+                rutaHorario.setIdRuta(new Ruta(genericas.getIdComboLong(comboCircular)));
+                rutaHorario.setOcupacion(Short.parseShort(itera[1].toString()));
+                this.listaRutaHorarios.add(rutaHorario);
+            }
+        }
+    }
+
+    public Long getIDRutaHorario(String nombre) {
+        return cls.getIdRutaHorario(nombre);
+    }
+
+    public Object[][] getTableData(JTable table) {
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        int nRow = dtm.getRowCount(), nCol = dtm.getColumnCount();
+        Object[][] tableData = new Object[nRow][nCol];
+        for (int i = 0; i < nRow; i++) {
+            for (int j = 0; j < nCol; j++) {
+                tableData[i][j] = dtm.getValueAt(i, j);
+            }
+        }
+        return tableData;
     }
 
     public frm_Ingreso_Reporte_C() {
@@ -99,7 +151,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         this.actividadPrincipal = new ActividadPrincipal();
         this.usuarioProyecto = new UsuarioProyecto();
         this.proyecto = new Proyecto();
-
+        listaRutaHorarios = new ArrayList<>();
         inicializar_combos();
     }
 
@@ -108,7 +160,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         inicializar_combos();
     }
 
-    public void inicializar_combos() {
+    private void inicializar_combos() {
         cls = new Cls_Datos();
         generar_Listener_Combo_empleados((JTextField) comboEmpleado.getEditor().getEditorComponent(), comboEmpleado);
         generar_Listener_Combo_Vehiculos((JTextField) comboPlaca.getEditor().getEditorComponent(), comboPlaca);
@@ -167,7 +219,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     public void generar_Listener_Horario_Inicial() {
         List<String> filterArray = new ArrayList<>();
         filterArray = cls.getListadoHorarios();
-        
+
         for (int x = 0; x < filterArray.size(); x++) {
             SimpleDateFormat formato = new SimpleDateFormat("HH:mm a");
             this.jTable1.setValueAt(formato.format(filterArray.get(x)), x, 0);
@@ -193,7 +245,8 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<String>();
         try {
             filterArray = cls.getListadoEmpleados(enteredText);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -223,7 +276,8 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoVehiculos(enteredText);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -253,7 +307,8 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoProyectos(enteredText);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -283,7 +338,8 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoActividades(enteredText);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -313,7 +369,8 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoUsuariosProyecto(enteredText);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -343,7 +400,8 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoRutas(enteredText, "Circular");
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -1014,6 +1072,11 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         });
 
         jButton2.setText("Limpiar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         JSpinner.DateEditor de = new JSpinner.DateEditor(spinner, "hh:mm a");
         de.getTextField().setEditable( true );
@@ -1193,6 +1256,10 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        getListadoRutasCirculares();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private class MyFocusListener implements ChangeListener {
 
         public MyFocusListener() {
@@ -1207,14 +1274,18 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     }
 
     public String calcularDiferenciaHoras(Date date1, Date date2) {
+
         Map<TimeUnit, Long> mapa = computeDiff(date1, date2);
         Long horas = mapa.get(TimeUnit.HOURS);
         Long minutos = mapa.get(TimeUnit.MINUTES);
-        Date fecha = new Date();
-        fecha.setHours(horas.intValue());
-        fecha.setMinutes(minutos.intValue());
-        DateFormat df = new SimpleDateFormat("HH:mm");
-        return df.format(fecha);
+
+        Double calculo = (minutos.doubleValue() / 60);
+        if (calculo == 1) {
+            calculo = 0.00;
+        }
+        calculo += horas.doubleValue();
+        DecimalFormat df = new DecimalFormat("#.00");
+        return df.format(calculo);
     }
 
     public static Map<TimeUnit, Long> computeDiff(Date date1, Date date2) {

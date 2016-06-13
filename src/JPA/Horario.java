@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "horario")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Horario.findByHoraInicios", query = "SELECT h.idHorario FROM Horario h WHERE h.horaInicio = :horaInicio"),
     @NamedQuery(name = "Horario.findAll", query = "SELECT h.horaInicio FROM Horario h"),
     @NamedQuery(name = "Horario.findByIdHorario", query = "SELECT h FROM Horario h WHERE h.idHorario = :idHorario"),
     @NamedQuery(name = "Horario.findByHoraInicio", query = "SELECT h FROM Horario h WHERE h.horaInicio = :horaInicio"),
@@ -145,5 +146,5 @@ public class Horario implements Serializable {
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
     }
-    
+
 }

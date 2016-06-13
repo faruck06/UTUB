@@ -5,10 +5,13 @@
  */
 package data;
 
+import JPA.UsuarioProyecto;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import JPA.UsuarioProyecto;
 import src.Genericas;
 
 /**
@@ -62,8 +65,9 @@ public class Cls_Datos {
 
     /**
      * Metodo que sirve para llenar el combo de proyectos
+     *
      * @param nombre
-     * @return 
+     * @return
      */
     public List<String> getListadoActividades(String nombre) {
         Genericas gen = new Genericas();
@@ -72,8 +76,8 @@ public class Cls_Datos {
         query.setParameter("nombre", nombre + "%");
         return query.getResultList();
     }
-    
-     public List<String> getListadoActividadNovedad() {
+
+    public List<String> getListadoActividadNovedad() {
         Genericas gen = new Genericas();
         EntityManager em = gen.getEntity();
         Query query = em.createNamedQuery("ActividadNovedad.findAll");
@@ -88,9 +92,11 @@ public class Cls_Datos {
         return query.getResultList();
     }
 
-    /**Trae el listado de rutas sin filtrar, solo por nombre
+    /**
+     * Trae el listado de rutas sin filtrar, solo por nombre
+     *
      * @param nombreRuta
-     * @return 
+     * @return
      */
     public List<String> getListadoRutas(String nombreRuta, String tipo) {
         Genericas gen = new Genericas();
@@ -100,19 +106,47 @@ public class Cls_Datos {
         query.setParameter("tipo", tipo);
         return query.getResultList();
     }
-    
+
     public List<String> getListadoRutasTipos(String tipoRuta) {
         Genericas gen = new Genericas();
         EntityManager em = gen.getEntity();
         Query query = em.createNamedQuery("Ruta.findByTipos");
-        query.setParameter("tipo", tipoRuta );
+        query.setParameter("tipo", tipoRuta);
         return query.getResultList();
     }
-    
-      public List<String> getListadoHorarios() {
+
+    public List<String> getListadoHorarios() {
         Genericas gen = new Genericas();
         EntityManager em = gen.getEntity();
         Query query = em.createNamedQuery("Horario.findAll");
         return query.getResultList();
+    }
+
+    /**
+     * Obtiene el Id de la ruta horario
+     *
+     * @param horario
+     * @return
+     */
+    public Long getIdRutaHorario(String horario) {
+        Genericas gen = new Genericas();
+        EntityManager em = gen.getEntity();
+        Query query = em.createNamedQuery("Horario.findByHoraInicios");
+        query.setParameter("horaInicio", getDate_toDate(horario));
+        Long dato = (Long) query.getResultList().get(0);
+        return dato;
+    }
+
+    public Date getDate_toDate(String fecha) {
+
+        DateFormat formatter = new SimpleDateFormat("HH:mm a");
+        Date startDate = null;
+        try {
+            startDate = formatter.parse(fecha);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return startDate;
     }
 }
