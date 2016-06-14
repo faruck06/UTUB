@@ -91,5 +91,10 @@ public class Genericas {
         }
     }
 
+    public Long getIdFromText(String texto) {
+        String cadena = texto.substring(texto.indexOf("(") + 1, texto.indexOf(")"));
+        return Long.parseLong(cadena);
+    }
+
     public static final String cadena_conexion = "UTUBPU";
 }

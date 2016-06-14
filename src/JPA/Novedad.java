@@ -53,8 +53,7 @@ public class Novedad implements Serializable {
     @Temporal(TemporalType.TIME)
     private Date horaFinal;
     @Column(name = "duracion")
-    @Temporal(TemporalType.TIME)
-    private Date duracion;
+    private Double duracion;
     @Column(name = "km_inicial")
     private Integer kmInicial;
     @Column(name = "km_final")
@@ -99,11 +98,11 @@ public class Novedad implements Serializable {
         this.horaFinal = horaFinal;
     }
 
-    public Date getDuracion() {
+    public Double getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(Date duracion) {
+    public void setDuracion(Double duracion) {
         this.duracion = duracion;
     }
 
@@ -171,5 +170,5 @@ public class Novedad implements Serializable {
     public String toString() {
         return "utub.JPA.Novedad[ idNovedad=" + idNovedad + " ]";
     }
-    
+
 }

@@ -44,15 +44,15 @@ public class RutaOcupacion implements Serializable {
     @Column(name = "id_ruta_ocupacion")
     private Long idRutaOcupacion;
     @Column(name = "recorridos_ma\u00f1ana")
-    private Long recorridosMañana;
+    private Integer recorridosMañana;
     @Column(name = "ocupacion_ma\u00f1ana")
     private Integer ocupacionMañana;
     @Column(name = "recorridos_tarde")
-    private Long recorridosTarde;
+    private Integer recorridosTarde;
     @Column(name = "ocupacion_tarde")
     private Integer ocupacionTarde;
     @Column(name = "recorridos_noche")
-    private Long recorridosNoche;
+    private Integer recorridosNoche;
     @Column(name = "ocupacion_noche")
     private Integer ocupacionNoche;
     @JoinColumn(name = "id_ruta", referencedColumnName = "id_ruta")
@@ -77,11 +77,11 @@ public class RutaOcupacion implements Serializable {
         this.idRutaOcupacion = idRutaOcupacion;
     }
 
-    public Long getRecorridosMañana() {
+    public Integer getRecorridosMañana() {
         return recorridosMañana;
     }
 
-    public void setRecorridosMañana(Long recorridosMañana) {
+    public void setRecorridosMañana(Integer recorridosMañana) {
         this.recorridosMañana = recorridosMañana;
     }
 
@@ -93,11 +93,11 @@ public class RutaOcupacion implements Serializable {
         this.ocupacionMañana = ocupacionMañana;
     }
 
-    public Long getRecorridosTarde() {
+    public Integer getRecorridosTarde() {
         return recorridosTarde;
     }
 
-    public void setRecorridosTarde(Long recorridosTarde) {
+    public void setRecorridosTarde(Integer recorridosTarde) {
         this.recorridosTarde = recorridosTarde;
     }
 
@@ -109,11 +109,11 @@ public class RutaOcupacion implements Serializable {
         this.ocupacionTarde = ocupacionTarde;
     }
 
-    public Long getRecorridosNoche() {
+    public Integer getRecorridosNoche() {
         return recorridosNoche;
     }
 
-    public void setRecorridosNoche(Long recorridosNoche) {
+    public void setRecorridosNoche(Integer recorridosNoche) {
         this.recorridosNoche = recorridosNoche;
     }
 
@@ -165,5 +165,5 @@ public class RutaOcupacion implements Serializable {
     public String toString() {
         return "utub.JPA.RutaOcupacion[ idRutaOcupacion=" + idRutaOcupacion + " ]";
     }
-    
+
 }

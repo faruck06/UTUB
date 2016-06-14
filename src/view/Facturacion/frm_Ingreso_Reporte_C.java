@@ -1,12 +1,17 @@
 package view.Facturacion;
 
+import JPA.ActividadNovedad;
 import JPA.ActividadPrincipal;
 import JPA.Empleado;
 import JPA.Horario;
+import JPA.Novedad;
 import JPA.Proyecto;
 import JPA.ReporteDiario;
 import JPA.Ruta;
+import JPA.RutaExterna;
 import JPA.RutaHorario;
+import JPA.RutaOcupacion;
+import JPA.ServicioIndividual;
 import JPA.UsuarioProyecto;
 import JPA.Vehiculo;
 import data.Cls_Datos;
@@ -26,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -52,6 +58,10 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     UsuarioProyecto usuarioProyecto;
     Proyecto proyecto;
     List<RutaHorario> listaRutaHorarios;
+    List<RutaExterna> listaRutaExternas;
+    List<RutaOcupacion> listaRutaOcupacion;
+    List<Novedad> listaNovedades;
+    List<ServicioIndividual> listaServicios;
     Date date = new Date();
 
     /**
@@ -74,44 +84,122 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         this.proyecto.setIdProyecto(genericas.getIdComboLong(comboProyecto));
         reporteDiario.setIdProyecto(this.proyecto);
 
-//        List<RutaExterna> lista = new ArrayList<RutaExterna>();
-//        RutaExterna ru = new RutaExterna();
-//        ru.setIngreso("00");
-//        ru.setHoraLlegada(null);
-//        ru.setIdRuta(new Ruta(Long.parseLong("1")));
-//        ru.setIdReporteDiario(reporteDiario);
-//        lista.add(ru);
-//        reporteDiario.setRutaExternaCollection(lista);
-//        Ruta aaa = new Ruta();
-//        aaa.setNombre("Faruck");
-//        aaa.setTipo("circular");
         reporteDiario.setFecha(new Date());
         reporteDiario.setHoraFin(null);
         reporteDiario.setHoraInicio(null);
         reporteDiario.setKmFinal(Integer.parseInt("122"));
         reporteDiario.setKmInicial(Integer.parseInt("1280"));
-        reporteDiario.setObservaciones("Faruck obs");
-        this.reporteDiario.setRutaHorarioCollection(this.listaRutaHorarios);
+        obtenerValoresListados();
+        reporteDiario.setServicioIndividualCollection(listaServicios);
+        reporteDiario.setNovedadCollection(listaNovedades);
+        reporteDiario.setRutaExternaCollection(listaRutaExternas);
+        reporteDiario.setRutaHorarioCollection(listaRutaHorarios);
+        reporteDiario.setRutaOcupacionCollection(listaRutaOcupacion);
 
+        //reporteDiario.setObservaciones("Faruck obs");
         genericas.guardarBD(reporteDiario);
 
     }
 
-//    public void getListadoRutasExternas() {
-//        Object[][] objeto = getTableData(jTable2);
-//        for (Object[] itera : objeto) {
-//            if (itera[1] != null) {
-//                RutaExterna rutaExterna = new RutaExterna();
-//                rutaExterna.set
-//                RutaHorario rutaHorario = new RutaHorario();
-//                rutaHorario.setIdHorario(new Horario(getIDRutaHorario((String) itera[0])));
-//                rutaHorario.setIdReporteDiario(this.reporteDiario);
-//                rutaHorario.setIdRuta(new Ruta(genericas.getIdComboLong(comboCircular)));
-//                rutaHorario.setOcupacion(Short.parseShort(itera[1].toString()));
-//                this.listaRutaHorarios.add(rutaHorario);
-//            }
-//        }
-//    }
+    public void getListadoServicioIndividual() {
+
+        Object[][] objeto = getTableData(jTable5);
+        for (Object[] itera : objeto) {
+            if (itera[0] != null) {
+                ServicioIndividual servicio = new ServicioIndividual();
+                servicio.setIdReporteDiario(this.reporteDiario);
+                servicio.setIdRuta(new Ruta(genericas.getIdFromText(itera[2].toString())));
+                servicio.setNombres(itera[0].toString().toUpperCase());
+                servicio.setRegistro(itera[1].toString().toUpperCase());
+                listaServicios.add(servicio);
+
+            }
+        }
+    }
+
+    public void getListadoNovedades() {
+
+        Object[][] objeto = getTableData(jTable4);
+        for (Object[] itera : objeto) {
+            if (itera[0] != null) {
+                Novedad novedad = new Novedad();
+                Date fechaInicio = null;
+                Date fechaFin = null;
+                SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
+                try {
+                    fechaInicio = df.parse(itera[0].toString().trim());
+                    fechaFin = df.parse(itera[1].toString().trim());
+                }
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "No se puede agregar la hora de Inicio/Fin de la novedad");
+                }
+                novedad.setHoraInicio(fechaInicio);
+                novedad.setHoraFinal(fechaFin);
+                novedad.setDuracion(Double.parseDouble(itera[2].toString()));
+                novedad.setKmInicial(Integer.parseInt(itera[3].toString()));
+                novedad.setKmFinal(Integer.parseInt(itera[4].toString()));
+                novedad.setTotalKm(Integer.parseInt(itera[5].toString()));
+                novedad.setIdNovedadActividad(new ActividadNovedad(genericas.getIdFromText(itera[6].toString())));
+                novedad.setIdReporteDiario(this.reporteDiario);
+                this.listaNovedades.add(novedad);
+            }
+        }
+    }
+
+    public void getListadoRutaOcupacion() {
+
+        Object[][] objeto = getTableData(jTable3);
+        for (Object[] itera : objeto) {
+            if (itera[0] != null) {
+                RutaOcupacion ruta = new RutaOcupacion();
+                ruta.setIdReporteDiario(this.reporteDiario);
+                ruta.setIdRuta(new Ruta(genericas.getIdFromText(itera[0].toString())));
+                ruta.setRecorridosMañana(Integer.parseInt(itera[1].toString()));
+                ruta.setOcupacionMañana(Integer.parseInt(itera[2].toString()));
+                ruta.setRecorridosTarde(Integer.parseInt(itera[3].toString()));
+                ruta.setOcupacionTarde(Integer.parseInt(itera[4].toString()));
+                ruta.setRecorridosNoche(Integer.parseInt(itera[5].toString()));
+                ruta.setOcupacionNoche(Integer.parseInt(itera[6].toString()));
+                this.listaRutaOcupacion.add(ruta);
+
+            }
+        }
+    }
+
+    public void getListadoRutasExternas() {
+        Object[][] objeto = getTableData(jTable2);
+        for (Object[] itera : objeto) {
+            if (itera[1] != null) {
+                Date fechaValor = null;
+
+                SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
+                try {
+                    fechaValor = df.parse(itera[2].toString().trim());
+                }
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "No se puede agregar la hora de llegada la fecha externa seleccionada.");
+                }
+
+                RutaExterna rutaExterna = new RutaExterna();
+
+                rutaExterna.setHoraLlegada(fechaValor);
+                rutaExterna.setIdReporteDiario(this.reporteDiario);
+                if (itera[1].toString().equals("Entrada")) {
+                    rutaExterna.setIngreso("S");
+                    rutaExterna.setSalida("N");
+                } else {
+                    rutaExterna.setIngreso("N");
+                    rutaExterna.setSalida("S");
+                }
+                rutaExterna.setOcupacion(Short.parseShort(itera[3].toString()));
+                //obtengo el combo de la tabla
+
+                rutaExterna.setIdRuta(new Ruta(genericas.getIdFromText(itera[0].toString())));
+                this.listaRutaExternas.add(rutaExterna);
+            }
+        }
+    }
+
     public void getListadoRutasCirculares() {
 
         Object[][] objeto = getTableData(jTable1);
@@ -152,6 +240,10 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         this.usuarioProyecto = new UsuarioProyecto();
         this.proyecto = new Proyecto();
         listaRutaHorarios = new ArrayList<>();
+        listaRutaExternas = new ArrayList<>();
+        listaRutaOcupacion = new ArrayList<>();
+        listaNovedades = new ArrayList<>();
+        listaServicios = new ArrayList<>();
         inicializar_combos();
     }
 
@@ -173,7 +265,13 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         generar_Listener_Combo_ActividadNovedad((JTextField) comboActividadNovedad.getEditor().getEditorComponent(), comboActividadNovedad);
         generar_Listener_Combo_RutaServicioIndvidual((JTextField) comboRutaIndividual.getEditor().getEditorComponent(), comboRutaIndividual);
         generar_Listener_Horario_Inicial();
+        generar_Listener_Combo_Tipos();
+    }
 
+    public void generar_Listener_Combo_Tipos() {
+        javax.swing.table.TableColumn tc = this.jTable2.getColumnModel().getColumn(1);
+        TableCellEditor tce = new DefaultCellEditor(comboTipo);
+        tc.setCellEditor(tce);
     }
 
     public void generar_Listener_Combo_RutasE(final JTextField textfield, final JComboBox combo) {
@@ -183,7 +281,6 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         javax.swing.table.TableColumn tc = this.jTable2.getColumnModel().getColumn(0);
         TableCellEditor tce = new DefaultCellEditor(combo);
         tc.setCellEditor(tce);
-
     }
 
     public void generar_Listener_Combo_RutasOcupacion(final JTextField textfield, final JComboBox combo) {
@@ -698,63 +795,63 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Ruta", "Entrada", "Salida", "Hora llegada", "Ocupación Pasajeros"
+                "Ruta", "Tipo", "Hora llegada", "Ocupación Pasajeros"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -767,7 +864,6 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             jTable2.getColumnModel().getColumn(1).setResizable(false);
             jTable2.getColumnModel().getColumn(2).setResizable(false);
             jTable2.getColumnModel().getColumn(3).setResizable(false);
-            jTable2.getColumnModel().getColumn(4).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -916,7 +1012,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1257,8 +1353,17 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        getListadoRutasCirculares();
+        obtenerValoresListados();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void obtenerValoresListados() {
+        this.reporteDiario.setObservaciones(jTextArea1.getText().trim());
+        getListadoServicioIndividual();
+        getListadoNovedades();
+        getListadoRutaOcupacion();
+        getListadoRutasExternas();
+        getListadoRutasCirculares();
+    }
 
     private class MyFocusListener implements ChangeListener {
 
@@ -1306,6 +1411,10 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     private JComboBox comboRutaOcupacion = new JComboBox();
     private JComboBox comboActividadNovedad = new JComboBox();
     private JComboBox comboRutaIndividual = new JComboBox();
+    final String[] tipos = {"Entrada", "Salida"};
+    private JComboBox comboTipo = new JComboBox(tipos);
+    //private JSpinner spinnerHoraTabla;
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner HInicio;
     private javax.swing.JComboBox comboActividad;

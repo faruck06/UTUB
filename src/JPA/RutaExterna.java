@@ -147,5 +147,5 @@ public class RutaExterna implements Serializable {
     public String toString() {
         return "utub.JPA.RutaExterna[ idRutaExterna=" + idRutaExterna + " ]";
     }
-    
+
 }

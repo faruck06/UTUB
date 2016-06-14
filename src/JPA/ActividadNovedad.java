@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "actividad_novedad")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ActividadNovedad.findAll", query = "SELECT a.nombre FROM ActividadNovedad a"),
+    @NamedQuery(name = "ActividadNovedad.findAll", query = "SELECT concat(a.nombre, '(', a.idActividadNovedad , ')') FROM ActividadNovedad a"),
     @NamedQuery(name = "ActividadNovedad.findByIdActividadNovedad", query = "SELECT a FROM ActividadNovedad a WHERE a.idActividadNovedad = :idActividadNovedad"),
     @NamedQuery(name = "ActividadNovedad.findByNombre", query = "SELECT a FROM ActividadNovedad a WHERE a.nombre = :nombre"),
     @NamedQuery(name = "ActividadNovedad.findByTipo", query = "SELECT a FROM ActividadNovedad a WHERE a.tipo = :tipo")})
@@ -138,5 +138,5 @@ public class ActividadNovedad implements Serializable {
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
     }
-    
+
 }
