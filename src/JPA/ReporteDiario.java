@@ -5,6 +5,8 @@
  */
 package JPA;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -23,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -34,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "reporte_diario")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "ReporteDiario.getAllReporteDiario", query = "SELECT r FROM ReporteDiario r "),
     @NamedQuery(name = "ReporteDiario.getConsultaReporte1", query = "SELECT r.placa, r.placa.idTipoVehiculo.nombre , r.duracion FROM ReporteDiario r WHERE r.fecha = :fecha"),
     @NamedQuery(name = "ReporteDiario.findAll", query = "SELECT r FROM ReporteDiario r"),
     @NamedQuery(name = "ReporteDiario.findByIdReporteDiario", query = "SELECT r FROM ReporteDiario r WHERE r.idReporteDiario = :idReporteDiario"),
@@ -45,6 +49,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ReporteDiario.findByTanqueo", query = "SELECT r FROM ReporteDiario r WHERE r.tanqueo = :tanqueo"),
     @NamedQuery(name = "ReporteDiario.findByObservaciones", query = "SELECT r FROM ReporteDiario r WHERE r.observaciones = :observaciones")})
 public class ReporteDiario implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -64,9 +71,9 @@ public class ReporteDiario implements Serializable {
     @Column(name = "duracion")
     private Double duracion;
     @Column(name = "km_inicial")
-    private Integer kmInicial;
+    private Double kmInicial;
     @Column(name = "km_final")
-    private Integer kmFinal;
+    private Double kmFinal;
     @Column(name = "tanqueo")
     private Long tanqueo;
     @Column(name = "observaciones")
@@ -109,7 +116,9 @@ public class ReporteDiario implements Serializable {
     }
 
     public void setIdReporteDiario(Long idReporteDiario) {
+        Long oldIdReporteDiario = this.idReporteDiario;
         this.idReporteDiario = idReporteDiario;
+        changeSupport.firePropertyChange("idReporteDiario", oldIdReporteDiario, idReporteDiario);
     }
 
     public Date getFecha() {
@@ -117,7 +126,9 @@ public class ReporteDiario implements Serializable {
     }
 
     public void setFecha(Date fecha) {
+        Date oldFecha = this.fecha;
         this.fecha = fecha;
+        changeSupport.firePropertyChange("fecha", oldFecha, fecha);
     }
 
     public Date getHoraInicio() {
@@ -125,7 +136,9 @@ public class ReporteDiario implements Serializable {
     }
 
     public void setHoraInicio(Date horaInicio) {
+        Date oldHoraInicio = this.horaInicio;
         this.horaInicio = horaInicio;
+        changeSupport.firePropertyChange("horaInicio", oldHoraInicio, horaInicio);
     }
 
     public Date getHoraFin() {
@@ -133,7 +146,9 @@ public class ReporteDiario implements Serializable {
     }
 
     public void setHoraFin(Date horaFin) {
+        Date oldHoraFin = this.horaFin;
         this.horaFin = horaFin;
+        changeSupport.firePropertyChange("horaFin", oldHoraFin, horaFin);
     }
 
     public Double getDuracion() {
@@ -141,23 +156,29 @@ public class ReporteDiario implements Serializable {
     }
 
     public void setDuracion(Double duracion) {
+        Double oldDuracion = this.duracion;
         this.duracion = duracion;
+        changeSupport.firePropertyChange("duracion", oldDuracion, duracion);
     }
 
-    public Integer getKmInicial() {
+    public Double getKmInicial() {
         return kmInicial;
     }
 
-    public void setKmInicial(Integer kmInicial) {
+    public void setKmInicial(Double kmInicial) {
+        Double oldKmInicial = this.kmInicial;
         this.kmInicial = kmInicial;
+        changeSupport.firePropertyChange("kmInicial", oldKmInicial, kmInicial);
     }
 
-    public Integer getKmFinal() {
+    public Double getKmFinal() {
         return kmFinal;
     }
 
-    public void setKmFinal(Integer kmFinal) {
+    public void setKmFinal(Double kmFinal) {
+        Double oldKmFinal = this.kmFinal;
         this.kmFinal = kmFinal;
+        changeSupport.firePropertyChange("kmFinal", oldKmFinal, kmFinal);
     }
 
     public Long getTanqueo() {
@@ -165,7 +186,9 @@ public class ReporteDiario implements Serializable {
     }
 
     public void setTanqueo(Long tanqueo) {
+        Long oldTanqueo = this.tanqueo;
         this.tanqueo = tanqueo;
+        changeSupport.firePropertyChange("tanqueo", oldTanqueo, tanqueo);
     }
 
     public String getObservaciones() {
@@ -173,7 +196,9 @@ public class ReporteDiario implements Serializable {
     }
 
     public void setObservaciones(String observaciones) {
+        String oldObservaciones = this.observaciones;
         this.observaciones = observaciones;
+        changeSupport.firePropertyChange("observaciones", oldObservaciones, observaciones);
     }
 
     @XmlTransient
@@ -199,7 +224,9 @@ public class ReporteDiario implements Serializable {
     }
 
     public void setPlaca(Vehiculo placa) {
+        Vehiculo oldPlaca = this.placa;
         this.placa = placa;
+        changeSupport.firePropertyChange("placa", oldPlaca, placa);
     }
 
     public ActividadPrincipal getIdActividadPrincipal() {
@@ -207,7 +234,9 @@ public class ReporteDiario implements Serializable {
     }
 
     public void setIdActividadPrincipal(ActividadPrincipal idActividadPrincipal) {
+        ActividadPrincipal oldIdActividadPrincipal = this.idActividadPrincipal;
         this.idActividadPrincipal = idActividadPrincipal;
+        changeSupport.firePropertyChange("idActividadPrincipal", oldIdActividadPrincipal, idActividadPrincipal);
     }
 
     public Proyecto getIdProyecto() {
@@ -215,7 +244,9 @@ public class ReporteDiario implements Serializable {
     }
 
     public void setIdProyecto(Proyecto idProyecto) {
+        Proyecto oldIdProyecto = this.idProyecto;
         this.idProyecto = idProyecto;
+        changeSupport.firePropertyChange("idProyecto", oldIdProyecto, idProyecto);
     }
 
     public UsuarioProyecto getIdUsuarioProyecto() {
@@ -223,7 +254,9 @@ public class ReporteDiario implements Serializable {
     }
 
     public void setIdUsuarioProyecto(UsuarioProyecto idUsuarioProyecto) {
+        UsuarioProyecto oldIdUsuarioProyecto = this.idUsuarioProyecto;
         this.idUsuarioProyecto = idUsuarioProyecto;
+        changeSupport.firePropertyChange("idUsuarioProyecto", oldIdUsuarioProyecto, idUsuarioProyecto);
     }
 
     public Empleado getIdEmpleado() {
@@ -231,7 +264,9 @@ public class ReporteDiario implements Serializable {
     }
 
     public void setIdEmpleado(Empleado idEmpleado) {
+        Empleado oldIdEmpleado = this.idEmpleado;
         this.idEmpleado = idEmpleado;
+        changeSupport.firePropertyChange("idEmpleado", oldIdEmpleado, idEmpleado);
     }
 
     @XmlTransient
@@ -284,6 +319,14 @@ public class ReporteDiario implements Serializable {
     @Override
     public String toString() {
         return "utub.JPA.ReporteDiario[ idReporteDiario=" + idReporteDiario + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
 
 }

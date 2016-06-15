@@ -69,36 +69,57 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
      */
     public void guardar() {
 
-        this.empleado.setCedula(genericas.getIdCombo(comboEmpleado));
-        reporteDiario.setIdEmpleado(this.empleado);
+        try {
 
-        this.vehiculo.setPlaca(genericas.getTextoCombo(comboPlaca));
-        reporteDiario.setPlaca(this.vehiculo);
+            listaRutaHorarios = new ArrayList<>();
+            listaRutaExternas = new ArrayList<>();
+            listaRutaOcupacion = new ArrayList<>();
+            listaNovedades = new ArrayList<>();
+            listaServicios = new ArrayList<>();
+            this.empleado.setCedula(genericas.getIdCombo(comboEmpleado));
+            reporteDiario.setIdEmpleado(this.empleado);
 
-        this.actividadPrincipal.setIdActividadPrincipal(genericas.getIdComboLong(comboActividad));
-        reporteDiario.setIdActividadPrincipal(this.actividadPrincipal);
+            this.vehiculo.setPlaca(genericas.getTextoCombo(comboPlaca));
+            reporteDiario.setPlaca(this.vehiculo);
 
-        this.usuarioProyecto.setIdUsuarioProyecto(genericas.getIdComboLong(comboUsuario));
-        reporteDiario.setIdUsuarioProyecto(this.usuarioProyecto);
+            this.actividadPrincipal.setIdActividadPrincipal(genericas.getIdComboLong(comboActividad));
+            reporteDiario.setIdActividadPrincipal(this.actividadPrincipal);
 
-        this.proyecto.setIdProyecto(genericas.getIdComboLong(comboProyecto));
-        reporteDiario.setIdProyecto(this.proyecto);
+            this.usuarioProyecto.setIdUsuarioProyecto(genericas.getIdComboLong(comboUsuario));
+            reporteDiario.setIdUsuarioProyecto(this.usuarioProyecto);
 
-        reporteDiario.setFecha(new Date());
-        reporteDiario.setHoraFin(null);
-        reporteDiario.setHoraInicio(null);
-        reporteDiario.setKmFinal(Integer.parseInt("122"));
-        reporteDiario.setKmInicial(Integer.parseInt("1280"));
-        obtenerValoresListados();
-        reporteDiario.setServicioIndividualCollection(listaServicios);
-        reporteDiario.setNovedadCollection(listaNovedades);
-        reporteDiario.setRutaExternaCollection(listaRutaExternas);
-        reporteDiario.setRutaHorarioCollection(listaRutaHorarios);
-        reporteDiario.setRutaOcupacionCollection(listaRutaOcupacion);
+            this.proyecto.setIdProyecto(genericas.getIdComboLong(comboProyecto));
+            reporteDiario.setIdProyecto(this.proyecto);
+            SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
+            Date fechaReporteDiario = null;
+            Date HoraInicio = null;
+            Date HoraFin = null;
+            try {
+                fechaReporteDiario = df.parse(webDateField1.toString().trim());
+                HoraInicio = df.parse(HInicio.toString().trim());
+                HoraFin = df.parse(spinner.toString().trim());
+            }
+            catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "No se puede agregar la hora fecha del reporte diario");
+            }
+            reporteDiario.setFecha(fechaReporteDiario);
+            reporteDiario.setHoraFin(HoraFin);
+            reporteDiario.setHoraInicio(HoraInicio);
+            reporteDiario.setKmFinal(Double.parseDouble(jTextField2.getText().trim()));
+            reporteDiario.setKmInicial(Double.parseDouble(jTextField1.getText().trim()));
+            obtenerValoresListados();
+            reporteDiario.setServicioIndividualCollection(listaServicios);
+            reporteDiario.setNovedadCollection(listaNovedades);
+            reporteDiario.setRutaExternaCollection(listaRutaExternas);
+            reporteDiario.setRutaHorarioCollection(listaRutaHorarios);
+            reporteDiario.setRutaOcupacionCollection(listaRutaOcupacion);
 
-        //reporteDiario.setObservaciones("Faruck obs");
-        genericas.guardarBD(reporteDiario);
-
+            //reporteDiario.setObservaciones("Faruck obs");
+            genericas.guardarBD(reporteDiario);
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.toString(), "Error del sistema", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void getListadoServicioIndividual() {
@@ -788,7 +809,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                     .addComponent(jLabel15)
                     .addComponent(comboCircular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ocupación Rutas Circulares", jPanel1);
@@ -879,7 +900,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -948,7 +969,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1043,7 +1064,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1122,7 +1143,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1154,7 +1175,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1341,8 +1362,8 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                             .addComponent(HInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

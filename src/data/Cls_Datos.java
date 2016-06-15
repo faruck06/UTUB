@@ -5,6 +5,7 @@
  */
 package data;
 
+import JPA.ReporteDiario;
 import JPA.UsuarioProyecto;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -148,5 +149,14 @@ public class Cls_Datos {
             e.printStackTrace();
         }
         return startDate;
+    }
+
+    public List<ReporteDiario> get_Listado_Reportes(ReporteDiario reporteDiario) {
+        Genericas gen = new Genericas();
+        EntityManager em = gen.getEntity();
+        Query query = em.createNamedQuery("ReporteDiario.getAllReporteDiario");
+//        query.setParameter("tipo", tipo);
+//        query.setParameter("nombre", nombre);
+        return query.getResultList();
     }
 }
