@@ -308,12 +308,6 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         //        generar_Listener_Combo_Tipos();
     }
 
-//    public void generar_Listener_Combo_Tipos() {
-//
-////        javax.swing.table.TableColumn tc = this.jTable2.getColumnModel().getColumn(1);
-////        TableCellEditor tce = new DefaultCellEditor(comboTipo);
-////        tc.setCellEditor(tce);
-//    }
     public void generar_Listener_Combo_RutasE(final JTextField textfield, final JComboBox combo) {
         List<String> filterArray = new ArrayList<>();
         filterArray = cls.getListadoRutasTipos("Externa");
@@ -348,9 +342,9 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         filterArray = cls.getListadoActividadNovedad();
         combo.setModel(new DefaultComboBoxModel(filterArray.toArray()));
-        javax.swing.table.TableColumn tc = this.jTable4.getColumnModel().getColumn(6);
-        TableCellEditor tce = new DefaultCellEditor(combo);
-        tc.setCellEditor(tce);
+//        javax.swing.table.TableColumn tc = this.jTable4.getColumnModel().getColumn(6);
+//        TableCellEditor tce = new DefaultCellEditor(combo);
+//        tc.setCellEditor(tce);
 
     }
 
@@ -605,6 +599,24 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
+        jLabel24 = new javax.swing.JLabel();
+        SpinnerDateModel sm1 = new SpinnerDateModel(date, null, null, Calendar.MINUTE);
+        spinner1 = new javax.swing.JSpinner(sm1);
+        jLabel23 = new javax.swing.JLabel();
+        SpinnerDateModel sms1 = new SpinnerDateModel(date, null, null, Calendar.MINUTE);
+        HInicio1 = new javax.swing.JSpinner(sms1);
+        jLabel22 = new javax.swing.JLabel();
+        diferencia1 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        diferenciaKM1 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel28 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
@@ -669,11 +681,6 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextField1FocusLost(evt);
-            }
-        });
-        jTextField1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jTextField1PropertyChange(evt);
             }
         });
 
@@ -1117,20 +1124,156 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             jTable4.getColumnModel().getColumn(5).setResizable(false);
         }
 
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel24.setText("Duración");
+
+        JSpinner.DateEditor de1 = new JSpinner.DateEditor(spinner1, "hh:mm a");
+        de1.getTextField().setEditable( true );
+        spinner1.setEditor(de1);
+        spinner1.addChangeListener(new MyFocusListener2());
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel23.setText("Hora Final");
+
+        JSpinner.DateEditor des1 = new JSpinner.DateEditor(HInicio1, "hh:mm a");
+        des1.getTextField().setEditable( true );
+        HInicio1.setEditor(des1);
+        HInicio1.addChangeListener(new MyFocusListener2());
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel22.setText("Hora Inicio");
+
+        diferencia1.setToolTipText("Hora ( HH:24)");
+        diferencia1.setEnabled(false);
+
+        jTextField5.setText("0");
+        jTextField5.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField5FocusLost(evt);
+            }
+        });
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel25.setText("Km Inicial");
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel27.setText("Total (km)");
+
+        jTextField4.setText("0");
+        jTextField4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField4FocusLost(evt);
+            }
+        });
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel26.setText("Km Final");
+
+        diferenciaKM1.setToolTipText("Hora ( HH:24)");
+        diferenciaKM1.setEnabled(false);
+
+        jComboBox1.setEditable(true);
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel28.setText("Actividad Novedad");
+
+        jButton5.setText("+");
+
+        jButton6.setText("-");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1009, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1009, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(HInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel22)))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel23)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(diferencia1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel24)))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel25)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel26)
+                                .addGap(32, 32, 32)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel27)
+                                .addGap(84, 84, 84)
+                                .addComponent(jLabel28))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(diferenciaKM1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(jButton5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton6)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel23)
+                            .addComponent(jLabel24))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(HInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(diferencia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel26)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel27)
+                            .addComponent(jLabel28))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(diferenciaKM1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton5)
+                            .addComponent(jButton6))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1343,11 +1486,11 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(jLabel8))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(jLabel8)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1498,10 +1641,6 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         jTable2.setModel(dm);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jTextField1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTextField1PropertyChange
-
-    }//GEN-LAST:event_jTextField1PropertyChange
-
     private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
         Double valor;
         try {
@@ -1527,6 +1666,32 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         diferenciaKM.setText(expressn);
     }//GEN-LAST:event_jTextField1FocusLost
 
+    private void jTextField4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField4FocusLost
+        Double valor;
+        try {
+            valor = Double.parseDouble(jTextField5.getText()) - Double.parseDouble(jTextField4.getText());
+        }
+        catch (Exception e) {
+            valor = 0.0;
+        }
+
+        String expressn = valor.toString();
+        diferenciaKM1.setText(expressn);
+    }//GEN-LAST:event_jTextField4FocusLost
+
+    private void jTextField5FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField5FocusLost
+        Double valor;
+        try {
+            valor = Double.parseDouble(jTextField5.getText()) - Double.parseDouble(jTextField4.getText());
+        }
+        catch (Exception e) {
+            valor = 0.0;
+        }
+
+        String expressn = valor.toString();
+        diferenciaKM1.setText(expressn);
+    }//GEN-LAST:event_jTextField5FocusLost
+
     private void obtenerValoresListados() {
         this.reporteDiario.setObservaciones(jTextArea1.getText().trim());
         getListadoServicioIndividual();
@@ -1545,6 +1710,19 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         public void stateChanged(ChangeEvent e) {
             String texto = calcularDiferenciaHoras((Date) HInicio.getModel().getValue(), (Date) spinner.getModel().getValue());
             diferencia.setText(texto);
+        }
+
+    }
+
+    private class MyFocusListener2 implements ChangeListener {
+
+        public MyFocusListener2() {
+        }
+
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            String texto = calcularDiferenciaHoras((Date) HInicio1.getModel().getValue(), (Date) spinner1.getModel().getValue());
+            diferencia1.setText(texto);
         }
 
     }
@@ -1587,6 +1765,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner HInicio;
+    private javax.swing.JSpinner HInicio1;
     private javax.swing.JComboBox comboActividad;
     private javax.swing.JComboBox comboCircular;
     private javax.swing.JComboBox comboEmpleado;
@@ -1598,11 +1777,16 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboTipo_I;
     private javax.swing.JComboBox comboUsuario;
     private javax.swing.JTextField diferencia;
+    private javax.swing.JTextField diferencia1;
     private javax.swing.JTextField diferenciaKM;
+    private javax.swing.JTextField diferenciaKM1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1617,6 +1801,13 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1648,7 +1839,10 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JSpinner spinner;
+    private javax.swing.JSpinner spinner1;
     private javax.swing.JTextField txtOcupacion_I;
     private com.alee.extended.date.WebDateField webDateField1;
     // End of variables declaration//GEN-END:variables
