@@ -57,6 +57,18 @@ public class Vehiculo implements Serializable {
 
     @Column(name = "modelo")
     private String modelo;
+
+    @Column(name = "capacidad")
+    private Integer capacidad;
+
+    public Integer getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(Integer capacidad) {
+        this.capacidad = capacidad;
+    }
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "placa")
     private Collection<ReporteDiario> reporteDiarioCollection;
     @JoinColumn(name = "id_tipo_vehiculo", referencedColumnName = "id_tipo_vehiculo")
