@@ -115,7 +115,12 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             reporteDiario.setRutaOcupacionCollection(listaRutaOcupacion);
 
             //reporteDiario.setObservaciones("Faruck obs");
-            genericas.guardarBD(reporteDiario);
+            String mensaje = genericas.guardarBD(reporteDiario);
+            if (mensaje.equals("")) {
+                JOptionPane.showMessageDialog(null, "Se han guardado exitosamente los registros");
+            } else {
+                JOptionPane.showMessageDialog(null, mensaje);
+            }
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString(), "Error del sistema", JOptionPane.ERROR_MESSAGE);

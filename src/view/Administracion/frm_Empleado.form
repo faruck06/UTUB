@@ -71,62 +71,79 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Component id="masterScrollPane" pref="1050" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="251" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="cedulaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="nombresLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="apellidosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cedulaField" pref="226" max="32767" attributes="0"/>
+                                  <Component id="nombresField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="apellidosField" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="fechaNacimientoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="fechaIngresoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cedulaField" alignment="0" pref="301" max="32767" attributes="0"/>
-                                  <Component id="nombresField" alignment="0" pref="301" max="32767" attributes="0"/>
-                                  <Component id="apellidosField" alignment="0" pref="301" max="32767" attributes="0"/>
-                                  <Component id="fechaNacimientoField" alignment="0" pref="301" max="32767" attributes="0"/>
-                                  <Component id="fechaIngresoField" alignment="0" pref="301" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="fechaNacimientoField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="fechaIngresoField" min="-2" pref="173" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="masterScrollPane" pref="380" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="410" max="-2" attributes="0"/>
+              <Component id="cedulaLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="masterScrollPane" pref="130" max="32767" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cedulaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cedulaField" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="cedulaLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="cedulaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cedulaField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="nombresLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="nombresField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="fechaNacimientoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="fechaNacimientoField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="nombresLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="nombresField" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="apellidosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="apellidosField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Component id="fechaIngresoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="fechaIngresoField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="fechaNacimientoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="fechaNacimientoField" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="fechaIngresoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="fechaIngresoField" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" max="-2" attributes="1"/>
+              <EmptySpace pref="62" max="32767" attributes="0"/>
+              <Component id="masterScrollPane" min="-2" pref="351" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="refreshButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -308,6 +325,14 @@
         <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="cedulaLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Administraci&#xf3;n de Empleados"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
