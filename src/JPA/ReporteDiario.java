@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "reporte_diario")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ReporteDiario.getAllReporteDiario", query = "SELECT r FROM ReporteDiario r "),
+    @NamedQuery(name = "ReporteDiario.getAllReporteDiario", query = "SELECT r FROM ReporteDiario r WHERE r.idEmpleado = :idEmpleado OR (r.placa = :placa) OR (r.idProyecto=:idProyecto) OR (r.idActividadPrincipal=:idActividadPrincipal) OR (r.idUsuarioProyecto=:idUsuarioProyecto) OR ((r.placa = :placa) AND (r.idActividadPrincipal = :idActividadPrincipal) AND (r.idUsuarioProyecto = :idUsuarioProyecto) AND (r.idProyecto = :idProyecto))"),
     @NamedQuery(name = "ReporteDiario.getConsultaReporte1", query = "SELECT r.placa, r.placa.idTipoVehiculo.nombre , r.duracion FROM ReporteDiario r WHERE r.fecha = :fecha"),
     @NamedQuery(name = "ReporteDiario.findAll", query = "SELECT r FROM ReporteDiario r"),
     @NamedQuery(name = "ReporteDiario.findByIdReporteDiario", query = "SELECT r FROM ReporteDiario r WHERE r.idReporteDiario = :idReporteDiario"),

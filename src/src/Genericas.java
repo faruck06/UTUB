@@ -5,6 +5,7 @@
  */
 package src;
 
+import JPA.ReporteDiario;
 import javax.persistence.EntityManager;
 import static javax.persistence.Persistence.createEntityManagerFactory;
 import javax.swing.JComboBox;
@@ -31,6 +32,24 @@ public class Genericas {
             javax.persistence.EntityManager entityManager = createEntityManagerFactory(cadena_conexion).createEntityManager();
             entityManager.getTransaction().begin();
             entityManager.persist(objeto);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return "";
+        }
+        catch (Exception e) {
+            return e.toString();
+        }
+    }
+    
+      /**
+     * Metodo que elimina un objeto de tipo entidad en la base de datos
+     */
+    public String eliminarReporteDiario(Long id) {
+        try {
+            javax.persistence.EntityManager entityManager = createEntityManagerFactory(cadena_conexion).createEntityManager();
+            ReporteDiario reporte = entityManager.find(ReporteDiario.class, id );
+            entityManager.getTransaction().begin();
+            entityManager.remove(reporte);
             entityManager.getTransaction().commit();
             entityManager.close();
             return "";

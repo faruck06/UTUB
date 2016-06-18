@@ -144,8 +144,7 @@ public class Cls_Datos {
         Date startDate = null;
         try {
             startDate = formatter.parse(fecha);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return startDate;
@@ -154,9 +153,59 @@ public class Cls_Datos {
     public List<ReporteDiario> get_Listado_Reportes(ReporteDiario reporteDiario) {
         Genericas gen = new Genericas();
         EntityManager em = gen.getEntity();
-        Query query = em.createNamedQuery("ReporteDiario.getAllReporteDiario");
-//        query.setParameter("tipo", tipo);
-//        query.setParameter("nombre", nombre);
+
+        String sql = "SELECT r FROM ReporteDiario r WHERE 1=1 ";
+        if (reporteDiario.getIdEmpleado() != null) {
+            sql += "AND r.idEmpleado = :idEmpleado ";
+        }
+        if (reporteDiario.getPlaca() != null) {
+            sql += "AND (r.placa = :placa) ";
+        }
+        if (reporteDiario.getFecha() != null) {
+            sql += "AND (r.fecha = :fecha) ";
+        }
+        if (reporteDiario.getIdProyecto() != null) {
+            sql += "AND r.idProyecto=:idProyecto ";
+        }
+        if (reporteDiario.getIdActividadPrincipal() != null) {
+            sql += "AND r.idActividadPrincipal=:idActividadPrincipal ";
+        }
+        if (reporteDiario.getIdUsuarioProyecto() != null) {
+            sql += "AND r.idUsuarioProyecto=:idUsuarioProyecto ";
+        }
+
+        Query query = em.createQuery(sql);
+        if (reporteDiario.getIdEmpleado() != null) {
+            query.setParameter("idEmpleado", reporteDiario.getIdEmpleado());
+        }
+        if (reporteDiario.getPlaca() != null) {
+            query.setParameter("placa", reporteDiario.getPlaca());
+        }
+
+        if (reporteDiario.getIdUsuarioProyecto() != null) {
+            query.setParameter("idUsuarioProyecto", reporteDiario.getIdUsuarioProyecto());
+        }
+
+        if (reporteDiario.getFecha() != null) {
+            query.setParameter("fecha", reporteDiario.getFecha());
+        }
+
+        if (reporteDiario.getIdActividadPrincipal() != null) {
+            query.setParameter("idActividadPrincipal", reporteDiario.getIdActividadPrincipal());
+        }
+
+        if (reporteDiario.getIdProyecto() != null) {
+            query.setParameter("idProyecto", reporteDiario.getIdProyecto());
+        }
+
         return query.getResultList();
+    }
+
+    public ReporteDiario getReporteDiarioEntidad(Object objeto) {
+        Genericas gen = new Genericas();
+        EntityManager em = gen.getEntity();
+        Query query = em.createNamedQuery("ReporteDiario.findByIdReporteDiario");
+        query.setParameter("idReporteDiario", Long.parseLong(objeto.toString()));
+        return (ReporteDiario) query.getSingleResult();
     }
 }
