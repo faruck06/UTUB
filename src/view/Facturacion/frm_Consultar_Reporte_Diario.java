@@ -12,10 +12,7 @@ import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import src.Genericas;
 
@@ -65,12 +62,13 @@ public class frm_Consultar_Reporte_Diario extends javax.swing.JPanel {
 
             dtm.addRow(new Object[]{
                 itera.getIdReporteDiario().toString(),
-                df.format(itera.getFecha()),
-                itera.getIdEmpleado().getNombres() + "," + itera.getIdEmpleado().getApellidos(),
+                df.format(itera.getFecha()), "",
+                //                itera.getIdEmpleado().getNombres() + "," + itera.getIdEmpleado().getApellidos(),
                 itera.getPlaca().getPlaca(),
                 itera.getIdActividadPrincipal().getNombre(),
                 itera.getIdProyecto().getNombre(),
-                itera.getIdUsuarioProyecto().getNombre()});
+                itera.getIdUsuarioProyecto().getNombre()
+            });
         }
 
     }

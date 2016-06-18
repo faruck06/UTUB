@@ -59,7 +59,7 @@ public class ReporteDiario implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_reporte_diario")
     private Long idReporteDiario;
-    @Column(name = "fecha")
+    @Column(name = "fecha", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
     @Column(name = "hora_inicio")
@@ -74,10 +74,15 @@ public class ReporteDiario implements Serializable {
     private Double kmInicial;
     @Column(name = "km_final")
     private Double kmFinal;
+    @Column(name = "diferencia_km")
+    private Double diferenciaKm;
     @Column(name = "tanqueo")
     private Long tanqueo;
     @Column(name = "observaciones")
     private String observaciones;
+    @Column(name = "tipo_ruta_horas")
+    private String tipoRuta;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReporteDiario")
     private Collection<RutaExterna> rutaExternaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReporteDiario")
@@ -181,6 +186,14 @@ public class ReporteDiario implements Serializable {
         changeSupport.firePropertyChange("kmFinal", oldKmFinal, kmFinal);
     }
 
+    public Double getDiferenciaKm() {
+        return diferenciaKm;
+    }
+
+    public void setDiferenciaKm(Double diferenciaKm) {
+        this.diferenciaKm = diferenciaKm;
+    }
+
     public Long getTanqueo() {
         return tanqueo;
     }
@@ -199,6 +212,14 @@ public class ReporteDiario implements Serializable {
         String oldObservaciones = this.observaciones;
         this.observaciones = observaciones;
         changeSupport.firePropertyChange("observaciones", oldObservaciones, observaciones);
+    }
+
+    public String getTipoRuta() {
+        return tipoRuta;
+    }
+
+    public void setTipoRuta(String tipoRuta) {
+        this.tipoRuta = tipoRuta;
     }
 
     @XmlTransient

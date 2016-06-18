@@ -63,6 +63,16 @@ public class Ruta implements Serializable {
     private Collection<RutaHorario> rutaHorarioCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRuta")
     private Collection<ServicioIndividual> servicioIndividualCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRuta")
+    private Collection<RutaExternaHorario> rutaExternaHorariosCollection;
+
+    public Collection<RutaExternaHorario> getRutaExternaHorariosCollection() {
+        return rutaExternaHorariosCollection;
+    }
+
+    public void setRutaExternaHorariosCollection(Collection<RutaExternaHorario> rutaExternaHorariosCollection) {
+        this.rutaExternaHorariosCollection = rutaExternaHorariosCollection;
+    }
 
     public Ruta() {
     }

@@ -48,13 +48,13 @@ public class Vehiculo implements Serializable {
     @Basic(optional = false)
     @Column(name = "placa")
     private String placa;
-    @Basic(optional = false)
+
     @Column(name = "marca")
     private String marca;
-    @Basic(optional = false)
+
     @Column(name = "linea")
     private String linea;
-    @Basic(optional = false)
+
     @Column(name = "modelo")
     private String modelo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "placa")

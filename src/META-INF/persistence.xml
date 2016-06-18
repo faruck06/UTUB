@@ -19,6 +19,7 @@
     <class>JPA.Proyecto</class>
     <class>JPA.RutaOcupacion</class>
     <class>JPA.UsuarioProyecto</class>
+    <class>JPA.RutaExternaHorario</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://sql5.freemysqlhosting.net:3306/sql5122970?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="sql5122970"/>
