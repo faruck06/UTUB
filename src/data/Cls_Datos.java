@@ -215,6 +215,22 @@ public class Cls_Datos {
         EntityManager em = gen.getEntity();
         Query query = em.createNamedQuery("RutaExternaHorario.findByRutaExterna");
         query.setParameter("idRuta", idRuta);
+         == == == =
+
+    public List<String> getListadoUsuarios(String usuario) {
+        Genericas gen = new Genericas();
+        EntityManager em = gen.getEntity();
+        Query query = em.createNamedQuery("Usuario.findByAllUsuarios");
+        query.setParameter("usuario", usuario + "%");
+        return query.getResultList();
+    }
+
+    public List<String> getListadoRol(String nombre) {
+        Genericas gen = new Genericas();
+        EntityManager em = gen.getEntity();
+        Query query = em.createNamedQuery("Rol.findByAllRol");
+        query.setParameter("nombre", nombre + "%");
+         >>> >>> > origin / master
         return query.getResultList();
     }
 }
