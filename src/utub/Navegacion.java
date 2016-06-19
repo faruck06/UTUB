@@ -5,20 +5,7 @@
  */
 package utub;
 
-
-import java.awt.HeadlessException;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import com.sun.awt.AWTUtilities; 
-
-import java.awt.Shape; 
-
-import java.awt.geom.RoundRectangle2D; 
 
 /**
  *
@@ -31,9 +18,7 @@ public class Navegacion extends javax.swing.JPanel {
      */
     public Navegacion() {
         initComponents();
-        Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 30, 30); 
-        
-        
+
     }
 
     /**
@@ -149,7 +134,6 @@ public class Navegacion extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
 //    public String consultar2() throws HeadlessException {
 //        String correcto = "";
 //        try {
@@ -175,7 +159,7 @@ public class Navegacion extends javax.swing.JPanel {
 //        }
 //        return correcto;
 //    }
-//    
+//
 //    public boolean consultar() throws HeadlessException {
 //        boolean correcto = false;
 //        try {
@@ -201,7 +185,6 @@ public class Navegacion extends javax.swing.JPanel {
 //        }
 //        return correcto;
 //    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
