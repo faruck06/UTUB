@@ -52,6 +52,7 @@ public class Cls_Datos {
         query.setParameter("placa", placa + "%");
         return query.getResultList();
     }
+    
 
     /**
      * Metodo que sirve para llenar el combo de proyectos
@@ -207,5 +208,21 @@ public class Cls_Datos {
         Query query = em.createNamedQuery("ReporteDiario.findByIdReporteDiario");
         query.setParameter("idReporteDiario", Long.parseLong(objeto.toString()));
         return (ReporteDiario) query.getSingleResult();
+    }
+
+    public List<String> getListadoUsuarios(String usuario) {
+        Genericas gen = new Genericas();
+        EntityManager em = gen.getEntity();
+        Query query = em.createNamedQuery("Usuario.findByAllUsuarios");
+        query.setParameter("usuario", usuario + "%");
+        return query.getResultList();
+    }
+
+    public List<String> getListadoRol(String nombre) {
+        Genericas gen = new Genericas();
+        EntityManager em = gen.getEntity();
+        Query query = em.createNamedQuery("Rol.findByAllRol");
+        query.setParameter("nombre", nombre + "%");
+        return query.getResultList();
     }
 }

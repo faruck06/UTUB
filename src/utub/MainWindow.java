@@ -98,6 +98,10 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        menu_Reportes = new javax.swing.JMenu();
+        menu_reporte1 = new javax.swing.JMenuItem();
+        menu_reporte2 = new javax.swing.JMenuItem();
+        menu_reporte3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -223,6 +227,40 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem1);
 
+        menu_Reportes.setBorder(null);
+        menu_Reportes.setText("Reportes");
+        menu_Reportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_ReportesActionPerformed(evt);
+            }
+        });
+
+        menu_reporte1.setText("Reporte 1");
+        menu_reporte1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_reporte1ActionPerformed(evt);
+            }
+        });
+        menu_Reportes.add(menu_reporte1);
+
+        menu_reporte2.setText("Reporte 2");
+        menu_reporte2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_reporte2ActionPerformed(evt);
+            }
+        });
+        menu_Reportes.add(menu_reporte2);
+
+        menu_reporte3.setText("Reporte 3");
+        menu_reporte3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_reporte3ActionPerformed(evt);
+            }
+        });
+        menu_Reportes.add(menu_reporte3);
+
+        jMenu3.add(menu_Reportes);
+
         jMenuBar2.add(jMenu3);
 
         setJMenuBar(jMenuBar2);
@@ -301,6 +339,22 @@ public class MainWindow extends javax.swing.JFrame {
         abrir_ventana(frm);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void menu_reporte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_reporte1ActionPerformed
+        
+    }//GEN-LAST:event_menu_reporte1ActionPerformed
+
+    private void menu_ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_ReportesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menu_ReportesActionPerformed
+
+    private void menu_reporte2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_reporte2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menu_reporte2ActionPerformed
+
+    private void menu_reporte3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_reporte3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menu_reporte3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -376,5 +430,9 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenu menu_Reportes;
+    private javax.swing.JMenuItem menu_reporte1;
+    private javax.swing.JMenuItem menu_reporte2;
+    private javax.swing.JMenuItem menu_reporte3;
     // End of variables declaration//GEN-END:variables
 }
