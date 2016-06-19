@@ -16,11 +16,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import static javax.persistence.Persistence.createEntityManagerFactory;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import src.Genericas;
+import static src.Genericas.cadena_conexion;
 
 /**
  *
@@ -44,32 +45,38 @@ public class frm_Consultar_Reporte_Diario extends javax.swing.JPanel {
         //       reporteDiario.setFecha(fechaReporteDiario);
         try {
             reporteDiario.setIdActividadPrincipal(new ActividadPrincipal(genericas.getIdComboLong(comboActividad)));
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
         }
 
         try {
             reporteDiario.setFecha(webDateField1.getDate());
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
         }
 
         try {
             reporteDiario.setIdEmpleado(new Empleado(genericas.getIdCombo(comboEmpleado)));
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
         }
 
         try {
             reporteDiario.setPlaca(new Vehiculo(genericas.getTextoCombo(comboPlaca)));
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
         }
 
         try {
             reporteDiario.setIdUsuarioProyecto(new UsuarioProyecto(genericas.getIdComboLong(comboUsuario)));
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
         }
 
         try {
             reporteDiario.setIdProyecto(new Proyecto(genericas.getIdComboLong(comboProyecto)));
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
         }
 
         List<ReporteDiario> lista = new ArrayList<>();
@@ -140,7 +147,8 @@ public class frm_Consultar_Reporte_Diario extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<String>();
         try {
             filterArray = cls.getListadoEmpleados(enteredText);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -170,7 +178,8 @@ public class frm_Consultar_Reporte_Diario extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoVehiculos(enteredText);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -200,7 +209,8 @@ public class frm_Consultar_Reporte_Diario extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoProyectos(enteredText);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -230,7 +240,8 @@ public class frm_Consultar_Reporte_Diario extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoActividades(enteredText);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -260,7 +271,8 @@ public class frm_Consultar_Reporte_Diario extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoUsuariosProyecto(enteredText);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -475,7 +487,18 @@ public class frm_Consultar_Reporte_Diario extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
+        ReporteDiario reporte = null;
+        int indice = jTable1.getSelectedRow();
+        Long id = Long.parseLong(jTable1.getValueAt(indice, 0).toString());
+        try {
+            javax.persistence.EntityManager entityManager = createEntityManagerFactory(cadena_conexion).createEntityManager();
+            reporte = entityManager.find(ReporteDiario.class, id);
+        }
+        catch (Exception e) {
+        }
+        frm_Modificar_Reporte_Diario frm = new frm_Modificar_Reporte_Diario(reporte);
+        frm.setVisible(true);
+        frm.setAlwaysOnTop(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -492,7 +515,6 @@ public class frm_Consultar_Reporte_Diario extends javax.swing.JPanel {
             String respuesta = genericas.eliminarReporteDiario(Long.parseLong(jTable1.getValueAt(indice, 0).toString()));
             consultar();
         }
-
 
     }//GEN-LAST:event_jButton4ActionPerformed
 

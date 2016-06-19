@@ -64,9 +64,127 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     List<ServicioIndividual> listaServicios;
     Date date = new Date();
 
+    public frm_Ingreso_Reporte_C() {
+        initComponents();
+        this.reporteDiario = new ReporteDiario();
+        this.empleado = new Empleado();
+        this.vehiculo = new Vehiculo();
+        this.actividadPrincipal = new ActividadPrincipal();
+        this.usuarioProyecto = new UsuarioProyecto();
+        this.proyecto = new Proyecto();
+        listaRutaHorarios = new ArrayList<>();
+        listaRutaExternas = new ArrayList<>();
+        listaRutaOcupacion = new ArrayList<>();
+        listaNovedades = new ArrayList<>();
+        listaServicios = new ArrayList<>();
+        inicializar_combos();
+    }
+
+    /**
+     * Constructor de la clase usado para el caso modificar
+     *
+     * @param reporteDiario
+     */
+    public frm_Ingreso_Reporte_C(ReporteDiario reporteDiario) {
+        initComponents();
+        inicializar_combos();
+        onload(reporteDiario);
+    }
+
     /**
      * Metodo que captura las cajas de texto seleccionadas.
      */
+    public void onload(ReporteDiario r) {
+        this.empleado = new Empleado();
+        this.vehiculo = new Vehiculo();
+        this.actividadPrincipal = new ActividadPrincipal();
+        this.usuarioProyecto = new UsuarioProyecto();
+        this.proyecto = new Proyecto();
+        listaRutaHorarios = new ArrayList<>();
+        listaRutaExternas = new ArrayList<>();
+        listaRutaOcupacion = new ArrayList<>();
+        listaNovedades = new ArrayList<>();
+        listaServicios = new ArrayList<>();
+        SimpleDateFormat formato = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm a");
+        webDateField1.setText(formato.format(r.getFecha()));
+        comboEmpleado.setSelectedItem(r.getIdEmpleado().getNombre() + "(" + r.getIdEmpleado().getCedula() + ")");
+        comboPlaca.setSelectedItem(r.getPlaca().getPlaca() + " (" + r.getPlaca().getIdTipoVehiculo().getNombre() + ")");
+        comboActividad.setSelectedItem(r.getIdActividadPrincipal().getNombre() + " (" + r.getIdActividadPrincipal().getIdActividadPrincipal() + ")");
+        comboProyecto.setSelectedItem(r.getIdProyecto().getNombre() + " (" + r.getIdProyecto().getIdProyecto() + ")");
+        comboUsuario.setSelectedItem(r.getIdUsuarioProyecto().getNombre() + " (" + r.getIdUsuarioProyecto().getIdUsuarioProyecto() + ")");
+        jTextField1.setText(r.getKmInicial().toString());
+        jTextField2.setText(r.getKmFinal().toString());
+        diferenciaKM.setText(r.getDiferenciaKm().toString());
+        jTextField3.setText(r.getTanqueo().toString());
+
+        SpinnerDateModel s = new SpinnerDateModel(r.getHoraInicio(), null, null, Calendar.MINUTE);
+        HInicio = new JSpinner(s);
+        JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(HInicio, "hh:mm a");
+        dateEditor.getTextField().setEditable(true);
+        //Faltan los spinners
+        HInicio.setEditor(dateEditor);
+        diferencia.setText(r.getDiferenciaKm().toString());
+        comboTipoRuta.setSelectedItem(r.getTipoRuta());
+
+        //lenado de la tabla1
+        for (RutaHorario itera : r.getRutaHorarioCollection()) {
+            listaRutaHorarios.add(itera);
+            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+            int nRow = dtm.getRowCount();
+            for (int i = 0; i < nRow; i++) {
+                //comparamos si los valores son iguales , el de la tabla y el de la base de datos, y llenamos el campo ocupación.
+                if (jTable1.getValueAt(i, 0) != null) {
+                    if (jTable1.getValueAt(i, 0).equals(formatoHora.format(itera.getIdHorario().getHoraInicio()))) {
+                        jTable1.setValueAt(Integer.parseInt(String.valueOf(itera.getOcupacion())), i, 1);
+                    }
+                }
+            }
+        }
+
+        //llenado de la tabla 2
+        for (RutaExterna itera : r.getRutaExternaCollection()) {
+            listaRutaExternas.add(itera);
+            DefaultTableModel dtm = (DefaultTableModel) jTable2.getModel();
+            dtm.addRow(new Object[]{itera.getIdRuta().getNombre() + "(" + itera.getIdRuta().getIdRuta() + ")", (itera.getIngreso().equals("S")) ? "Entrada" : "Salida", formatoHora.format(itera.getHoraLlegada()), itera.getOcupacion()
+            });
+        }
+
+        //llenado tabla 3
+        int rows = 0;
+        for (RutaOcupacion itera : r.getRutaOcupacionCollection()) {
+            listaRutaOcupacion.add(itera);
+
+            jTable3.setValueAt(itera.getIdRuta().getNombre() + " (" + itera.getIdRuta().getIdRuta() + ")", rows, 0);
+            jTable3.setValueAt(itera.getRecorridosMañana(), rows, 1);
+            jTable3.setValueAt(itera.getOcupacionMañana(), rows, 2);
+            jTable3.setValueAt(itera.getRecorridosTarde(), rows, 3);
+            jTable3.setValueAt(itera.getOcupacionTarde(), rows, 4);
+            jTable3.setValueAt(itera.getRecorridosNoche(), rows, 5);
+            jTable3.setValueAt(itera.getOcupacionNoche(), rows, 6);
+            rows++;
+        }
+        rows = 0;
+        //llenado tabla 4
+        for (Novedad itera : r.getNovedadCollection()) {
+            listaNovedades.add(itera);
+            DefaultTableModel dtm = (DefaultTableModel) jTable4.getModel();
+            dtm.addRow(new Object[]{
+                formatoHora.format(itera.getHoraInicio()), formatoHora.format(itera.getHoraFinal()), itera.getDuracion(), itera.getKmInicial(), itera.getKmFinal(), itera.getTotalKm(), itera.getIdNovedadActividad().getNombre() + "(" + itera.getIdNovedadActividad().getIdActividadNovedad() + ")"
+            });
+        }
+
+        //llenado tabla 5
+        for (ServicioIndividual itera : r.getServicioIndividualCollection()) {
+            listaServicios.add(itera);
+            jTable5.setValueAt(itera.getNombres(), rows, 0);
+            jTable5.setValueAt(itera.getRegistro(), rows, 1);
+            jTable5.setValueAt(itera.getIdRuta().getNombre() + " (" + itera.getIdRuta().getIdRuta() + ")", rows, 2);
+            rows++;
+        }
+        jTextArea1.setText(r.getObservaciones());
+    }
+
     public void guardar() {
 
         try {
@@ -110,16 +228,24 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             reporteDiario.setHoraInicio(HoraInicio);
             reporteDiario.setKmFinal(Double.parseDouble(jTextField2.getText().trim()));
             reporteDiario.setKmInicial(Double.parseDouble(jTextField1.getText().trim()));
-//            obtenerValoresListados();
-//            reporteDiario.setServicioIndividualCollection(listaServicios);
-//            reporteDiario.setNovedadCollection(listaNovedades);
-//            reporteDiario.setRutaExternaCollection(listaRutaExternas);
-//            reporteDiario.setRutaHorarioCollection(listaRutaHorarios);
-//            reporteDiario.setRutaOcupacionCollection(listaRutaOcupacion);
+            obtenerValoresListados();
+            reporteDiario.setServicioIndividualCollection(listaServicios);
+            reporteDiario.setNovedadCollection(listaNovedades);
+            reporteDiario.setRutaExternaCollection(listaRutaExternas);
+            reporteDiario.setRutaHorarioCollection(listaRutaHorarios);
+            reporteDiario.setRutaOcupacionCollection(listaRutaOcupacion);
             reporteDiario.setDiferenciaKm(Double.parseDouble(diferenciaKM.getText().trim()));
             reporteDiario.setTipoRuta(comboTipoRuta.getSelectedItem().toString());
-            reporteDiario.setTanqueo(Long.parseLong(jTextField3.getText()));
+
             try {
+
+                reporteDiario.setTanqueo(Long.parseLong(jTextField3.getText()));
+            }
+            catch (Exception e) {
+                reporteDiario.setTanqueo(Long.parseLong(jTextField3.getText().replaceAll(",", ".")));
+            }
+            try {
+
                 reporteDiario.setDuracion(Double.parseDouble(diferencia.getText()));
             }
             catch (Exception e) {
@@ -174,10 +300,18 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                 }
                 novedad.setHoraInicio(fechaInicio);
                 novedad.setHoraFinal(fechaFin);
-                novedad.setDuracion(Double.parseDouble(itera[2].toString()));
+                try {
+                    novedad.setDuracion(Double.parseDouble(itera[2].toString()));
+                    novedad.setTotalKm(Double.parseDouble(itera[5].toString()));
+                }
+                catch (Exception e) {
+                    novedad.setDuracion(Double.parseDouble(itera[2].toString().replaceAll(",", ".")));
+                    novedad.setTotalKm(Double.parseDouble(itera[5].toString().replaceAll(",", ".")));
+                }
+
                 novedad.setKmInicial(Integer.parseInt(itera[3].toString()));
                 novedad.setKmFinal(Integer.parseInt(itera[4].toString()));
-                novedad.setTotalKm(Integer.parseInt(itera[5].toString()));
+
                 novedad.setIdNovedadActividad(new ActividadNovedad(genericas.getIdFromText(itera[6].toString())));
                 novedad.setIdReporteDiario(this.reporteDiario);
                 this.listaNovedades.add(novedad);
@@ -193,12 +327,12 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                 RutaOcupacion ruta = new RutaOcupacion();
                 ruta.setIdReporteDiario(this.reporteDiario);
                 ruta.setIdRuta(new Ruta(genericas.getIdFromText(itera[0].toString())));
-                ruta.setRecorridosMañana(Integer.parseInt(itera[1].toString()));
-                ruta.setOcupacionMañana(Integer.parseInt(itera[2].toString()));
-                ruta.setRecorridosTarde(Integer.parseInt(itera[3].toString()));
-                ruta.setOcupacionTarde(Integer.parseInt(itera[4].toString()));
-                ruta.setRecorridosNoche(Integer.parseInt(itera[5].toString()));
-                ruta.setOcupacionNoche(Integer.parseInt(itera[6].toString()));
+                ruta.setRecorridosMañana((itera[1] != null) ? Integer.parseInt(itera[1].toString()) : 0);
+                ruta.setOcupacionMañana((itera[2] != null) ? Integer.parseInt(itera[2].toString()) : 0);
+                ruta.setRecorridosTarde((itera[3] != null) ? Integer.parseInt(itera[3].toString()) : 0);
+                ruta.setOcupacionTarde((itera[4] != null) ? Integer.parseInt(itera[4].toString()) : 0);
+                ruta.setRecorridosNoche((itera[5] != null) ? Integer.parseInt(itera[5].toString()) : 0);
+                ruta.setOcupacionNoche((itera[6] != null) ? Integer.parseInt(itera[6].toString()) : 0);
                 this.listaRutaOcupacion.add(ruta);
 
             }
@@ -270,27 +404,6 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         return tableData;
     }
 
-    public frm_Ingreso_Reporte_C() {
-        initComponents();
-        this.reporteDiario = new ReporteDiario();
-        this.empleado = new Empleado();
-        this.vehiculo = new Vehiculo();
-        this.actividadPrincipal = new ActividadPrincipal();
-        this.usuarioProyecto = new UsuarioProyecto();
-        this.proyecto = new Proyecto();
-        listaRutaHorarios = new ArrayList<>();
-        listaRutaExternas = new ArrayList<>();
-        listaRutaOcupacion = new ArrayList<>();
-        listaNovedades = new ArrayList<>();
-        listaServicios = new ArrayList<>();
-        inicializar_combos();
-    }
-
-    public frm_Ingreso_Reporte_C(ReporteDiario reporteDiario) {
-        initComponents();
-        inicializar_combos();
-    }
-
     private void inicializar_combos() {
         cls = new Cls_Datos();
         generar_Listener_Combo_empleados((JTextField) comboEmpleado.getEditor().getEditorComponent(), comboEmpleado);
@@ -304,8 +417,19 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         generar_Listener_Combo_ActividadNovedad((JTextField) comboActividadNovedad.getEditor().getEditorComponent(), comboActividadNovedad);
         generar_Listener_Combo_RutaServicioIndvidual((JTextField) comboRutaIndividual.getEditor().getEditorComponent(), comboRutaIndividual);
         generar_Listener_Horario_Inicial();
-
+        generar_Listener_Combo_horario_ruta();
         //        generar_Listener_Combo_Tipos();
+    }
+
+    public void generar_Listener_Combo_horario_ruta() {
+        List<String> filterArray = new ArrayList<>();
+        List<String> filterArrayConvertido = new ArrayList<>();
+        filterArray = cls.getListadoHorariosRutasExternas(genericas.getIdComboLong(comboRutaExterna_I));
+        SimpleDateFormat formato = new SimpleDateFormat("HH:mm a");
+        for (int x = 0; x < filterArray.size(); x++) {
+            filterArrayConvertido.add(formato.format(filterArray.get(x)));
+        }
+        comboHoraLlegada_I.setModel(new DefaultComboBoxModel(filterArrayConvertido.toArray()));
     }
 
     public void generar_Listener_Combo_RutasE(final JTextField textfield, final JComboBox combo) {
@@ -341,11 +465,11 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     public void generar_Listener_Combo_ActividadNovedad(final JTextField textfield, final JComboBox combo) {
         List<String> filterArray = new ArrayList<>();
         filterArray = cls.getListadoActividadNovedad();
-        combo.setModel(new DefaultComboBoxModel(filterArray.toArray()));
+//        combo.setModel(new DefaultComboBoxModel(filterArray.toArray()));
+        comboActividadNovedad_I.setModel(new DefaultComboBoxModel(filterArray.toArray()));
 //        javax.swing.table.TableColumn tc = this.jTable4.getColumnModel().getColumn(6);
 //        TableCellEditor tce = new DefaultCellEditor(combo);
 //        tc.setCellEditor(tce);
-
     }
 
     public void generar_Listener_Horario_Inicial() {
@@ -613,7 +737,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         jTextField4 = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
         diferenciaKM1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboActividadNovedad_I = new javax.swing.JComboBox<>();
         jLabel28 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -887,6 +1011,17 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(jTable2);
 
+        comboRutaExterna_I.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboRutaExterna_IActionPerformed(evt);
+            }
+        });
+        comboRutaExterna_I.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                comboRutaExterna_IPropertyChange(evt);
+            }
+        });
+
         comboTipo_I.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrada", "Salida" }));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1050,63 +1185,14 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Hora Inicio", "Hora Final", "Duración", "Km Inicial", "Km Final", "Total Km", "Actividad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1172,14 +1258,24 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         diferenciaKM1.setToolTipText("Hora ( HH:24)");
         diferenciaKM1.setEnabled(false);
 
-        jComboBox1.setEditable(true);
+        comboActividadNovedad_I.setEditable(true);
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel28.setText("Actividad Novedad");
 
         jButton5.setText("+");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("-");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1230,7 +1326,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(diferenciaKM1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboActividadNovedad_I, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
                                 .addComponent(jButton5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1269,7 +1365,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(diferenciaKM1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboActividadNovedad_I, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton5)
                             .addComponent(jButton6))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1692,6 +1788,45 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         diferenciaKM1.setText(expressn);
     }//GEN-LAST:event_jTextField5FocusLost
 
+    private void comboRutaExterna_IPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_comboRutaExterna_IPropertyChange
+
+    }//GEN-LAST:event_comboRutaExterna_IPropertyChange
+
+    private void comboRutaExterna_IActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboRutaExterna_IActionPerformed
+        generar_Listener_Combo_horario_ruta();
+    }//GEN-LAST:event_comboRutaExterna_IActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        DefaultTableModel dm = (DefaultTableModel) this.jTable4.getModel();
+        SimpleDateFormat formato = new SimpleDateFormat("HH:mm a");
+        try {
+
+            dm.addRow(new Object[]{formato.format(HInicio1.getValue()), formato.format(spinner1.getValue()),
+                Double.parseDouble(diferencia1.getText().replaceAll(",", ".")),
+                jTextField4.getText(),
+                jTextField5.getText(),
+                Double.parseDouble(diferenciaKM1.getText().replaceAll(",", ".")),
+                comboActividadNovedad_I.getSelectedItem()
+            }
+            );
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No es posible insertar la novedad, por favor, vuelva a intentarlo");
+        }
+        jTable4.setModel(dm);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try {
+            DefaultTableModel dm = (DefaultTableModel) this.jTable4.getModel();
+            dm.removeRow(jTable4.getSelectedRow());
+            jTable4.setModel(dm);
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para eliminar");
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     private void obtenerValoresListados() {
         this.reporteDiario.setObservaciones(jTextArea1.getText().trim());
         getListadoServicioIndividual();
@@ -1699,6 +1834,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         getListadoRutaOcupacion();
         getListadoRutasExternas();
         getListadoRutasCirculares();
+
     }
 
     private class MyFocusListener implements ChangeListener {
@@ -1744,7 +1880,8 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
 
     public static Map<TimeUnit, Long> computeDiff(Date date1, Date date2) {
         long diffInMillies = date2.getTime() - date1.getTime();
-        List<TimeUnit> units = new ArrayList<TimeUnit>(EnumSet.allOf(TimeUnit.class));
+        List<TimeUnit> units = new ArrayList<TimeUnit>(EnumSet.allOf(TimeUnit.class
+        ));
         Collections.reverse(units);
         Map<TimeUnit, Long> result = new LinkedHashMap<TimeUnit, Long>();
         long milliesRest = diffInMillies;
@@ -1767,6 +1904,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     private javax.swing.JSpinner HInicio;
     private javax.swing.JSpinner HInicio1;
     private javax.swing.JComboBox comboActividad;
+    private javax.swing.JComboBox<String> comboActividadNovedad_I;
     private javax.swing.JComboBox comboCircular;
     private javax.swing.JComboBox comboEmpleado;
     private javax.swing.JComboBox<String> comboHoraLlegada_I;
@@ -1786,7 +1924,6 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

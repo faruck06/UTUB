@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "RutaExternaHorario.findAll", query = "SELECT r FROM RutaExternaHorario r"),
     @NamedQuery(name = "RutaExternaHorario.findByIdRutaExternaHorario", query = "SELECT r FROM RutaExternaHorario r WHERE r.idRutaExternaHorario = :idRutaExternaHorario"),
-    @NamedQuery(name = "RutaExternaHorario.findByHora", query = "SELECT r FROM RutaExternaHorario r WHERE r.hora = :hora")})
+    @NamedQuery(name = "RutaExternaHorario.findByRutaExterna", query = "SELECT r.horaLlegada FROM RutaExternaHorario r WHERE r.idRuta.idRuta = :idRuta")})
 public class RutaExternaHorario implements Serializable {
 
     @Transient
@@ -44,9 +44,17 @@ public class RutaExternaHorario implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_ruta_externa_horario")
     private Long idRutaExternaHorario;
-    @Column(name = "hora")
+    @Column(name = "origen")
+    private String origen;
+
+    @Column(name = "destino")
+    private String destino;
+    @Column(name = "hora_llegada")
     @Temporal(TemporalType.TIME)
-    private Date hora;
+    private Date horaLlegada;
+    @Column(name = "hora_Salida")
+    @Temporal(TemporalType.TIME)
+    private Date horaSalida;
     @JoinColumn(name = "id_ruta_externa", referencedColumnName = "id_ruta")
     @ManyToOne(optional = false)
     private Ruta idRuta;
@@ -68,16 +76,6 @@ public class RutaExternaHorario implements Serializable {
         changeSupport.firePropertyChange("idRutaExternaHorario", oldIdRutaExternaHorario, idRutaExternaHorario);
     }
 
-    public Date getHora() {
-        return hora;
-    }
-
-    public void setHora(Date hora) {
-        Date oldHora = this.hora;
-        this.hora = hora;
-        changeSupport.firePropertyChange("hora", oldHora, hora);
-    }
-
     public Ruta getIdRuta() {
         return idRuta;
     }
@@ -86,6 +84,38 @@ public class RutaExternaHorario implements Serializable {
         Ruta oldIdRuta = this.idRuta;
         this.idRuta = idRuta;
         changeSupport.firePropertyChange("idRuta", oldIdRuta, idRuta);
+    }
+
+    public String getOrigen() {
+        return origen;
+    }
+
+    public void setOrigen(String origen) {
+        this.origen = origen;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    public Date getHoraLlegada() {
+        return horaLlegada;
+    }
+
+    public void setHoraLlegada(Date horaLlegada) {
+        this.horaLlegada = horaLlegada;
+    }
+
+    public Date getHoraSalida() {
+        return horaSalida;
+    }
+
+    public void setHoraSalida(Date horaSalida) {
+        this.horaSalida = horaSalida;
     }
 
     @Override

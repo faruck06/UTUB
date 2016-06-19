@@ -144,7 +144,8 @@ public class Cls_Datos {
         Date startDate = null;
         try {
             startDate = formatter.parse(fecha);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
         return startDate;
@@ -207,5 +208,13 @@ public class Cls_Datos {
         Query query = em.createNamedQuery("ReporteDiario.findByIdReporteDiario");
         query.setParameter("idReporteDiario", Long.parseLong(objeto.toString()));
         return (ReporteDiario) query.getSingleResult();
+    }
+
+    public List<String> getListadoHorariosRutasExternas(Long idRuta) {
+        Genericas gen = new Genericas();
+        EntityManager em = gen.getEntity();
+        Query query = em.createNamedQuery("RutaExternaHorario.findByRutaExterna");
+        query.setParameter("idRuta", idRuta);
+        return query.getResultList();
     }
 }

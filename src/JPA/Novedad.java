@@ -59,7 +59,7 @@ public class Novedad implements Serializable {
     @Column(name = "km_final")
     private Integer kmFinal;
     @Column(name = "total_km")
-    private Integer totalKm;
+    private Double totalKm;
     @JoinColumn(name = "id_novedad_actividad", referencedColumnName = "id_actividad_novedad")
     @ManyToOne(optional = false)
     private ActividadNovedad idNovedadActividad;
@@ -122,11 +122,11 @@ public class Novedad implements Serializable {
         this.kmFinal = kmFinal;
     }
 
-    public Integer getTotalKm() {
+    public Double getTotalKm() {
         return totalKm;
     }
 
-    public void setTotalKm(Integer totalKm) {
+    public void setTotalKm(Double totalKm) {
         this.totalKm = totalKm;
     }
 
