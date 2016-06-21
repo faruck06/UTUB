@@ -15,6 +15,7 @@ import JPA.ServicioIndividual;
 import JPA.UsuarioProyecto;
 import JPA.Vehiculo;
 import data.Cls_Datos;
+import java.awt.HeadlessException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
@@ -94,99 +95,114 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     /**
      * Metodo que captura las cajas de texto seleccionadas.
      */
-    public void onload(ReporteDiario r) {
-        this.empleado = new Empleado();
-        this.vehiculo = new Vehiculo();
-        this.actividadPrincipal = new ActividadPrincipal();
-        this.usuarioProyecto = new UsuarioProyecto();
-        this.proyecto = new Proyecto();
-        listaRutaHorarios = new ArrayList<>();
-        listaRutaExternas = new ArrayList<>();
-        listaRutaOcupacion = new ArrayList<>();
-        listaNovedades = new ArrayList<>();
-        listaServicios = new ArrayList<>();
-        SimpleDateFormat formato = new SimpleDateFormat("dd.MM.yyyy");
-        SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm a");
-        webDateField1.setText(formato.format(r.getFecha()));
-        comboEmpleado.setSelectedItem(r.getIdEmpleado().getNombre() + "(" + r.getIdEmpleado().getCedula() + ")");
-        comboPlaca.setSelectedItem(r.getPlaca().getPlaca() + " (" + r.getPlaca().getIdTipoVehiculo().getNombre() + ")");
-        comboActividad.setSelectedItem(r.getIdActividadPrincipal().getNombre() + " (" + r.getIdActividadPrincipal().getIdActividadPrincipal() + ")");
-        comboProyecto.setSelectedItem(r.getIdProyecto().getNombre() + " (" + r.getIdProyecto().getIdProyecto() + ")");
-        comboUsuario.setSelectedItem(r.getIdUsuarioProyecto().getNombre() + " (" + r.getIdUsuarioProyecto().getIdUsuarioProyecto() + ")");
-        jTextField1.setText(r.getKmInicial().toString());
-        jTextField2.setText(r.getKmFinal().toString());
-        diferenciaKM.setText(r.getDiferenciaKm().toString());
-        jTextField3.setText(r.getTanqueo().toString());
+    private void onload(ReporteDiario r) {
+        try {
+            this.reporteDiario = r;
+            jButton1.setText("Modificar");
+            this.empleado = new Empleado();
+            this.vehiculo = new Vehiculo();
+            this.actividadPrincipal = new ActividadPrincipal();
+            this.usuarioProyecto = new UsuarioProyecto();
+            this.proyecto = new Proyecto();
+            listaRutaHorarios = new ArrayList<>();
+            listaRutaExternas = new ArrayList<>();
+            listaRutaOcupacion = new ArrayList<>();
+            listaNovedades = new ArrayList<>();
+            listaServicios = new ArrayList<>();
+            SimpleDateFormat formato = new SimpleDateFormat("dd.MM.yyyy");
+            SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm a");
+            webDateField1.setText(formato.format(r.getFecha()));
+            comboEmpleado.setSelectedItem(r.getIdEmpleado().getNombre() + "(" + r.getIdEmpleado().getCedula() + ")");
+            comboPlaca.setSelectedItem(r.getPlaca().getPlaca() + " (" + r.getPlaca().getIdTipoVehiculo().getNombre() + ")");
+            comboActividad.setSelectedItem(r.getIdActividadPrincipal().getNombre() + " (" + r.getIdActividadPrincipal().getIdActividadPrincipal() + ")");
+            comboProyecto.setSelectedItem(r.getIdProyecto().getNombre() + " (" + r.getIdProyecto().getIdProyecto() + ")");
+            comboUsuario.setSelectedItem(r.getIdUsuarioProyecto().getNombre() + " (" + r.getIdUsuarioProyecto().getIdUsuarioProyecto() + ")");
+            jTextField1.setText(r.getKmInicial().toString());
+            jTextField2.setText(r.getKmFinal().toString());
+            diferenciaKM.setText(r.getDiferenciaKm().toString());
+            jTextField3.setText(r.getTanqueo().toString());
 
-        SpinnerDateModel s = new SpinnerDateModel(r.getHoraInicio(), null, null, Calendar.MINUTE);
-        HInicio = new JSpinner(s);
-        JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(HInicio, "hh:mm a");
-        dateEditor.getTextField().setEditable(true);
-        //Faltan los spinners
-        HInicio.setEditor(dateEditor);
-        diferencia.setText(r.getDiferenciaKm().toString());
-        comboTipoRuta.setSelectedItem(r.getTipoRuta());
+            if (!r.getRutaHorarioCollection().isEmpty()) {
+                String ruta = "";
+                for (RutaHorario itera : r.getRutaHorarioCollection()) {
+                    ruta = itera.getIdRuta().getNombre() + "(" + itera.getIdRuta().getIdRuta() + ")";
+                    this.comboCircular.setSelectedItem(ruta);
 
-        //lenado de la tabla1
-        for (RutaHorario itera : r.getRutaHorarioCollection()) {
-            listaRutaHorarios.add(itera);
-            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-            int nRow = dtm.getRowCount();
-            for (int i = 0; i < nRow; i++) {
-                //comparamos si los valores son iguales , el de la tabla y el de la base de datos, y llenamos el campo ocupación.
-                if (jTable1.getValueAt(i, 0) != null) {
-                    if (jTable1.getValueAt(i, 0).equals(formatoHora.format(itera.getIdHorario().getHoraInicio()))) {
-                        jTable1.setValueAt(Integer.parseInt(String.valueOf(itera.getOcupacion())), i, 1);
+                }
+            }
+
+            HInicio.setValue(r.getHoraInicio());
+            spinner.setValue(r.getHoraFin());
+            diferencia.setText(r.getDuracion().toString());
+            comboTipoRuta.setSelectedItem(r.getTipoRuta());
+
+            //lenado de la tabla1
+            for (RutaHorario itera : r.getRutaHorarioCollection()) {
+                listaRutaHorarios.add(itera);
+                DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+                int nRow = dtm.getRowCount();
+                for (int i = 0; i < nRow; i++) {
+                    //comparamos si los valores son iguales , el de la tabla y el de la base de datos, y llenamos el campo ocupación.
+                    if (jTable1.getValueAt(i, 0) != null) {
+                        if (jTable1.getValueAt(i, 0).equals(formatoHora.format(itera.getIdHorario().getHoraInicio()))) {
+                            jTable1.setValueAt(Integer.parseInt(String.valueOf(itera.getOcupacion())), i, 1);
+                        }
                     }
                 }
             }
-        }
 
-        //llenado de la tabla 2
-        for (RutaExterna itera : r.getRutaExternaCollection()) {
-            listaRutaExternas.add(itera);
-            DefaultTableModel dtm = (DefaultTableModel) jTable2.getModel();
-            dtm.addRow(new Object[]{itera.getIdRuta().getNombre() + "(" + itera.getIdRuta().getIdRuta() + ")", (itera.getIngreso().equals("S")) ? "Entrada" : "Salida", formatoHora.format(itera.getHoraLlegada()), itera.getOcupacion()
-            });
-        }
+            //llenado de la tabla 2
+            for (RutaExterna itera : r.getRutaExternaCollection()) {
+                listaRutaExternas.add(itera);
+                DefaultTableModel dtm = (DefaultTableModel) jTable2.getModel();
+                dtm.addRow(new Object[]{itera.getIdRuta().getNombre() + "(" + itera.getIdRuta().getIdRuta() + ")", (itera.getIngreso().equals("S")) ? "Entrada" : "Salida", formatoHora.format(itera.getHoraLlegada()), itera.getOcupacion()
+                });
+            }
 
-        //llenado tabla 3
-        int rows = 0;
-        for (RutaOcupacion itera : r.getRutaOcupacionCollection()) {
-            listaRutaOcupacion.add(itera);
+            //llenado tabla 3
+            int rows = 0;
+            for (RutaOcupacion itera : r.getRutaOcupacionCollection()) {
+                listaRutaOcupacion.add(itera);
 
-            jTable3.setValueAt(itera.getIdRuta().getNombre() + " (" + itera.getIdRuta().getIdRuta() + ")", rows, 0);
-            jTable3.setValueAt(itera.getRecorridosMañana(), rows, 1);
-            jTable3.setValueAt(itera.getOcupacionMañana(), rows, 2);
-            jTable3.setValueAt(itera.getRecorridosTarde(), rows, 3);
-            jTable3.setValueAt(itera.getOcupacionTarde(), rows, 4);
-            jTable3.setValueAt(itera.getRecorridosNoche(), rows, 5);
-            jTable3.setValueAt(itera.getOcupacionNoche(), rows, 6);
-            rows++;
-        }
-        rows = 0;
-        //llenado tabla 4
-        for (Novedad itera : r.getNovedadCollection()) {
-            listaNovedades.add(itera);
-            DefaultTableModel dtm = (DefaultTableModel) jTable4.getModel();
-            dtm.addRow(new Object[]{
-                formatoHora.format(itera.getHoraInicio()), formatoHora.format(itera.getHoraFinal()), itera.getDuracion(), itera.getKmInicial(), itera.getKmFinal(), itera.getTotalKm(), itera.getIdNovedadActividad().getNombre() + "(" + itera.getIdNovedadActividad().getIdActividadNovedad() + ")"
-            });
-        }
+                jTable3.setValueAt(itera.getIdRuta().getNombre() + " (" + itera.getIdRuta().getIdRuta() + ")", rows, 0);
+                jTable3.setValueAt(itera.getRecorridosMañana(), rows, 1);
+                jTable3.setValueAt(itera.getOcupacionMañana(), rows, 2);
+                jTable3.setValueAt(itera.getRecorridosTarde(), rows, 3);
+                jTable3.setValueAt(itera.getOcupacionTarde(), rows, 4);
+                jTable3.setValueAt(itera.getRecorridosNoche(), rows, 5);
+                jTable3.setValueAt(itera.getOcupacionNoche(), rows, 6);
+                rows++;
+            }
+            rows = 0;
+            //llenado tabla 4
+            for (Novedad itera : r.getNovedadCollection()) {
+                listaNovedades.add(itera);
+                DefaultTableModel dtm = (DefaultTableModel) jTable4.getModel();
+                dtm.addRow(new Object[]{
+                    formatoHora.format(itera.getHoraInicio()), formatoHora.format(itera.getHoraFinal()), itera.getDuracion(), itera.getKmInicial(), itera.getKmFinal(), itera.getTotalKm(), itera.getIdNovedadActividad().getNombre() + "(" + itera.getIdNovedadActividad().getIdActividadNovedad() + ")"
+                });
+            }
 
-        //llenado tabla 5
-        for (ServicioIndividual itera : r.getServicioIndividualCollection()) {
-            listaServicios.add(itera);
-            jTable5.setValueAt(itera.getNombres(), rows, 0);
-            jTable5.setValueAt(itera.getRegistro(), rows, 1);
-            jTable5.setValueAt(itera.getIdRuta().getNombre() + " (" + itera.getIdRuta().getIdRuta() + ")", rows, 2);
-            rows++;
+            //llenado tabla 5
+            for (ServicioIndividual itera : r.getServicioIndividualCollection()) {
+                listaServicios.add(itera);
+                jTable5.setValueAt(itera.getNombres(), rows, 0);
+                jTable5.setValueAt(itera.getRegistro(), rows, 1);
+                jTable5.setValueAt(itera.getIdRuta().getNombre() + " (" + itera.getIdRuta().getIdRuta() + ")", rows, 2);
+                rows++;
+            }
+            jTextArea1.setText(r.getObservaciones());
+
         }
-        jTextArea1.setText(r.getObservaciones());
+        catch (Exception e) {
+        }
     }
 
     public void guardar() {
+        crear_registro();
+    }
 
+    private void crear_registro() throws HeadlessException {
         try {
 
             listaRutaHorarios = new ArrayList<>();
@@ -215,10 +231,10 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             Date HoraFin = null;
             try {
                 fechaReporteDiario = df2.parse(webDateField1.getText().trim());
-//                HoraInicio = df.parse(HInicio.getValue().toString().trim());
+
                 HoraInicio = (Date) HInicio.getValue();
                 HoraFin = (Date) spinner.getValue();
-//                HoraFin = df.parse(spinner.getValue().toString().trim());
+
             }
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "No se puede agregar la hora fecha del reporte diario");
@@ -251,7 +267,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             catch (Exception e) {
                 reporteDiario.setDuracion(Double.parseDouble(diferencia.getText().replaceAll(",", ".")));
             }
-            reporteDiario.setDuracion(Double.parseDouble(diferencia.getText().replaceAll(",", ".")));
+
             String mensaje = genericas.guardarBD(reporteDiario);
             if (mensaje.equals("")) {
                 JOptionPane.showMessageDialog(null, "Se han guardado exitosamente los registros");
@@ -639,16 +655,20 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     }
 
     public void generar_Listener_Combo_Rutas(final JTextField textfield, final JComboBox combo) {
-        textfield.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent ke) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        filter_combo_Rutas(textfield.getText(), combo);
-                    }
-                });
-            }
-        });
+        List<String> filterArray = new ArrayList<>();
+        try {
+            filterArray = cls.getListadoRutasTipos("Circular");
+        }
+        catch (Exception ex) {
+            System.out.println("error" + ex);
+        }
+        if (filterArray.size() > 0) {
+            combo.setModel(new DefaultComboBoxModel(filterArray.toArray()));
+        }
+//            combo.showPopup();
+//        } else {
+////            combo.hidePopup();
+//        }
     }
 
     public void filter_combo_Rutas(String enteredText, JComboBox combo) {

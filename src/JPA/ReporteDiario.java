@@ -83,9 +83,9 @@ public class ReporteDiario implements Serializable {
     @Column(name = "tipo_ruta_horas")
     private String tipoRuta;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReporteDiario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReporteDiario", orphanRemoval = true)
     private Collection<RutaExterna> rutaExternaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReporteDiario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReporteDiario", orphanRemoval = true)
     private Collection<RutaOcupacion> rutaOcupacionCollection;
     @JoinColumn(name = "placa", referencedColumnName = "placa")
     @ManyToOne(optional = false)
@@ -102,11 +102,11 @@ public class ReporteDiario implements Serializable {
     @JoinColumn(name = "id_empleado", referencedColumnName = "cedula")
     @ManyToOne(optional = false)
     private Empleado idEmpleado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReporteDiario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReporteDiario", orphanRemoval = true)
     private Collection<Novedad> novedadCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReporteDiario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReporteDiario", orphanRemoval = true)
     private Collection<RutaHorario> rutaHorarioCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReporteDiario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReporteDiario", orphanRemoval = true)
     private Collection<ServicioIndividual> servicioIndividualCollection;
 
     public ReporteDiario() {

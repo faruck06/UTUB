@@ -31,7 +31,7 @@ public class Genericas {
         try {
             javax.persistence.EntityManager entityManager = createEntityManagerFactory(cadena_conexion).createEntityManager();
             entityManager.getTransaction().begin();
-            entityManager.persist(objeto);
+            entityManager.merge(objeto);
             entityManager.getTransaction().commit();
             entityManager.close();
             return "";
@@ -40,14 +40,14 @@ public class Genericas {
             return e.toString();
         }
     }
-    
-      /**
+
+    /**
      * Metodo que elimina un objeto de tipo entidad en la base de datos
      */
     public String eliminarReporteDiario(Long id) {
         try {
             javax.persistence.EntityManager entityManager = createEntityManagerFactory(cadena_conexion).createEntityManager();
-            ReporteDiario reporte = entityManager.find(ReporteDiario.class, id );
+            ReporteDiario reporte = entityManager.find(ReporteDiario.class, id);
             entityManager.getTransaction().begin();
             entityManager.remove(reporte);
             entityManager.getTransaction().commit();
