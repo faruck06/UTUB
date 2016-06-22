@@ -22,6 +22,7 @@ import view.Administracion.frm_Usuario_Proyecto;
 import view.Administracion.frm_Vehiculo;
 import view.Facturacion.frm_Consultar_Reporte_Diario;
 import view.Facturacion.frm_Ingreso_Reporte_C;
+import view.Reportes.Facturacion_1;
 
 /**
  *
@@ -228,7 +229,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu3.add(jMenuItem1);
 
         menu_Reportes.setBorder(null);
-        menu_Reportes.setText("Reportes");
+        menu_Reportes.setText(" Reportes");
         menu_Reportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_ReportesActionPerformed(evt);
@@ -340,7 +341,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void menu_reporte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_reporte1ActionPerformed
-        
+        Facturacion_1 f = new Facturacion_1();
+        abrir_ventana(f);
     }//GEN-LAST:event_menu_reporte1ActionPerformed
 
     private void menu_ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_ReportesActionPerformed
