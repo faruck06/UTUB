@@ -493,12 +493,13 @@ public class frm_Consultar_Reporte_Diario extends javax.swing.JPanel {
         try {
             javax.persistence.EntityManager entityManager = createEntityManagerFactory(cadena_conexion).createEntityManager();
             reporte = entityManager.find(ReporteDiario.class, id);
+            frm_Modificar_Reporte_Diario frm = new frm_Modificar_Reporte_Diario(reporte);
+            frm.setVisible(true);
+            //frm.setAlwaysOnTop(true);
         }
         catch (Exception e) {
         }
-        frm_Modificar_Reporte_Diario frm = new frm_Modificar_Reporte_Diario(reporte);
-        frm.setVisible(true);
-        frm.setAlwaysOnTop(true);
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

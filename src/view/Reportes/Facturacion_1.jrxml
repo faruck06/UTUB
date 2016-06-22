@@ -1,67 +1,244 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
-<!-- 2016-06-11T15:04:39 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Facturacion_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e2e1e84f-3c2d-47ff-90f7-636360be30bf">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (4)"/>
+<!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
+<!-- 2016-06-21T19:59:05 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Facturacion_2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f0c6b98f-6bcf-4191-8797-6ff826e3d60d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="bdUTUB.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Crosstab_CH" mode="Opaque" backcolor="#F5F5F5">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CG" mode="Opaque" backcolor="#F2F2F2">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 1_CH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 1_CG" mode="Opaque" backcolor="#F0F0F0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 1_CT" mode="Opaque" backcolor="#9C9C9C">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 1_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="f1" class="java.sql.Date"/>
+	<parameter name="f2" class="java.sql.Date"/>
 	<queryString>
-		<![CDATA[select  sql5122970.reporte_diario.placa ,  sql5122970.tipo_vehiculo.nombre   
-, sql5122970.reporte_diario.duracion 
+		<![CDATA[select  r.fecha ,r.placa , t.nombre, r.duracion 
 from reporte_diario r, vehiculo v, tipo_vehiculo t
-where sql5122970.reporte_diario.placa =  sql5122970.vehiculo.placa 
-and  sql5122970.vehiculo.id_tipo_vehiculo =  sql5122970.tipo_vehiculo]]>
+where r.placa = v.placa 
+and v.id_tipo_vehiculo =  t.id_tipo_vehiculo
+and r.fecha between  $P{f1}  AND $P{f2}]]>
 	</queryString>
-	<field name="Placa" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Tipo_vehiculo" class="java.lang.String"/>
-	<field name="Duracion" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="placa" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="duracion" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<pageHeader>
-		<band height="47" splitType="Stretch">
+	<title>
+		<band height="73" splitType="Stretch">
 			<staticText>
-				<reportElement x="227" y="10" width="152" height="30" uuid="6228a9a0-d0d7-42e7-80b0-2af9126e7439"/>
-				<text><![CDATA[Reporte Duración vehiculo]]></text>
-			</staticText>
-		</band>
-	</pageHeader>
-	<columnHeader>
-		<band height="30" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="100" height="30" uuid="c108c787-9ba0-4c63-9166-f4f29f89ede8"/>
-				<text><![CDATA[Placa]]></text>
+				<reportElement x="10" y="10" width="100" height="30" uuid="a4a4925b-f16d-4dd6-9747-e66060730174"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UTUB]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="0" width="100" height="30" uuid="2864579b-9487-49f7-bbcd-711d69ea67a2"/>
-				<text><![CDATA[Tipo_vehiculo]]></text>
+				<reportElement x="170" y="9" width="430" height="60" uuid="7396ace1-214f-4ec4-9287-f005d68c1615"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte consolidado horas trabajadas vehículos por periodo]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="200" y="0" width="100" height="30" uuid="c380dc5a-46c0-48ef-a74e-c9c52c1a00e4"/>
-				<text><![CDATA[Duracion]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="32" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="100" height="30" uuid="66099346-f13b-4c03-a784-d051b300cade"/>
-				<textFieldExpression><![CDATA[$F{Placa}]]></textFieldExpression>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="691" y="30" width="100" height="20" uuid="679561fd-1bb3-4f71-b8ac-b04669c4c2c2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="100" y="0" width="100" height="30" uuid="fbf60782-9633-4fde-b6e0-6bd3e1411f1a"/>
-				<textFieldExpression><![CDATA[$F{Tipo_vehiculo}]]></textFieldExpression>
+			<textField pattern="HH:mm">
+				<reportElement x="691" y="50" width="100" height="18" uuid="3f8fa179-1ddc-4c22-8f83-2f00b1e5f0d9"/>
+				<textElement textAlignment="Right" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="200" y="0" width="100" height="30" uuid="0e0d7a5b-e5ea-433a-9f7d-155b4eb65126"/>
-				<textFieldExpression><![CDATA[$F{Duracion}]]></textFieldExpression>
-			</textField>
+			<line>
+				<reportElement x="0" y="69" width="791" height="1" uuid="df7a9ad2-733c-4477-a36a-9948b4ebf751"/>
+			</line>
 		</band>
-	</detail>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
+	</title>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="216" splitType="Stretch">
+			<crosstab>
+				<reportElement x="10" y="2" width="782" height="210" uuid="9a935140-9789-4df4-b77c-944fb999c104">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				</reportElement>
+				<rowGroup name="placa" width="90" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{placa}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="e56a7d00-6721-484c-be39-d45d600d7882"/>
+								<textElement>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{placa}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CT">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="20" forecolor="#FFFFFF" uuid="9ff334db-3707-4cc1-9f35-868bd6559be6"/>
+								<text><![CDATA[Total horas día]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="fecha" height="70" totalPosition="End">
+					<bucket class="java.sql.Date">
+						<bucketExpression><![CDATA[$F{fecha}]]></bucketExpression>
+					</bucket>
+					<crosstabHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="70" uuid="fd5fd14d-6ce4-4b06-ba39-74398ec0e6f0"/>
+								<box>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Vehículo]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabHeader>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<textField>
+								<reportElement x="0" y="0" width="40" height="70" uuid="25d71386-593d-49c7-813e-18d28c879c33"/>
+								<box>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[(new SimpleDateFormat("dd/MM/yyyy").format($V{fecha}))]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CT">
+							<staticText>
+								<reportElement x="0" y="0" width="60" height="70" forecolor="#FFFFFF" uuid="2174c4fc-5ed5-4e4f-bf52-5b35acd222c1"/>
+								<box>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total Horas Vehiculo]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="duracion_MEASURE" class="java.math.BigDecimal" calculation="Sum">
+					<measureExpression><![CDATA[$F{duracion}]]></measureExpression>
+				</measure>
+				<crosstabCell width="40" height="20">
+					<cellContents mode="Opaque" style="Crosstab 1_CD">
+						<textField>
+							<reportElement x="0" y="0" width="40" height="20" uuid="f824adb2-f754-47bc-886f-3661b7c1cb56"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<paragraph lineSpacing="1_1_2" rightIndent="4"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{duracion_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="fecha">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="19f444cd-b9b2-4581-ba86-c0418cee242d"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<paragraph rightIndent="4"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{duracion_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="40" height="20" rowTotalGroup="placa">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="a5ab79ac-f856-4d14-bdb2-ec461fd6c2ae"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<paragraph rightIndent="4"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{duracion_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="placa" columnTotalGroup="fecha">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="c52f5a65-855d-4ad3-abc4-89fd888ffd77"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<paragraph rightIndent="4"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{duracion_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
 	</summary>
 </jasperReport>
