@@ -18,7 +18,7 @@ public class UTUB {
      */
     public static void main(String[] args) {
         WebLookAndFeel.install();
-        MainWindow principal = new MainWindow();
+        frm_Navegacion principal = new frm_Navegacion();
         principal.setVisible(true);
         principal.setTitle("Sistema de Información Transporte Rio Grande S.A.S.");
         principal.setIconImage(null);

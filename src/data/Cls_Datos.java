@@ -233,4 +233,14 @@ public class Cls_Datos {
         query.setParameter("nombre", nombre + "%");
         return query.getResultList();
     }
+    
+    public List<String> getListadoUsuario(String usuario, String password) {
+        Genericas gen = new Genericas();
+        EntityManager em = gen.getEntity();
+        Query query = em.createNamedQuery("Usuario.findByUsuario");
+        query.setParameter("usuario", usuario);
+        query.setParameter("password", password);
+        return query.getResultList();
+    }
+    
 }
