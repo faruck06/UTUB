@@ -26,7 +26,7 @@
     <class>JPA.Rol</class>
     <class>JPA.UsuarioRol</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://sql5.freemysqlhosting.net:3306/sql5122970?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.87:3306/sql5122970?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="sql5122970"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="xwqNy5xu8Z"/>
