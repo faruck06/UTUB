@@ -5,24 +5,13 @@
  */
 package utub;
 
-
-import com.alee.laf.WebLookAndFeel;
-import data.Cls_Datos;
-import java.awt.HeadlessException;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import src.Genericas;
 
 /**
  *
  * @author Developer
  */
 public class Navegacion extends javax.swing.JPanel {
-
-    Cls_Datos cls = new Cls_Datos();
-    Genericas genericas = new Genericas();
 
     public Navegacion() {
         initComponents();
@@ -128,41 +117,11 @@ public class Navegacion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        consultar();
+//        this.estado = consultar();
+//        System.out.println("Entro al action");
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public boolean consultar() throws HeadlessException {
-        boolean correcto = false;
-
-        char[] contra = pass.getPassword();
-        String password = new String(contra);
-        String usuario = nick.getText().trim();
-
-        List<String> filterArray = new ArrayList<>();
-        try {
-            filterArray = cls.getListadoUsuario(usuario, password);
-        } catch (Exception ex) {
-            System.out.println("error" + ex);
-        }
-
-        if (filterArray.size() > 0) {
-
-            correcto = true;
-            WebLookAndFeel.install();
-            MainWindow secundario = new MainWindow();
-            secundario.setVisible(true);
-            this.setVisible(false);
-            
-           
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "Contraseña y usuario incorrectos\n Por favor verifique sus datos");
-            pass.setText("");
-        }
-
-        return correcto;
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;

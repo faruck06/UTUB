@@ -11,7 +11,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,10 +44,10 @@ public class UsuarioRol implements Serializable {
     @Column(name = "id_usuario_rol")
     private Long idUsuarioRol;
     @JoinColumn(name = "id_rol_usuario", referencedColumnName = "id_rol")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Rol idRolUsuario;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Usuario idUsuario;
 
     public UsuarioRol() {
@@ -120,5 +119,5 @@ public class UsuarioRol implements Serializable {
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
     }
-    
+
 }

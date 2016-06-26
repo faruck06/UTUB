@@ -18,10 +18,12 @@ public class UTUB {
      */
     public static void main(String[] args) {
         WebLookAndFeel.install();
-        frm_Navegacion principal = new frm_Navegacion();
-        principal.setVisible(true);
-        principal.setTitle("Sistema de Información Transporte Rio Grande S.A.S.");
-        principal.setIconImage(null);
+        MainWindow mainWindow = new MainWindow();
+        mainWindow.setVisible(true);
+//        frm_Navegacion principal = new frm_Navegacion();
+//        principal.setVisible(true);
+//        principal.setTitle("Sistema de Información Transporte Rio Grande S.A.S.");
+//        principal.setIconImage(null);
     }
-    
+
 }

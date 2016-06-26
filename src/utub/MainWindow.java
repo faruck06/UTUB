@@ -105,6 +105,7 @@ public class MainWindow extends javax.swing.JFrame {
         menu_reporte3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema información Transportes Rio Grande LTDA");
         setBackground(new java.awt.Color(255, 255, 255));
         setIconImages(null);
         setResizable(false);

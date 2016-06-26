@@ -13,7 +13,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")})
 public class Usuario implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Collection<UsuarioRol> usuarioRolCollection;
 
     @Transient
@@ -173,5 +172,5 @@ public class Usuario implements Serializable {
     public void setUsuarioRolCollection(Collection<UsuarioRol> usuarioRolCollection) {
         this.usuarioRolCollection = usuarioRolCollection;
     }
-    
+
 }
