@@ -22,7 +22,7 @@ import view.Administracion.frm_Usuario_Proyecto;
 import view.Administracion.frm_Vehiculo;
 import view.Facturacion.frm_Consultar_Reporte_Diario;
 import view.Facturacion.frm_Ingreso_Reporte_C;
-import view.Reportes.Facturacion_1;
+import view.Facturacion.Reportes.Facturacion_1;
 
 /**
  *
