@@ -55,7 +55,7 @@ public class MainWindow extends javax.swing.JFrame {
 //        FondoIndex.removeAll();
 //        final Navegacion navegacion = new Navegacion();
 //        navegacion.setBounds(0, 0, V_WIDTH, V_HEIGHT);
-//        FondoIndex.add(navegacion, javax.swing.JLayeredPane.DEFAULT_LAYER);
+//       FondoIndex.add(navegacion, javax.swing.JLayeredPane.DEFAULT_LAYER);
 //        ocultar_Admon();
 //        ocultar_reportes();
 //        navegacion.addButton1ActionListener(new ActionListener() {
@@ -71,7 +71,7 @@ public class MainWindow extends javax.swing.JFrame {
 //                //setEstado(navegacion.consultar());
 //            }
 //        });
-//    }
+//   }
     public void abrir_ventana(JPanel panel) {
         FondoIndex.removeAll();
         panel.setBounds(0, 0, V_WIDTH, V_HEIGHT);

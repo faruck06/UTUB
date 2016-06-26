@@ -5,7 +5,15 @@
  */
 package utub;
 
+
+import com.alee.laf.WebLookAndFeel;
+import data.Cls_Datos;
+import java.awt.HeadlessException;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import src.Genericas;
 
 /**
  *
@@ -13,9 +21,9 @@ import java.awt.event.ActionListener;
  */
 public class Navegacion extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Navegacion
-     */
+    Cls_Datos cls = new Cls_Datos();
+    Genericas genericas = new Genericas();
+
     public Navegacion() {
         initComponents();
 
@@ -31,7 +39,6 @@ public class Navegacion extends javax.swing.JPanel {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
@@ -49,9 +56,6 @@ public class Navegacion extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mag.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sesion.jpg"))); // NOI18N
@@ -74,44 +78,38 @@ public class Navegacion extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(270, 270, 270)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(192, 192, 192)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nick, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(279, 279, 279)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(350, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(290, 290, 290))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(349, 349, 349))))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nick, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(319, 319, 319))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(415, 415, 415))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(376, 376, 376))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel3)
-                .addGap(36, 36, 36)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -123,71 +121,50 @@ public class Navegacion extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addGap(35, 35, 35)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//         consultar();
+        consultar();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-//    public String consultar2() throws HeadlessException {
-//        String correcto = "";
-//        try {
-//            //se consulta  a la db si el usuario es valido
-//            Conexion c = new Conexion();
-//            ResultSet rs;
-//            Map parametros = new HashMap();
-//
-//            String sql = "SELECT * FROM emab.usuario u \n"
-//                    + "where u.nick = ?\n"
-//                    + "and u.contraseña = ?;";
-//            char[] contra = pass.getPassword();
-//            String passString = new String(contra);
-//            parametros.put(1, this.nick.getText().trim());
-//            parametros.put(2, passString);
-//            rs = c.consultarDB(sql, parametros);
-//            while (rs.next()) {
-//                correcto = rs.getString("rol");
-//            }
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Navegacion.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return correcto;
-//    }
-//
-//    public boolean consultar() throws HeadlessException {
-//        boolean correcto = false;
-//        try {
-//            //se consulta  a la db si el usuario es valido
-//            Conexion c = new Conexion();
-//            ResultSet rs;
-//            Map parametros = new HashMap();
-//
-//            String sql = "SELECT * FROM emab.usuario u \n"
-//                    + "where u.nick = ?\n"
-//                    + "and u.contraseña = ?;";
-//            char[] contra = pass.getPassword();
-//            String passString = new String(contra);
-//            parametros.put(1, this.nick.getText().trim());
-//            parametros.put(2, passString);
-//            rs = c.consultarDB(sql, parametros);
-//            while (rs.next()) {
-//                correcto = true;
-//            }
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Navegacion.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return correcto;
-//    }
+    public boolean consultar() throws HeadlessException {
+        boolean correcto = false;
+
+        char[] contra = pass.getPassword();
+        String password = new String(contra);
+        String usuario = nick.getText().trim();
+
+        List<String> filterArray = new ArrayList<>();
+        try {
+            filterArray = cls.getListadoUsuario(usuario, password);
+        } catch (Exception ex) {
+            System.out.println("error" + ex);
+        }
+
+        if (filterArray.size() > 0) {
+
+            correcto = true;
+            WebLookAndFeel.install();
+            MainWindow secundario = new MainWindow();
+            secundario.setVisible(true);
+            this.setVisible(false);
+            
+           
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Contraseña y usuario incorrectos\n Por favor verifique sus datos");
+            pass.setText("");
+        }
+
+        return correcto;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
