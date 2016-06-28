@@ -510,7 +510,7 @@ public class frm_Consultar_Reporte_Diario extends javax.swing.JPanel {
         int indice = jTable1.getSelectedRow();
 
         JDialog.setDefaultLookAndFeelDecorated(true);
-        int response = JOptionPane.showConfirmDialog(null, "Realmente desea eliminar el reporte?", "Conformar",
+        int response = JOptionPane.showConfirmDialog(null, "Realmente desea eliminar el reporte?", "Confirmar",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.YES_OPTION) {
             String respuesta = genericas.eliminarReporteDiario(Long.parseLong(jTable1.getValueAt(indice, 0).toString()));
@@ -519,9 +519,7 @@ public class frm_Consultar_Reporte_Diario extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void eliminar() {
-
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager UTUBPUEntityManager;
     private javax.swing.JComboBox comboActividad;

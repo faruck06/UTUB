@@ -14,7 +14,9 @@ import JPA.RutaOcupacion;
 import JPA.ServicioIndividual;
 import JPA.UsuarioProyecto;
 import JPA.Vehiculo;
+import com.alee.utils.SwingUtils;
 import data.Cls_Datos;
+import java.awt.Component;
 import java.awt.HeadlessException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -64,8 +66,13 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     List<Novedad> listaNovedades;
     List<ServicioIndividual> listaServicios;
     Date date = new Date();
+    public boolean estado = false;
 
     public frm_Ingreso_Reporte_C() {
+        inicial_cons();
+    }
+
+    private void inicial_cons() {
         initComponents();
         this.reporteDiario = new ReporteDiario();
         this.empleado = new Empleado();
@@ -79,6 +86,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         listaNovedades = new ArrayList<>();
         listaServicios = new ArrayList<>();
         inicializar_combos();
+
     }
 
     /**
@@ -97,6 +105,8 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
      */
     private void onload(ReporteDiario r) {
         try {
+            this.estado = true;
+            jButton2.setVisible(false);
             this.reporteDiario = r;
             jButton1.setText("Modificar");
             this.empleado = new Empleado();
@@ -193,13 +203,159 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             }
             jTextArea1.setText(r.getObservaciones());
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
     public void guardar() {
         crear_registro();
+        if (estado == false) {
+            limpiar();
+        }
+    }
+
+    public void limpiar() {
+        Component[] componentes = getComponents();
+        for (Component componente : componentes) {
+            String clase = componente.getClass().getName();
+            if (clase.equals("javax.swing.JTextField")) {
+                JTextField tmp = (JTextField) componente;
+                tmp.setText("");
+            }
+            if (clase.equals("javax.swing.JComboBox")) {
+                JComboBox tmp = (JComboBox) componente;
+                tmp.removeAllItems();
+            }
+        }
+
+        this.webDateField1.clear();
+        this.jTextArea1.setText("");
+        this.comboTipoRuta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"12 Horas", "16 Horas"}));
+        this.jTable2.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Ruta", "Tipo", "Hora Llegada", "Ocupación Pasajeros"
+                }
+        ));
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null}
+                },
+                new String[]{
+                    "Ruta", "# Recorridos Mañana", "Ocupación", "# Recorridos Tarde", "Ocupación", "# Recorridos Noche", "Ocupación"
+                }
+        ) {
+            Class[] types = new Class[]{
+                java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+        });
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Hora Inicio", "Hora Final", "Duración", "Km Inicial", "Km Final", "Total Km", "Actividad"
+                }
+        ) {
+            Class[] types = new Class[]{
+                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+        });
+
+        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null}
+                },
+                new String[]{
+                    "Nombre y Apellido", "Registro", "Ruta"
+                }
+        ));
+
+        for (int i = 0; i < this.jTable1.getRowCount(); i++) {
+            jTable1.setValueAt(null, i, 1);
+
+        }
+        inicializar_combos();
+
     }
 
     private void crear_registro() throws HeadlessException {
@@ -235,8 +391,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                 HoraInicio = (Date) HInicio.getValue();
                 HoraFin = (Date) spinner.getValue();
 
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "No se puede agregar la hora fecha del reporte diario");
             }
             reporteDiario.setFecha(fechaReporteDiario);
@@ -256,27 +411,25 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             try {
 
                 reporteDiario.setTanqueo(Long.parseLong(jTextField3.getText()));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 reporteDiario.setTanqueo(Long.parseLong(jTextField3.getText().replaceAll(",", ".")));
             }
             try {
 
                 reporteDiario.setDuracion(Double.parseDouble(diferencia.getText()));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 reporteDiario.setDuracion(Double.parseDouble(diferencia.getText().replaceAll(",", ".")));
             }
 
             String mensaje = genericas.guardarBD(reporteDiario);
             if (mensaje.equals("")) {
                 JOptionPane.showMessageDialog(null, "Se han guardado exitosamente los registros");
+
             } else {
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error, por favor vuelve a intentarlo");
             }
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error, por favor vuelve a intentarlo");
             System.out.println(e.toString());
         }
@@ -310,8 +463,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                 try {
                     fechaInicio = df.parse(itera[0].toString().trim());
                     fechaFin = df.parse(itera[1].toString().trim());
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "No se puede agregar la hora de Inicio/Fin de la novedad");
                 }
                 novedad.setHoraInicio(fechaInicio);
@@ -319,8 +471,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                 try {
                     novedad.setDuracion(Double.parseDouble(itera[2].toString()));
                     novedad.setTotalKm(Double.parseDouble(itera[5].toString()));
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     novedad.setDuracion(Double.parseDouble(itera[2].toString().replaceAll(",", ".")));
                     novedad.setTotalKm(Double.parseDouble(itera[5].toString().replaceAll(",", ".")));
                 }
@@ -364,8 +515,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                 SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
                 try {
                     fechaValor = df.parse(itera[2].toString().trim());
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "No se puede agregar la hora de llegada la fecha externa seleccionada.");
                 }
 
@@ -517,8 +667,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<String>();
         try {
             filterArray = cls.getListadoEmpleados(enteredText);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -548,8 +697,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoVehiculos(enteredText);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -579,8 +727,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoProyectos(enteredText);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -610,8 +757,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoActividades(enteredText);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -641,8 +787,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoUsuariosProyecto(enteredText);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -658,8 +803,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoRutasTipos("Circular");
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -676,8 +820,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         List<String> filterArray = new ArrayList<>();
         try {
             filterArray = cls.getListadoRutas(enteredText, "Circular");
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("error" + ex);
         }
         if (filterArray.size() > 0) {
@@ -827,6 +970,11 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                 jTextField1FocusLost(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
 
         jTextField2.setText("0");
         jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -834,11 +982,21 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                 jTextField2FocusLost(evt);
             }
         });
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Tanqueo # Galones");
 
         jTextField3.setToolTipText("Galones");
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField3KeyTyped(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Hora Inicio");
@@ -1058,6 +1216,12 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel21.setText("Ocupación pasajeros");
 
+        txtOcupacion_I.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtOcupacion_IKeyTyped(evt);
+            }
+        });
+
         jButton3.setText("+");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1258,6 +1422,11 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                 jTextField5FocusLost(evt);
             }
         });
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField5KeyTyped(evt);
+            }
+        });
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel25.setText("Km Inicial");
@@ -1269,6 +1438,11 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         jTextField4.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextField4FocusLost(evt);
+            }
+        });
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField4KeyTyped(evt);
             }
         });
 
@@ -1731,7 +1905,11 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        obtenerValoresListados();
+        if (estado == false) {
+            limpiar();
+        }
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void comboTipoRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoRutaActionPerformed
@@ -1743,8 +1921,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             DefaultTableModel dm = (DefaultTableModel) this.jTable2.getModel();
             dm.removeRow(jTable2.getSelectedRow());
             jTable2.setModel(dm);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para eliminar");
         }
 
@@ -1760,12 +1937,13 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
     private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
         Double valor;
         try {
+
             valor = Double.parseDouble(jTextField2.getText()) - Double.parseDouble(jTextField1.getText());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             valor = 0.0;
         }
         String expressn = valor.toString();
+
         diferenciaKM.setText(expressn);
     }//GEN-LAST:event_jTextField2FocusLost
 
@@ -1773,8 +1951,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         Double valor;
         try {
             valor = Double.parseDouble(jTextField2.getText()) - Double.parseDouble(jTextField1.getText());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             valor = 0.0;
         }
 
@@ -1786,8 +1963,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         Double valor;
         try {
             valor = Double.parseDouble(jTextField5.getText()) - Double.parseDouble(jTextField4.getText());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             valor = 0.0;
         }
 
@@ -1799,8 +1975,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
         Double valor;
         try {
             valor = Double.parseDouble(jTextField5.getText()) - Double.parseDouble(jTextField4.getText());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             valor = 0.0;
         }
 
@@ -1829,8 +2004,7 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
                 comboActividadNovedad_I.getSelectedItem()
             }
             );
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No es posible insertar la novedad, por favor, vuelva a intentarlo");
         }
         jTable4.setModel(dm);
@@ -1841,11 +2015,45 @@ public class frm_Ingreso_Reporte_C extends javax.swing.JPanel {
             DefaultTableModel dm = (DefaultTableModel) this.jTable4.getModel();
             dm.removeRow(jTable4.getSelectedRow());
             jTable4.setModel(dm);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para eliminar");
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+
+        validar(evt);
+
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+        validar(evt);
+    }//GEN-LAST:event_jTextField2KeyTyped
+
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+        validar(evt);
+    }//GEN-LAST:event_jTextField3KeyTyped
+
+    private void txtOcupacion_IKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOcupacion_IKeyTyped
+        validar(evt);
+    }//GEN-LAST:event_txtOcupacion_IKeyTyped
+
+    private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
+       validar(evt);
+    }//GEN-LAST:event_jTextField4KeyTyped
+
+    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
+       validar(evt);
+    }//GEN-LAST:event_jTextField5KeyTyped
+
+    public void validar(java.awt.event.KeyEvent evt) {
+
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != '.')) {
+            evt.consume(); // ignorar el evento de teclado
+        }
+
+    }
 
     private void obtenerValoresListados() {
         this.reporteDiario.setObservaciones(jTextArea1.getText().trim());

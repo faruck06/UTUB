@@ -15,9 +15,11 @@ import view.Administracion.frm_Actividad_Principal;
 import view.Administracion.frm_Empleado;
 import view.Administracion.frm_Horario;
 import view.Administracion.frm_Proyecto;
+import view.Administracion.frm_Rol;
 import view.Administracion.frm_Rutas;
 import view.Administracion.frm_Tipo_Empleado;
 import view.Administracion.frm_Tipo_Vehiculo;
+import view.Administracion.frm_Usuario;
 import view.Administracion.frm_Usuario_Proyecto;
 import view.Administracion.frm_Vehiculo;
 import view.Facturacion.frm_Consultar_Reporte_Diario;
@@ -96,6 +98,8 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -209,6 +213,22 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem12);
 
+        jMenuItem13.setText("Usuario");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem13);
+
+        jMenuItem14.setText("Rol");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem14);
+
         jMenuBar2.add(jMenu2);
 
         jMenu3.setText("Facturación");
@@ -230,7 +250,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu3.add(jMenuItem1);
 
         menu_Reportes.setBorder(null);
-        menu_Reportes.setText(" Reportes");
+        menu_Reportes.setText("   Reportes");
         menu_Reportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_ReportesActionPerformed(evt);
@@ -358,6 +378,16 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menu_reporte3ActionPerformed
 
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        frm_Usuario f = new frm_Usuario();
+        abrir_ventana(f);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+       frm_Rol f = new frm_Rol();
+       abrir_ventana(f);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -374,17 +404,13 @@ public class MainWindow extends javax.swing.JFrame {
                     break;
                 }
             }
-        }
-        catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex) {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -425,6 +451,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
