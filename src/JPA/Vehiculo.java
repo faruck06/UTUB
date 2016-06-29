@@ -66,7 +66,9 @@ public class Vehiculo implements Serializable {
     }
 
     public void setCapacidad(Integer capacidad) {
+        Integer oldCapacidad = this.capacidad;
         this.capacidad = capacidad;
+        changeSupport.firePropertyChange("capacidad", oldCapacidad, capacidad);
     }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "placa")

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import view.Administracion.frm_Actividad_Novedad;
 import view.Administracion.frm_Actividad_Principal;
+
+import view.Administracion.frm_Detalle_Vehiculo_Main;
 import view.Administracion.frm_Empleado;
 import view.Administracion.frm_Horario;
 import view.Administracion.frm_Proyecto;
@@ -100,6 +102,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -228,6 +231,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem14);
+
+        jMenuItem15.setText("Detalle Vehículo");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem15);
 
         jMenuBar2.add(jMenu2);
 
@@ -384,9 +395,14 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-       frm_Rol f = new frm_Rol();
-       abrir_ventana(f);
+        frm_Rol f = new frm_Rol();
+        abrir_ventana(f);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        frm_Detalle_Vehiculo_Main f = new frm_Detalle_Vehiculo_Main();
+        abrir_ventana(f);
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -453,6 +469,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
