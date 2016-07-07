@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,14 +22,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author FaruckJ
+ * @author jhorm
  */
 @Entity
 @Table(name = "usuario_rol")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UsuarioRol.findAll", query = "SELECT u FROM UsuarioRol u"),
-    @NamedQuery(name = "UsuarioRol.findByIdUsuarioRol", query = "SELECT u FROM UsuarioRol u WHERE u.idUsuarioRol = :idUsuarioRol")})
+    @NamedQuery(name = "UsuarioRol.findByIdUsuarioRol", query = "SELECT u FROM UsuarioRol u WHERE u.idUsuarioRol = :idUsuarioRol"),
+    @NamedQuery(name = "UsuarioRol.findByIdUsuario", query = "SELECT u FROM UsuarioRol u WHERE u.idUsuario = :idUsuario"),
+    @NamedQuery(name = "UsuarioRol.findByIdRolUsuario", query = "SELECT u FROM UsuarioRol u WHERE u.idRolUsuario = :idRolUsuario")})
 public class UsuarioRol implements Serializable {
 
     @Transient
@@ -43,18 +43,24 @@ public class UsuarioRol implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_usuario_rol")
     private Long idUsuarioRol;
-    @JoinColumn(name = "id_rol_usuario", referencedColumnName = "id_rol")
-    @ManyToOne(optional = false)
-    private Rol idRolUsuario;
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
-    @ManyToOne(optional = false)
-    private Usuario idUsuario;
+    @Basic(optional = false)
+    @Column(name = "id_usuario")
+    private long idUsuario;
+    @Basic(optional = false)
+    @Column(name = "id_rol_usuario")
+    private long idRolUsuario;
 
     public UsuarioRol() {
     }
 
     public UsuarioRol(Long idUsuarioRol) {
         this.idUsuarioRol = idUsuarioRol;
+    }
+
+    public UsuarioRol(Long idUsuarioRol, long idUsuario, long idRolUsuario) {
+        this.idUsuarioRol = idUsuarioRol;
+        this.idUsuario = idUsuario;
+        this.idRolUsuario = idRolUsuario;
     }
 
     public Long getIdUsuarioRol() {
@@ -67,24 +73,24 @@ public class UsuarioRol implements Serializable {
         changeSupport.firePropertyChange("idUsuarioRol", oldIdUsuarioRol, idUsuarioRol);
     }
 
-    public Rol getIdRolUsuario() {
-        return idRolUsuario;
-    }
-
-    public void setIdRolUsuario(Rol idRolUsuario) {
-        Rol oldIdRolUsuario = this.idRolUsuario;
-        this.idRolUsuario = idRolUsuario;
-        changeSupport.firePropertyChange("idRolUsuario", oldIdRolUsuario, idRolUsuario);
-    }
-
-    public Usuario getIdUsuario() {
+    public long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
-        Usuario oldIdUsuario = this.idUsuario;
+    public void setIdUsuario(long idUsuario) {
+        long oldIdUsuario = this.idUsuario;
         this.idUsuario = idUsuario;
         changeSupport.firePropertyChange("idUsuario", oldIdUsuario, idUsuario);
+    }
+
+    public long getIdRolUsuario() {
+        return idRolUsuario;
+    }
+
+    public void setIdRolUsuario(long idRolUsuario) {
+        long oldIdRolUsuario = this.idRolUsuario;
+        this.idRolUsuario = idRolUsuario;
+        changeSupport.firePropertyChange("idRolUsuario", oldIdRolUsuario, idRolUsuario);
     }
 
     @Override
@@ -119,5 +125,5 @@ public class UsuarioRol implements Serializable {
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
     }
-
+    
 }

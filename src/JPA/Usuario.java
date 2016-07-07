@@ -5,12 +5,8 @@
  */
 package JPA;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,34 +14,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author FaruckJ
+ * @author jhorm
  */
 @Entity
 @Table(name = "usuario")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findByAllUsuarios", query = "SELECT CONCAT(u.usuario,'(',u.idUsuario,')') FROM Usuario u WHERE upper(u.usuario) LIKE upper(:usuario)"),
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u.idUsuario FROM Usuario u"),
     @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
     @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
     @NamedQuery(name = "Usuario.findByDocumento", query = "SELECT u FROM Usuario u WHERE u.documento = :documento"),
-    @NamedQuery(name = "Usuario.findByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario = :usuario AND (u.password = :password)"),
+    @NamedQuery(name = "Usuario.findByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario = :usuario"),
     @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")})
 public class Usuario implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private Collection<UsuarioRol> usuarioRolCollection;
-
-    @Transient
-    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -86,9 +73,7 @@ public class Usuario implements Serializable {
     }
 
     public void setIdUsuario(Long idUsuario) {
-        Long oldIdUsuario = this.idUsuario;
         this.idUsuario = idUsuario;
-        changeSupport.firePropertyChange("idUsuario", oldIdUsuario, idUsuario);
     }
 
     public String getNombre() {
@@ -96,9 +81,7 @@ public class Usuario implements Serializable {
     }
 
     public void setNombre(String nombre) {
-        String oldNombre = this.nombre;
         this.nombre = nombre;
-        changeSupport.firePropertyChange("nombre", oldNombre, nombre);
     }
 
     public String getDocumento() {
@@ -106,9 +89,7 @@ public class Usuario implements Serializable {
     }
 
     public void setDocumento(String documento) {
-        String oldDocumento = this.documento;
         this.documento = documento;
-        changeSupport.firePropertyChange("documento", oldDocumento, documento);
     }
 
     public String getUsuario() {
@@ -116,9 +97,7 @@ public class Usuario implements Serializable {
     }
 
     public void setUsuario(String usuario) {
-        String oldUsuario = this.usuario;
         this.usuario = usuario;
-        changeSupport.firePropertyChange("usuario", oldUsuario, usuario);
     }
 
     public String getPassword() {
@@ -126,9 +105,7 @@ public class Usuario implements Serializable {
     }
 
     public void setPassword(String password) {
-        String oldPassword = this.password;
         this.password = password;
-        changeSupport.firePropertyChange("password", oldPassword, password);
     }
 
     @Override
@@ -155,22 +132,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "JPA.Usuario[ idUsuario=" + idUsuario + " ]";
     }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
-    }
-
-    @XmlTransient
-    public Collection<UsuarioRol> getUsuarioRolCollection() {
-        return usuarioRolCollection;
-    }
-
-    public void setUsuarioRolCollection(Collection<UsuarioRol> usuarioRolCollection) {
-        this.usuarioRolCollection = usuarioRolCollection;
-    }
-
+    
 }

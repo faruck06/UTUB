@@ -595,16 +595,24 @@ public class frm_Detalle_Vehiculo extends JPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), img3Field, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
-        saveButton.setText("Save");
+        saveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save.png"))); // NOI18N
+        saveButton.setToolTipText("Guardar");
+        saveButton.setContentAreaFilled(false);
         saveButton.addActionListener(formListener);
 
-        refreshButton.setText("Refresh");
+        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh.png"))); // NOI18N
+        refreshButton.setToolTipText("Actualizar");
+        refreshButton.setContentAreaFilled(false);
         refreshButton.addActionListener(formListener);
 
-        newButton.setText("New");
+        newButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/NUEVO OPC 1.png"))); // NOI18N
+        newButton.setToolTipText("Nuevo");
+        newButton.setContentAreaFilled(false);
         newButton.addActionListener(formListener);
 
-        deleteButton.setText("Delete");
+        deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ELIMINAR.png"))); // NOI18N
+        deleteButton.setToolTipText("Eliminar");
+        deleteButton.setContentAreaFilled(false);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
@@ -638,6 +646,7 @@ public class frm_Detalle_Vehiculo extends JPanel {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/attachment.png"))); // NOI18N
         jButton1.setToolTipText("Añadir Imágen");
+        jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(formListener);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ver.png"))); // NOI18N
@@ -646,6 +655,7 @@ public class frm_Detalle_Vehiculo extends JPanel {
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/attachment.png"))); // NOI18N
         jButton3.setToolTipText("Añadir Imágen");
+        jButton3.setContentAreaFilled(false);
         jButton3.addActionListener(formListener);
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ver.png"))); // NOI18N
@@ -654,6 +664,7 @@ public class frm_Detalle_Vehiculo extends JPanel {
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/attachment.png"))); // NOI18N
         jButton5.setToolTipText("Añadir Imágen");
+        jButton5.setContentAreaFilled(false);
         jButton5.addActionListener(formListener);
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ver.png"))); // NOI18N
@@ -714,23 +725,20 @@ public class frm_Detalle_Vehiculo extends JPanel {
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                 .addComponent(CCapCargaField)
                                                 .addComponent(CFabricanteField, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
-                                            .addGap(66, 66, 66)
+                                            .addGap(34, 34, 34)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(layout.createSequentialGroup()
                                                     .addGap(1, 1, 1)
                                                     .addComponent(CGuiasPnlEyecLabel))
                                                 .addComponent(CReferenciaLabel))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(placaLabel5)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(CGuiasPnlEyecField)
-                                                        .addComponent(CReferenciaField, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
-                                                    .addGap(26, 26, 26)
-                                                    .addComponent(CGuiasPalaSupLabel)
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(CGuiasPalaSupField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(CGuiasPnlEyecField)
+                                                .addComponent(CReferenciaField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(58, 58, 58)
+                                            .addComponent(CGuiasPalaSupLabel)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(CGuiasPalaSupField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 898, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -812,10 +820,14 @@ public class frm_Detalle_Vehiculo extends JPanel {
                                     .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(refreshButton)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(saveButton))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(masterScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 922, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(placaLabel4)
+                .addGap(343, 343, 343))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 957, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -876,9 +888,9 @@ public class frm_Detalle_Vehiculo extends JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(seNBateriaField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(placaLabel6)
-                                            .addComponent(seAmperajeField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(seAmperajeField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(placaLabel6))
                                         .addGap(98, 98, 98)
                                         .addComponent(seConexionLabel)
                                         .addGap(24, 24, 24)
@@ -928,21 +940,15 @@ public class frm_Detalle_Vehiculo extends JPanel {
                                 .addComponent(img3Label)
                                 .addGap(18, 18, 18)
                                 .addComponent(img3Field, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(432, 432, 432)
+                        .addComponent(placaLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(440, 440, 440)
+                        .addComponent(placaLabel7)))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(placaLabel4)
-                        .addGap(343, 343, 343))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(placaLabel7)
-                        .addGap(450, 450, 450))))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {refreshButton, saveButton});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()

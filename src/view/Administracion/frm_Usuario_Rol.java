@@ -19,17 +19,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import src.Genericas;
 
 /**
  *
- * @author FaruckJ
+ * @author jhorm
  */
 public class frm_Usuario_Rol extends JPanel {
 
     Cls_Datos cls = new Cls_Datos();
+    Genericas genericas = new Genericas();
 
     public frm_Usuario_Rol() {
         initComponents();
+        this.idUsuarioField.setVisible(false);
         inicializar_combos();
         if (!Beans.isDesignTime()) {
             entityManager.getTransaction().begin();
@@ -53,22 +56,23 @@ public class frm_Usuario_Rol extends JPanel {
         masterTable = new javax.swing.JTable();
         idUsuarioLabel = new javax.swing.JLabel();
         idRolUsuarioLabel = new javax.swing.JLabel();
+        idUsuarioField = new javax.swing.JTextField();
+        idRolUsuarioField = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
         refreshButton = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        idUsuarioField = new javax.swing.JComboBox();
-        idRolUsuarioField = new javax.swing.JComboBox();
+        idUsuarioCombo = new javax.swing.JComboBox();
 
         FormListener formListener = new FormListener();
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idUsuario}"));
         columnBinding.setColumnName("Id Usuario");
-        columnBinding.setColumnClass(JPA.Usuario.class);
+        columnBinding.setColumnClass(Long.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idRolUsuario}"));
         columnBinding.setColumnName("Id Rol Usuario");
-        columnBinding.setColumnClass(JPA.Rol.class);
+        columnBinding.setColumnClass(Long.class);
         bindingGroup.addBinding(jTableBinding);
 
         masterScrollPane.setViewportView(masterTable);
@@ -76,6 +80,20 @@ public class frm_Usuario_Rol extends JPanel {
         idUsuarioLabel.setText("Id Usuario:");
 
         idRolUsuarioLabel.setText("Id Rol Usuario:");
+
+        idUsuarioField.setEditable(false);
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idUsuario}"), idUsuarioField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceUnreadableValue("null");
+        bindingGroup.addBinding(binding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), idUsuarioField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idRolUsuario}"), idRolUsuarioField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceUnreadableValue("null");
+        bindingGroup.addBinding(binding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), idRolUsuarioField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
 
         saveButton.setText("Save");
         saveButton.addActionListener(formListener);
@@ -88,19 +106,15 @@ public class frm_Usuario_Rol extends JPanel {
 
         deleteButton.setText("Delete");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
         deleteButton.addActionListener(formListener);
 
-        idUsuarioField.setEditable(true);
+        idUsuarioCombo.setEditable(true);
+        idUsuarioCombo.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idUsuario}"), idUsuarioField, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
-
-        idRolUsuarioField.setEditable(true);
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idRolUsuario}"), idRolUsuarioField, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idUsuario}"), idUsuarioCombo, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -120,18 +134,20 @@ public class frm_Usuario_Rol extends JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+                            .addComponent(masterScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(idRolUsuarioLabel)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idUsuarioLabel)
+                                    .addComponent(idRolUsuarioLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(idRolUsuarioField, 0, 384, Short.MAX_VALUE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idRolUsuarioField)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(idUsuarioField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(idUsuarioCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(idUsuarioLabel)
-                .addGap(18, 18, 18)
-                .addComponent(idUsuarioField, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(14, 14, 14))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {deleteButton, newButton, refreshButton, saveButton});
@@ -140,12 +156,13 @@ public class frm_Usuario_Rol extends JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(masterScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addComponent(masterScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idUsuarioLabel)
-                    .addComponent(idUsuarioField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                    .addComponent(idUsuarioField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(idUsuarioCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idRolUsuarioLabel)
                     .addComponent(idRolUsuarioField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -185,8 +202,8 @@ public class frm_Usuario_Rol extends JPanel {
 
     public void inicializar_combos() {
         cls = new Cls_Datos();
-        generar_Listener_Combo_Usuarios((JTextField) idUsuarioField.getEditor().getEditorComponent(), idUsuarioField);
-        generar_Listener_Combo_Rol((JTextField) idRolUsuarioField.getEditor().getEditorComponent(), idRolUsuarioField);
+        generar_Listener_Combo_Usuarios((JTextField) idUsuarioCombo.getEditor().getEditorComponent(), idUsuarioCombo);
+
     }
 
     public void generar_Listener_Combo_Usuarios(final JTextField textfield, final JComboBox combo) {
@@ -213,40 +230,12 @@ public class frm_Usuario_Rol extends JPanel {
             combo.setModel(new DefaultComboBoxModel(filterArray.toArray()));
             combo.setSelectedItem(enteredText);
             combo.showPopup();
+
         } else {
             combo.hidePopup();
         }
+
     }
-
-    public void generar_Listener_Combo_Rol(final JTextField textfield, final JComboBox combo) {
-        textfield.addKeyListener(new KeyAdapter() {
-            public void keyReleased(KeyEvent ke) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        filter_combo_Rol(textfield.getText(), combo);
-                    }
-                });
-            }
-        });
-    }
-
-    public void filter_combo_Rol(String enteredText, JComboBox combo) {
-
-        List<String> filterArray = new ArrayList<String>();
-        try {
-            filterArray = cls.getListadoRol(enteredText);
-        } catch (Exception ex) {
-            System.out.println("error" + ex);
-        }
-        if (filterArray.size() > 0) {
-            combo.setModel(new DefaultComboBoxModel(filterArray.toArray()));
-            combo.setSelectedItem(enteredText);
-            combo.showPopup();
-        } else {
-            combo.hidePopup();
-        }
-    }
-
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         entityManager.getTransaction().rollback();
@@ -281,6 +270,10 @@ public class frm_Usuario_Rol extends JPanel {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         try {
+            Long id = genericas.getIdComboLong(idUsuarioCombo);
+            String strLong = Long.toString(id);
+            System.out.println(strLong);
+            this.idUsuarioField.setText(strLong);
             entityManager.getTransaction().commit();
             entityManager.getTransaction().begin();
         } catch (RollbackException rex) {
@@ -299,9 +292,10 @@ public class frm_Usuario_Rol extends JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
     private javax.persistence.EntityManager entityManager;
-    private javax.swing.JComboBox idRolUsuarioField;
+    private javax.swing.JTextField idRolUsuarioField;
     private javax.swing.JLabel idRolUsuarioLabel;
-    private javax.swing.JComboBox idUsuarioField;
+    private javax.swing.JComboBox idUsuarioCombo;
+    private javax.swing.JTextField idUsuarioField;
     private javax.swing.JLabel idUsuarioLabel;
     private java.util.List<JPA.UsuarioRol> list;
     private javax.swing.JScrollPane masterScrollPane;

@@ -100,9 +100,10 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        menu_Reportes1 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -216,22 +217,6 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem12);
 
-        jMenuItem13.setText("Usuario");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem13);
-
-        jMenuItem14.setText("Rol");
-        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem14ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem14);
-
         jMenuItem15.setText("Detalle Vehículo");
         jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,6 +224,32 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem15);
+
+        menu_Reportes1.setBorder(null);
+        menu_Reportes1.setText("Usuario");
+        menu_Reportes1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_Reportes1ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem13.setText("Registrar Usuario");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        menu_Reportes1.add(jMenuItem13);
+
+        jMenuItem14.setText("Asignar Rol");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        menu_Reportes1.add(jMenuItem14);
+
+        jMenu2.add(menu_Reportes1);
 
         jMenuBar2.add(jMenu2);
 
@@ -404,6 +415,10 @@ public class MainWindow extends javax.swing.JFrame {
         abrir_ventana(f);
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
+    private void menu_Reportes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_Reportes1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menu_Reportes1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -479,6 +494,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu menu_Reportes;
+    private javax.swing.JMenu menu_Reportes1;
     private javax.swing.JMenuItem menu_reporte1;
     private javax.swing.JMenuItem menu_reporte2;
     private javax.swing.JMenuItem menu_reporte3;
